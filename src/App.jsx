@@ -1,33 +1,33 @@
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+import { Car } from "./components/home/car";
+import { ChevronRight } from "./components/icons/chevron-right";
+import { Header } from "./components/shared/header";
 
-import useSWR from "swr";
-import { Button } from "./components/ui/button";
-
-function Profile() {
-  const { data, error, isLoading } = useSWR(
-    "https://api.github.com/users/Anton4k12",
-    fetcher
-  );
-
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
-
-  console.log(data);
-
-  // render data
+export function App() {
   return (
-    <div className="border rounded-md flex p-4 w-fit gap-4 items-center shadow">
-      <img className="size-20 rounded-full" src={data.avatar_url}></img>
-      <div className="flex flex-col">
-        <div className="font-bold text-xl">{data.name}</div>
-        <Button asChild size="xs">
-          <a href={data.html_url} target="_blank">
-            Go to profile
-          </a>
-        </Button>
+    <>
+      <Header></Header>
+      <div className="max-w-screen-xl border mx-auto min-h-screen">
+        <div
+          aria-label="main text"
+          className="flex flex-col gap-10 w-1/2 pt-44 pl-20"
+        >
+          <h1 className="text-6xl font-extralight">Build your own</h1>
+          <div className="flex flex-col items-start gap-7">
+            <p className="text-xl font-light">
+              Every Maserati is like a work of art constructed with the care and
+              attention that only the human hand can provide
+            </p>
+            <button className="relative uppercase border border-black px-5 py-4 pr-28 text-[11px] font-medium">
+              Open existing configurator{" "}
+              <ChevronRight className="absolute size-4 top-1/2 -translate-y-1/2 right-3.5"></ChevronRight>
+            </button>
+          </div>
+        </div>
+        <div aria-label="cars selector">
+          <Car name="GranTurismo" imageUrl="/home/cars/GranTurismo.webp"></Car>
+          <Car name="GranCabrio" imageUrl="/home/cars/GranCabrio.webp"></Car>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
-
-export default Profile;
