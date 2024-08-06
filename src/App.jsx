@@ -23,6 +23,9 @@ export function App() {
             </button>
           </div>
         </div>
+
+        <hr className="border-zinc-600" />
+
         <div aria-label="cars selector">
           <Car name="GranTurismo" imageUrl="/home/cars/GranTurismo.webp"></Car>
           <Car name="GranCabrio" imageUrl="/home/cars/GranCabrio.webp"></Car>
