@@ -4,7 +4,7 @@ import { MaseratiLogo } from "../icons/maserati-logo";
 
 export const Header = () => {
   return (
-    <header className=" flex justify-between py-6 px-5">
+    <header className=" flex justify-between py-6 bg-[#F6F6F6]">
       <div aria-label="navigation buttons" className="flex items-center">
         <div className="px-5 font-semibold text-sm cursor-pointer">Models</div>
         <div className="px-5 font-semibold text-sm cursor-pointer">Brand</div>
@@ -20,15 +20,18 @@ export const Header = () => {
         <MaseratiLogo></MaseratiLogo>
       </div>
 
-      <div aria-label="special buttons" className="flex gap-5 items-center ">
+      <div
+        aria-label="special buttons"
+        className="flex gap-5 items-center px-5"
+      >
         <button className=" cursor-pointer uppercase border border-black px-4 py-2.5 text-xs relative pr-16 font-medium">
           Dealer locator{" "}
-          <ChevronRight className="absolute size-4 top-1/2 -translate-y-1/2 right-3"></ChevronRight>
+          <ChevronRight className="absolute size-3 top-1/2 -translate-y-1/2 right-3"></ChevronRight>
         </button>
         <div className="flex items-center gap-7">
-          <button className=" cursor-pointer uppercase bg-[rgb(255,200,69)] px-4 py-2.5 text-xs relative pr-16 font-medium">
+          <button className=" cursor-pointer uppercase border border-[rgb(255,200,69)] bg-[rgb(255,200,69)] px-4 py-2.5 text-xs relative pr-16 font-medium">
             Test drive{" "}
-            <ChevronRight className="absolute size-4 top-1/2 -translate-y-1/2 right-3"></ChevronRight>
+            <ChevronRight className="absolute size-3 top-1/2 -translate-y-1/2 right-3"></ChevronRight>
           </button>
           <MapPin className="size-6 cursor-pointer"></MapPin>
         </div>
