@@ -7,9 +7,9 @@ export const CarConfigurations = ({ modelName, onGoBack }) => {
     <>
       <button
         onClick={onGoBack}
-        className="uppercase flex items-center text-xs font-medium"
+        className="flex items-center text-xs font-medium uppercase"
       >
-        <ChevronRight className="rotate-180 size-4"></ChevronRight>All models
+        <ChevronRight className="size-4 rotate-180"></ChevronRight>All models
       </button>
       {isGranTurismo && (
         <div className="flex">

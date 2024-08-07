@@ -4,14 +4,14 @@ import { MaseratiLogo } from "../icons/maserati-logo";
 
 export const Header = () => {
   return (
-    <header className=" flex justify-between py-6 bg-[#F6F6F6]">
+    <header className="flex justify-between bg-[#F6F6F6] py-6">
       <div aria-label="navigation buttons" className="flex items-center">
-        <div className="px-5 font-semibold text-sm cursor-pointer">Models</div>
-        <div className="px-5 font-semibold text-sm cursor-pointer">Brand</div>
-        <div className="px-5 font-semibold text-sm cursor-pointer">
+        <div className="cursor-pointer px-5 text-sm font-semibold">Models</div>
+        <div className="cursor-pointer px-5 text-sm font-semibold">Brand</div>
+        <div className="cursor-pointer px-5 text-sm font-semibold">
           Ownership
         </div>
-        <div className="px-5 font-semibold text-sm cursor-pointer">
+        <div className="cursor-pointer px-5 text-sm font-semibold">
           Quick Find
         </div>
       </div>
@@ -22,16 +22,16 @@ export const Header = () => {
 
       <div
         aria-label="special buttons"
-        className="flex gap-5 items-center px-5"
+        className="flex items-center gap-5 px-5"
       >
-        <button className=" cursor-pointer uppercase border border-black px-4 py-2.5 text-xs relative pr-16 font-medium">
+        <button className="relative cursor-pointer border border-black px-4 py-2.5 pr-16 text-xs font-medium uppercase">
           Dealer locator{" "}
-          <ChevronRight className="absolute size-3 top-1/2 -translate-y-1/2 right-3"></ChevronRight>
+          <ChevronRight className="absolute right-3 top-1/2 size-3 -translate-y-1/2"></ChevronRight>
         </button>
         <div className="flex items-center gap-7">
-          <button className=" cursor-pointer uppercase border border-[rgb(255,200,69)] bg-[rgb(255,200,69)] px-4 py-2.5 text-xs relative pr-16 font-medium">
+          <button className="relative cursor-pointer border border-[rgb(255,200,69)] bg-[rgb(255,200,69)] px-4 py-2.5 pr-16 text-xs font-medium uppercase">
             Test drive{" "}
-            <ChevronRight className="absolute size-3 top-1/2 -translate-y-1/2 right-3"></ChevronRight>
+            <ChevronRight className="absolute right-3 top-1/2 size-3 -translate-y-1/2"></ChevronRight>
           </button>
           <MapPin className="size-6 cursor-pointer"></MapPin>
         </div>
