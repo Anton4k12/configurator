@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { CarModel } from "./components/home/car-model";
-import { ChevronRight } from "./components/icons/chevron-right";
-import { Header } from "./components/shared/header";
-import { SelectModel } from "./components/home/select-model";
-import { CarConfigurations } from "./components/home/car-configurations";
+import { ChevronRight } from "../components/icons/chevron-right";
+import { Header } from "../components/shared/header";
+import { SelectModel } from "../components/home/select-model";
+import { CarConfigurations } from "../components/home/car-configurations";
 
-export function App() {
+export function HomePage() {
   const [selectedCar, setSelectedCar] = useState();
 
   const handleCarSelect = (name) => {
@@ -21,7 +20,7 @@ export function App() {
   return (
     <>
       <Header></Header>
-      <div className="mx-auto min-h-screen max-w-screen-xl pb-40">
+      <div className="max-w-screen-[1448px] mx-auto min-h-screen px-10 pb-40">
         <div
           aria-label="main text"
           className="flex w-1/2 flex-col gap-10 pb-[72px] pl-20 pt-44"
@@ -40,7 +39,7 @@ export function App() {
           </div>
         </div>
 
-        <hr className="border-zinc-600" />
+        <hr className="border-zinc-400" />
 
         {isCarSelected ? (
           <CarConfigurations
