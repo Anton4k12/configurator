@@ -9,11 +9,9 @@ export const CarConfiguration = (props) => {
           {props.name} {props.model}
         </h2>
 
-        <div className="flex items-baseline gap-1 text-sm font-light">
-          <span>Starting from</span>
-          <span className="text-xl font-normal leading-none">
-            {props.price}
-          </span>
+        <div className="flex items-baseline gap-1">
+          <span className="text-sm font-light">Starting from</span>
+          <span className="text-xl leading-none">{props.price}</span>
         </div>
 
         <p className="pt-6 text-[11px] font-medium">{props.year}</p>
