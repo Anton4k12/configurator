@@ -2,13 +2,31 @@ import { ChevronRight } from "@/components/icons/chevron-right";
 import { MaseratiLogoSmall } from "@/components/icons/maserati-logo-small";
 import { Header } from "@/components/shared/header";
 import { useLocation } from "react-router-dom";
+import useSWR from "swr";
+import { fetcher } from "@/data";
+import { Wheels } from "@/components/configurator/wheels";
+import { Spinner } from "@/components/icons/spinner";
 
 export const ConfiguratorPage = () => {
   const { state, pathname } = useLocation();
-  console.log(state);
+
+  const { data, error, isLoading } = useSWR("/wheels", fetcher);
+
+  if (isLoading) {
+    return (
+      <div className="flex h-screen flex-col">
+        <Header></Header>
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <Spinner className="size-10"></Spinner>
+        </div>
+      </div>
+    );
+  }
+
+  console.log({ data, error, isLoading });
   return (
     <div>
-      <Header color={{ backgroundColor: "#FFFFF" }}></Header>
+      <Header color={{ backgroundColor: "#FFFFFF" }}></Header>
 
       <hr />
 
@@ -35,39 +53,53 @@ export const ConfiguratorPage = () => {
 
       <hr />
 
-      <div aria-label="image" className="pl-3 pt-6">
-        <img
-          className="relative w-2/3 rounded-2xl"
-          src="/home/GranTurismo/Trofeo/configurator/GranTurismo-config.jpeg"
-        />
+      <div className="flex gap-6 pl-3 pt-6">
+        <div aria-label="image" className="relative w-2/3">
+          <img
+            className="rounded-2xl"
+            src="/home/GranTurismo/Trofeo/configurator/GranTurismo-config.jpeg"
+          />
 
-        <div className="absolute left-6 top-1/2 h-16 w-16 -translate-y-1/2 rounded-full bg-white">
-          <ChevronRight></ChevronRight>
+          <div className="absolute right-6 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-white">
+            <ChevronRight strokeWidth={3} className="size-3"></ChevronRight>
+          </div>
+
+          <div className="absolute left-6 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-white">
+            <ChevronRight
+              strokeWidth={3}
+              className="size-3 rotate-180"
+            ></ChevronRight>
+          </div>
         </div>
 
-        <div className="absolute top-1/2 h-16 w-16 -translate-y-1/2 rounded-full bg-white">
-          <ChevronRight className="rotate-180"></ChevronRight>
+        <div aria-label="wheels">
+          <Wheels wheels={data.wheels}></Wheels>
         </div>
       </div>
 
       <div
         aria-label="bottom navbar"
-        className="fixed bottom-1 left-1 flex w-full items-center justify-between gap-10 px-5 py-2"
+        className="fixed bottom-1 left-1 flex w-full items-center justify-between gap-10 bg-white px-5 py-2"
       >
         <div className="flex w-1/2 items-center gap-10">
           <div className="flex items-center gap-4 border-r-rose-600">
             <MaseratiLogoSmall></MaseratiLogoSmall>
             <div className="flex flex-col">
-              <div>
+              <div className="text-xl font-light">
                 {state.name} {state.model}
               </div>
-              <div>
+              <div className="text-xs uppercase">
                 Engine - {state.engineLayout} - {state.displacement} -{" "}
                 {state.maxPower}
               </div>
             </div>
+
+            <div className="h-10 w-px bg-black"></div>
           </div>
-          <div>yours at: {state.price}</div>
+
+          <div className="text-xl font-light">yours at: {state.price}</div>
+
+          <div className="h-5 w-px bg-black"></div>
         </div>
 
         <div aria-label="actions" className="flex gap-3">

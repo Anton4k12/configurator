@@ -2,11 +2,11 @@ import { ChevronRight } from "../icons/chevron-right";
 import { GranTurismoIcon } from "../icons/granturismo-logo";
 import { CarConfiguration } from "./car-configuration";
 
-export const carConfigurations = [
+export const mockCarConfigurations = [
   {
     name: "GranTurismo",
     model: "Modena",
-    imageUrl: "/home/GranTurismo/Modena.webp",
+    imageUrl: "/home/GranTurismo/Modena/Modena.webp",
     price: "$ 158,000",
     year: "2024",
     engineLayout: "V6",
@@ -19,7 +19,7 @@ export const carConfigurations = [
   {
     name: "GranTurismo",
     model: "Trofeo",
-    imageUrl: "/home/GranTurismo/Trofeo.webp",
+    imageUrl: "/home/GranTurismo/Trofeo/Trofeo.webp",
     price: "$ 190,000",
     year: "2024",
     engineLayout: "V6",
@@ -32,7 +32,7 @@ export const carConfigurations = [
   {
     name: "GranTurismo",
     model: "Folgore",
-    imageUrl: "/home/GranTurismo/Folgore.webp",
+    imageUrl: "/home/GranTurismo/Folgore/Folgore.webp",
     price: "$ 192,000",
     year: "2025",
     engineLayout: "EV",
@@ -66,7 +66,7 @@ export const CarConfigurations = ({ modelName, onGoBack }) => {
 
       {isGranTurismo && (
         <div className="grid grid-cols-4 gap-12">
-          {carConfigurations.map((model) => (
+          {mockCarConfigurations.map((model) => (
             <CarConfiguration {...model} key={model.model}></CarConfiguration>
           ))}
         </div>
