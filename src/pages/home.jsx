@@ -19,7 +19,7 @@ export function HomePage() {
 
   return (
     <>
-      <Header></Header>
+      <Header color={{ backgroundColor: "#F6F6F6" }}></Header>
       <div className="max-w-screen-[1448px] mx-auto min-h-screen px-10 pb-40">
         <div
           aria-label="main text"

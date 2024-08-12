@@ -2,9 +2,9 @@ import { ChevronRight } from "../icons/chevron-right";
 import { MapPin } from "../icons/map-pin";
 import { MaseratiLogo } from "../icons/maserati-logo";
 
-export const Header = () => {
+export const Header = ({ color }) => {
   return (
-    <header className="flex justify-between bg-[#F6F6F6] py-6">
+    <header style={color} className="flex justify-between py-6">
       <div aria-label="navigation buttons" className="flex items-center">
         <div className="cursor-pointer px-5 text-sm font-semibold">Models</div>
         <div className="cursor-pointer px-5 text-sm font-semibold">Brand</div>
