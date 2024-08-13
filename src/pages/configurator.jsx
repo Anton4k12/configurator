@@ -4,8 +4,10 @@ import { Header } from "@/components/shared/header";
 import { useLocation } from "react-router-dom";
 import useSWR from "swr";
 import { fetcher } from "@/data";
-import { Wheels } from "@/components/configurator/wheels";
 import { Spinner } from "@/components/icons/spinner";
+import { HeartIcon } from "@/components/icons/heart-icon";
+import { TopNavBar } from "@/components/configurator/top-navbar";
+import { Visuals } from "@/components/configurator/visuals";
 
 export const ConfiguratorPage = () => {
   const { state, pathname } = useLocation();
@@ -30,93 +32,57 @@ export const ConfiguratorPage = () => {
 
       <hr />
 
-      <div
-        aria-label="top navbar"
-        className="flex h-12 items-center justify-center gap-8"
-      >
-        <button className="h-full text-xs font-medium uppercase tracking-wide">
-          Exterior
-        </button>
-        <button className="h-full text-xs font-medium uppercase tracking-wide">
-          Interior
-        </button>
-        <button className="h-full text-xs font-medium uppercase tracking-wide">
-          Packages
-        </button>
-        <button className="h-full text-xs font-medium uppercase tracking-wide">
-          Options
-        </button>
-        <button className="h-full text-xs font-medium uppercase tracking-wide">
-          Summary
-        </button>
-      </div>
+      <TopNavBar></TopNavBar>
 
       <hr />
 
-      <div className="flex gap-6 pl-3 pt-6">
-        <div aria-label="image" className="relative w-2/3">
-          <img
-            className="rounded-2xl"
-            src="/home/GranTurismo/Trofeo/configurator/GranTurismo-config.jpeg"
-          />
-
-          <div className="absolute right-6 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-white">
-            <ChevronRight strokeWidth={3} className="size-3"></ChevronRight>
-          </div>
-
-          <div className="absolute left-6 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-white">
-            <ChevronRight
-              strokeWidth={3}
-              className="size-3 rotate-180"
-            ></ChevronRight>
-          </div>
-        </div>
-
-        <div aria-label="wheels">
-          <Wheels wheels={data.wheels}></Wheels>
-        </div>
-      </div>
+      <Visuals data={data}></Visuals>
 
       <div
         aria-label="bottom navbar"
-        className="fixed bottom-1 left-1 flex w-full items-center justify-between gap-10 bg-white px-5 py-2"
+        className="fixed bottom-0 left-0 flex h-24 w-full items-center justify-between gap-10 bg-white px-10 py-2 shadow-[0_0_8px_rgb(168,168,168,0.5)]"
       >
         <div className="flex w-1/2 items-center gap-10">
-          <div className="flex items-center gap-4 border-r-rose-600">
-            <MaseratiLogoSmall></MaseratiLogoSmall>
+          <div className="flex items-center gap-4">
+            <MaseratiLogoSmall className="cursor-pointer"></MaseratiLogoSmall>
             <div className="flex flex-col">
               <div className="text-xl font-light">
                 {state.name} {state.model}
               </div>
-              <div className="text-xs uppercase">
+              <div className="text-xs uppercase text-[rgb(33,37,41)]">
                 Engine - {state.engineLayout} - {state.displacement} -{" "}
                 {state.maxPower}
               </div>
             </div>
 
-            <div className="h-10 w-px bg-black"></div>
+            <div className="h-12 w-px bg-zinc-200/50"></div>
           </div>
 
           <div className="text-xl font-light">yours at: {state.price}</div>
 
-          <div className="h-5 w-px bg-black"></div>
+          <div className="h-6 w-px bg-zinc-200/50"></div>
         </div>
 
-        <div aria-label="actions" className="flex gap-3">
-          <button className="relative border border-black px-3 py-3.5">
+        <div aria-label="actions" className="flex items-center gap-3">
+          <button className="relative border border-black px-6 py-4 pr-10 text-xs font-medium uppercase tracking-wide">
             Services{" "}
             <ChevronRight
               strokeWidth={3}
-              className="absolute right-2 top-1/2 size-3 -translate-y-1/2 -rotate-90"
+              className="absolute right-6 top-1/2 size-3 -translate-y-1/2 -rotate-90"
             ></ChevronRight>
           </button>
-          <button className="relative bg-rose-600 px-3 py-3.5">
+
+          <button className="relative border-[rgb(255,200,69)] bg-[rgb(255,200,69)] px-6 py-4 pr-10 text-xs font-medium uppercase tracking-wide">
             Summary
             <ChevronRight
               strokeWidth={3}
-              className="absolute right-2 top-1/2 size-3 -translate-y-1/2"
+              className="absolute right-6 top-1/2 size-3 -translate-y-1/2"
             ></ChevronRight>
           </button>
+
+          <div className="pl-12">
+            <HeartIcon className="size-6 cursor-pointer"></HeartIcon>
+          </div>
         </div>
       </div>
     </div>
