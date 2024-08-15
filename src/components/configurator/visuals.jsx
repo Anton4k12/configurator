@@ -1,4 +1,5 @@
 import { ChevronRight } from "../icons/chevron-right";
+import { BrakeCalipers } from "./brake-calipers";
 import { Wheels } from "./wheels";
 
 export const Visuals = ({ data }) => {
@@ -22,8 +23,14 @@ export const Visuals = ({ data }) => {
         </div>
       </div>
 
-      <div aria-label="wheels">
-        <Wheels wheels={data.wheels}></Wheels>
+      <div className="flex flex-col gap-16 px-10">
+        <div aria-label="wheels">
+          <Wheels wheels={data.wheels}></Wheels>
+        </div>
+
+        <div data-brake-calipers>
+          <BrakeCalipers></BrakeCalipers>
+        </div>
       </div>
     </div>
   );

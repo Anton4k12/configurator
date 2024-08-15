@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Triangle } from "../icons/triangle";
 
 export const Wheels = ({ wheels }) => {
   const initialWheel = wheels.find((wheel) => {
@@ -19,7 +20,7 @@ export const Wheels = ({ wheels }) => {
     <div className="flex flex-col gap-5">
       <div className="text-[40px] font-extralight leading-none">Wheels</div>
 
-      <div className="text-[11px] uppercase tracking-wide text-[rgb(102,102,102)]">
+      <div className="whitespace-nowrap text-[11px] uppercase tracking-wide text-[rgb(102,102,102)]">
         {selectedWheel.diameter} {selectedWheel.name}{" "}
         {selectedWheel.price !== null && <span>$ {selectedWheel.price}</span>}
       </div>
@@ -29,7 +30,8 @@ export const Wheels = ({ wheels }) => {
           const isSelectedWheel = selectedWheel.name === wheel.name;
           if (isSelectedWheel) {
             return (
-              <div className="flex size-[50px] items-center justify-center rounded-full border border-black">
+              <div className="relative flex size-[50px] items-center justify-center rounded-full border border-black">
+                <Triangle className="absolute left-0 top-1/2 size-1 -translate-y-1/2 rotate-90"></Triangle>
                 <img className="size-9 rounded-full" src={wheel.imageUrl}></img>
               </div>
             );
