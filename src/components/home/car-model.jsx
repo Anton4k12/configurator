@@ -7,7 +7,11 @@ export const CarModel = ({ name, imageUrl, onCarSelect }) => {
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="pt-10 text-2xl">{name}</div>
-      <img onClick={handleClick} src={imageUrl} className="w-[432px]" />
+      <img
+        onClick={handleClick}
+        src={imageUrl}
+        className="w-[432px] cursor-pointer"
+      />
       <button
         onClick={handleClick}
         className="relative border border-black px-5 py-4 pr-44 text-[11px] font-medium uppercase"

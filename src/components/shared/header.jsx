@@ -4,7 +4,10 @@ import { MaseratiLogo } from "../icons/maserati-logo";
 
 export const Header = ({ color }) => {
   return (
-    <header style={color} className="flex justify-between py-6">
+    <header
+      style={{ backgroundColor: color }}
+      className="flex justify-between py-6"
+    >
       <div aria-label="navigation buttons" className="flex items-center">
         <div className="cursor-pointer px-5 text-sm font-semibold">Models</div>
         <div className="cursor-pointer px-5 text-sm font-semibold">Brand</div>

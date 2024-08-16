@@ -1,11 +1,13 @@
 import { ChevronRight } from "../icons/chevron-right";
 import { BrakeCalipers } from "./brake-calipers";
+import { ExteriorColor } from "./exterior-colors";
 import { Wheels } from "./wheels";
 
 export const Visuals = ({ data }) => {
+  console.log(data);
   return (
     <div className="flex gap-6 pl-3 pt-6">
-      <div aria-label="image" className="relative w-2/3">
+      <div aria-label="image" className="relative h-fit w-2/3">
         <img
           className="rounded-2xl"
           src="/home/GranTurismo/Trofeo/configurator/GranTurismo-config.jpeg"
@@ -23,7 +25,14 @@ export const Visuals = ({ data }) => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-16 px-10">
+      <div className="flex w-1/3 flex-col gap-16 px-10">
+        <div>
+          <ExteriorColor
+            colorsTypes={data.colorsTypes}
+            colors={data.colors}
+          ></ExteriorColor>
+        </div>
+
         <div aria-label="wheels">
           <Wheels wheels={data.wheels}></Wheels>
         </div>

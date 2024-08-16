@@ -64,7 +64,10 @@ export const BrakeCalipers = () => {
           const isSelectedBrake = selectedBrake.name === brake.name;
           if (isSelectedBrake) {
             return (
-              <div className="relative flex size-[50px] items-center justify-center rounded-full border border-black">
+              <div
+                key={brake.name}
+                className="relative flex size-[50px] items-center justify-center rounded-full border border-black"
+              >
                 <Triangle className="absolute left-0 top-1/2 size-1 -translate-y-1/2 rotate-90"></Triangle>
                 <img className="size-9 rounded-full" src={brake.imageUrl}></img>
               </div>
