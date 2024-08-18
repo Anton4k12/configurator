@@ -69,7 +69,10 @@ export const BrakeCalipers = () => {
                 className="relative flex size-[50px] items-center justify-center rounded-full border border-black"
               >
                 <Triangle className="absolute left-0 top-1/2 size-1 -translate-y-1/2 rotate-90"></Triangle>
-                <img className="size-9 rounded-full" src={brake.imageUrl}></img>
+                <img
+                  className="size-9 cursor-pointer rounded-full"
+                  src={brake.imageUrl}
+                ></img>
               </div>
             );
           }
@@ -77,7 +80,7 @@ export const BrakeCalipers = () => {
             <img
               onClick={() => handleBrakeClick(brake)}
               key={brake.name}
-              className="size-[50px]"
+              className="size-[50px] cursor-pointer rounded-full"
               src={brake.imageUrl}
             />
           );

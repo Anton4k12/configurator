@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Triangle } from "../icons/triangle";
 
 export const ExteriorColor = ({ colorsTypes, colors }) => {
   const [selectedColorType, setSelectedColorType] = useState(colorsTypes[0]);
+
+  const [selectedColor, setSelectedColor] = useState(colors[1]);
 
   const shownColors = colors.filter((color) => {
     return color.type === selectedColorType;
@@ -13,12 +15,18 @@ export const ExteriorColor = ({ colorsTypes, colors }) => {
     setSelectedColorType(type);
   };
 
+  const handleSelectColor = (color) => {
+    setSelectedColor(color);
+  };
+
   return (
     <div className="flex w-full flex-col gap-5">
       <div className="text-[40px] font-extralight leading-none">
         Exterior Colors
       </div>
-      <div className="text-[11px] uppercase tracking-wide text-[rgb(102,102,102)]"></div>
+      <div className="text-[11px] uppercase tracking-wide text-[rgb(102,102,102)]">
+        {selectedColor.type} — {selectedColor.name}
+      </div>
       <div data-tabs className="flex w-full gap-8">
         {colorsTypes.map((type) => {
           return (
@@ -37,18 +45,32 @@ export const ExteriorColor = ({ colorsTypes, colors }) => {
       </div>
       <div data-colors className="flex gap-3">
         {shownColors.map((color) => {
+          const isSelectedColor = selectedColor.name === color.name;
+          if (isSelectedColor) {
+            return (
+              <div
+                key={color.name}
+                className="relative flex size-[50px] items-center justify-center rounded-full border border-black"
+              >
+                <Triangle className="absolute left-0 top-1/2 size-1 -translate-y-1/2 rotate-90"></Triangle>
+                <img
+                  className="size-9 cursor-pointer rounded-full"
+                  src={color.imageUrl}
+                ></img>
+              </div>
+            );
+          }
           return (
-            <img className="size-[50px] rounded-full" src={color.imageUrl} />
-          );
-          return (
-            <div
+            <img
+              onClick={() => handleSelectColor(color)}
               key={color.name}
-              className="relative flex size-[50px] items-center justify-center rounded-full border border-black"
-            >
-              <Triangle className="absolute left-0 top-1/2 size-1 -translate-y-1/2 rotate-90"></Triangle>
-              <img className="size-9 rounded-full" src={color.imageUrl}></img>
-            </div>
+              className="size-[50px] cursor-pointer rounded-full"
+              src={color.imageUrl}
+            />
           );
+          // return (
+          //   <img className="size-[50px] rounded-full" src={color.imageUrl} />
+          // );
         })}
       </div>
     </div>

@@ -24,7 +24,7 @@ export const ConfiguratorPage = () => {
   }
 
   return (
-    <div className="pb-28">
+    <div className="pb-96">
       <Header color="#FFFFFF"></Header>
 
       <hr />
