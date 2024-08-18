@@ -25,7 +25,8 @@ export const ExteriorColor = ({ colorsTypes, colors }) => {
         Exterior Colors
       </div>
       <div className="text-[11px] uppercase tracking-wide text-[rgb(102,102,102)]">
-        {selectedColor.type} — {selectedColor.name}
+        {selectedColor.type} — {selectedColor.name}{" "}
+        {selectedColor.price !== null && <span>$ {selectedColor.price}</span>}
       </div>
       <div data-tabs className="flex w-full gap-8">
         {colorsTypes.map((type) => {

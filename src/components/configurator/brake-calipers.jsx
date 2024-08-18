@@ -24,7 +24,7 @@ const mockBrakeCalipers = [
     name: "Anodized Red Calipers",
     imageUrl:
       "/configurator/GranTurismo/Brake Calipers/Anodized Red Calipers.jpg",
-    price: 1000,
+    price: "1,000",
   },
   {
     name: "Brake Calipers Painted In Blue",
