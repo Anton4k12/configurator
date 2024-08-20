@@ -6,7 +6,7 @@ import { Spinner } from "@/components/icons/spinner";
 import { TopNavBar } from "@/components/configurator/top-navbar";
 import { Visuals } from "@/components/configurator/visuals";
 import { BottomNavBar } from "@/components/configurator/bottom-navbar";
-import { Package } from "@/components/configurator/package";
+import { Packages } from "@/components/configurator/packages";
 
 export const ConfiguratorPage = () => {
   const { state, pathname } = useLocation();
@@ -24,8 +24,6 @@ export const ConfiguratorPage = () => {
     );
   }
 
-  const firstPackage = data.packages[0];
-
   return (
     <div className="pb-96">
       <Header color="#FFFFFF"></Header>
@@ -38,9 +36,7 @@ export const ConfiguratorPage = () => {
 
       <Visuals data={data}></Visuals>
 
-      <div className="w-1/2 px-3">
-        <Package {...firstPackage}></Package>
-      </div>
+      <Packages packages={data.packages}></Packages>
 
       <BottomNavBar></BottomNavBar>
     </div>

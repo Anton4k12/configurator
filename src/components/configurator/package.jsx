@@ -5,6 +5,7 @@ import ReactModal from "react-modal";
 import { cn } from "@/lib/utils";
 import { MinusIcon } from "../icons/minus-icon";
 import { ChevronRight } from "../icons/chevron-right";
+import CloseIcon from "../icons/close-icon";
 
 const customStyles = {
   overlay: {
@@ -47,6 +48,9 @@ export const Package = ({ imageUrl, price, characteristics, name }) => {
         onRequestClose={handleCloseModal}
       >
         <div>
+          {/* <div className="-right-4 top-0">
+            <CloseIcon></CloseIcon>
+          </div> */}
           <div className="relative">
             <img className="h-[350px]" src={imageUrl}></img>
 
