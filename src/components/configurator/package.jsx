@@ -104,7 +104,7 @@ export const Package = ({ imageUrl, price, characteristics, name }) => {
       </ReactModal>
       <div
         className={cn(
-          "flex overflow-hidden rounded-2xl pb-10 shadow-lg",
+          "flex overflow-hidden rounded-2xl pb-10 shadow-[1px_1px_6px_1px_rgb(238,238,238)]",
           isSelected && "bg-black text-white",
         )}
       >
