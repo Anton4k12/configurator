@@ -4,6 +4,7 @@ import { PlusIcon } from "../icons/plus-icon";
 import ReactModal from "react-modal";
 import { cn } from "@/lib/utils";
 import { MinusIcon } from "../icons/minus-icon";
+import { ChevronRight } from "../icons/chevron-right";
 
 const customStyles = {
   overlay: {
@@ -16,7 +17,7 @@ const customStyles = {
     borderRadius: "none",
     border: "none",
     transform: "translateX(-50%)",
-    minWidth: 560,
+    width: 560,
     padding: "none",
   },
 };
@@ -45,7 +46,57 @@ export const Package = ({ imageUrl, price, characteristics, name }) => {
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
       >
-        hello
+        <div>
+          <div className="relative">
+            <img className="h-[350px]" src={imageUrl}></img>
+
+            <div className="absolute right-6 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-white">
+              <ChevronRight strokeWidth={3} className="size-3"></ChevronRight>
+            </div>
+
+            <div className="absolute left-6 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-white">
+              <ChevronRight
+                strokeWidth={3}
+                className="size-3 rotate-180"
+              ></ChevronRight>
+            </div>
+          </div>
+
+          <div data-header className="flex justify-between p-6">
+            <div data-text className="flex flex-col gap-2">
+              <div className="text-xl font-light">{name}</div>
+
+              <div className="text-xs text-[#404040]">$ {price}</div>
+            </div>
+
+            {!isSelected ? (
+              <button
+                onClick={handleSelect}
+                className="flex items-center justify-center gap-1 border border-black px-6 py-4 text-[11px] uppercase"
+              >
+                Add<PlusIcon className="size-4"></PlusIcon>
+              </button>
+            ) : (
+              <button
+                onClick={handleSelect}
+                className="flex items-center justify-center gap-1 border border-black px-6 py-4 text-[11px] uppercase"
+              >
+                Remove
+                <MinusIcon strokeWidth={3} className="size-4"></MinusIcon>
+              </button>
+            )}
+          </div>
+
+          <hr />
+
+          <ul className="list-inside list-disc px-6 py-6 text-sm font-light tracking-wider text-[#333]">
+            <div className="py-3">The package contains:</div>
+
+            {characteristics.map((charac) => {
+              return <li className="py-2 pl-6">{charac}</li>;
+            })}
+          </ul>
+        </div>
       </ReactModal>
       <div
         className={cn(
@@ -57,6 +108,7 @@ export const Package = ({ imageUrl, price, characteristics, name }) => {
           <img src={imageUrl} />
           <div className="flex items-center justify-between">
             <div className="pl-5 text-xs">$ {price}</div>
+
             {!isSelected ? (
               <button
                 onClick={handleSelect}
@@ -85,7 +137,7 @@ export const Package = ({ imageUrl, price, characteristics, name }) => {
             )}
           >
             {characteristics.map((char) => {
-              return <li className="">{char}</li>;
+              return <li>{char}</li>;
             })}
           </ul>
           <button onClick={handleOpenModal} className="absolute right-3 top-0">
