@@ -3,6 +3,7 @@ import { InfoIcon } from "../icons/info-icon";
 import { PlusIcon } from "../icons/plus-icon";
 import ReactModal from "react-modal";
 import { cn } from "@/lib/utils";
+import { MinusIcon } from "../icons/minus-icon";
 
 const customStyles = {
   overlay: {
@@ -21,7 +22,11 @@ const customStyles = {
 };
 
 export const Package = ({ imageUrl, price, characteristics, name }) => {
-  const [isSelected, setIsSelected] = useState(true);
+  const [isSelected, setIsSelected] = useState(false);
+
+  const handleSelect = () => {
+    setIsSelected(!isSelected);
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -52,9 +57,22 @@ export const Package = ({ imageUrl, price, characteristics, name }) => {
           <img src={imageUrl} />
           <div className="flex items-center justify-between">
             <div className="pl-5 text-xs">$ {price}</div>
-            <button className="flex items-center justify-center gap-1 border border-black px-6 py-4 text-[11px] uppercase">
-              Add<PlusIcon className="size-4"></PlusIcon>
-            </button>
+            {!isSelected ? (
+              <button
+                onClick={handleSelect}
+                className="flex items-center justify-center gap-1 border border-black px-6 py-4 text-[11px] uppercase"
+              >
+                Add<PlusIcon className="size-4"></PlusIcon>
+              </button>
+            ) : (
+              <button
+                onClick={handleSelect}
+                className="flex items-center justify-center gap-1 border border-white px-6 py-4 text-[11px] uppercase"
+              >
+                Remove
+                <MinusIcon strokeWidth={3} className="size-4"></MinusIcon>
+              </button>
+            )}
           </div>
         </div>
 
