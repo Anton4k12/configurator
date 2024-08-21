@@ -42,15 +42,20 @@ export const Package = ({ imageUrl, price, characteristics, name }) => {
 
   return (
     <>
+      {isModalOpen && (
+        <button
+          onClick={handleCloseModal}
+          className="fixed left-1/2 top-2 z-50 ml-[300px] -translate-x-1/2 rounded-full bg-white p-1"
+        >
+          <CloseIcon className="size-4"></CloseIcon>
+        </button>
+      )}
       <ReactModal
         style={customStyles}
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
       >
         <div>
-          {/* <div className="-right-4 top-0">
-            <CloseIcon></CloseIcon>
-          </div> */}
           <div className="relative">
             <img className="h-[350px]" src={imageUrl}></img>
 
