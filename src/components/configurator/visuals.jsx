@@ -1,6 +1,8 @@
 import { ChevronRight } from "../icons/chevron-right";
 import { BrakeCalipers } from "./brake-calipers";
 import { ExteriorColor } from "./exterior-colors";
+import { Seats } from "./seats";
+import { Trim } from "./trim";
 import { Wheels } from "./wheels";
 
 export const Visuals = ({ data }) => {
@@ -39,6 +41,14 @@ export const Visuals = ({ data }) => {
 
         <div data-brake-calipers>
           <BrakeCalipers></BrakeCalipers>
+        </div>
+
+        <div data-seats>
+          <Seats seats={data.seats}></Seats>
+        </div>
+
+        <div data-trims>
+          <Trim trim={data.trim}></Trim>
         </div>
       </div>
     </div>
