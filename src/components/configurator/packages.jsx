@@ -24,6 +24,7 @@ export const Packages = ({ packages }) => {
           {croppedPackages.map((pack) => {
             return (
               <Package
+                key={pack.name}
                 name={pack.name}
                 imageUrl={pack.imageUrl}
                 price={pack.price}
@@ -37,6 +38,7 @@ export const Packages = ({ packages }) => {
           {packages.map((pack) => {
             return (
               <Package
+                key={pack.name}
                 name={pack.name}
                 imageUrl={pack.imageUrl}
                 price={pack.price}
