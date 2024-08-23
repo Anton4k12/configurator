@@ -28,11 +28,7 @@ export const ConfiguratorPage = () => {
     <div className="pb-96">
       <Header color="#FFFFFF"></Header>
 
-      <hr />
-
       <TopNavBar></TopNavBar>
-
-      <hr />
 
       <Visuals data={data}></Visuals>
 

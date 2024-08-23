@@ -7,9 +7,18 @@ export const ExteriorColor = ({ colorsTypes, colors }) => {
 
   const [selectedColor, setSelectedColor] = useState(colors[1]);
 
-  const shownColors = colors.filter((color) => {
+  // const isAllSelected = selectedColorType === "all";
+
+  const displayedColors = colors.filter((color) => {
     return color.type === selectedColorType;
+    // if (color.type === selectedColorType) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
   });
+
+  // const displayedOptins = isAllSelected ? options : filteredOptions;
 
   const handleSelectColorType = (type) => {
     setSelectedColorType(type);
@@ -45,7 +54,7 @@ export const ExteriorColor = ({ colorsTypes, colors }) => {
         })}
       </div>
       <div data-colors className="flex gap-3">
-        {shownColors.map((color) => {
+        {displayedColors.map((color) => {
           const isSelectedColor = selectedColor.name === color.name;
           if (isSelectedColor) {
             return (

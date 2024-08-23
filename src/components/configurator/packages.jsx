@@ -12,6 +12,8 @@ export const Packages = ({ packages }) => {
     setIsExtended(!isExtended);
   };
 
+  const displayedPackages = isExtended ? packages : croppedPackages;
+
   return (
     <div className="px-3 pt-6">
       <h2>
@@ -20,35 +22,19 @@ export const Packages = ({ packages }) => {
         </span>
       </h2>
 
-      {!isExtended ? (
-        <div className="grid grid-cols-2 gap-6 pt-5">
-          {croppedPackages.map((pack) => {
-            return (
-              <Package
-                key={pack.name}
-                name={pack.name}
-                imageUrl={pack.imageUrl}
-                price={pack.price}
-                characteristics={pack.characteristics}
-              ></Package>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 gap-6 pt-5">
-          {packages.map((pack) => {
-            return (
-              <Package
-                key={pack.name}
-                name={pack.name}
-                imageUrl={pack.imageUrl}
-                price={pack.price}
-                characteristics={pack.characteristics}
-              ></Package>
-            );
-          })}
-        </div>
-      )}
+      <div className="grid grid-cols-2 gap-6 pt-5">
+        {displayedPackages.map((pack) => {
+          return (
+            <Package
+              key={pack.name}
+              name={pack.name}
+              imageUrl={pack.imageUrl}
+              price={pack.price}
+              characteristics={pack.characteristics}
+            ></Package>
+          );
+        })}
+      </div>
 
       <div className="flex flex-col items-center pt-5">
         {!isExtended ? (
