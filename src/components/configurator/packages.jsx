@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { PlusIcon } from "../icons/plus-icon";
 import { Package } from "./package";
+import { MinusIcon } from "../icons/minus-icon";
 
 export const Packages = ({ packages }) => {
   const [isExtended, setIsExtended] = useState(false);
@@ -63,7 +64,11 @@ export const Packages = ({ packages }) => {
             onClick={handleExtend}
             className="w-fit rounded-full border border-black p-3"
           >
-            <PlusIcon className=""></PlusIcon>
+            {!isExtended ? (
+              <PlusIcon></PlusIcon>
+            ) : (
+              <MinusIcon className="size-5"></MinusIcon>
+            )}
           </button>
         </div>
 
