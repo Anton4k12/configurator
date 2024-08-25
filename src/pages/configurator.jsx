@@ -7,6 +7,7 @@ import { TopNavBar } from "@/components/configurator/top-navbar";
 import { Visuals } from "@/components/configurator/visuals";
 import { BottomNavBar } from "@/components/configurator/bottom-navbar";
 import { Packages } from "@/components/configurator/packages";
+import { Options } from "@/components/configurator/options";
 
 export const ConfiguratorPage = () => {
   const { state, pathname } = useLocation();
@@ -33,6 +34,11 @@ export const ConfiguratorPage = () => {
       <Visuals data={data}></Visuals>
 
       <Packages packages={data.packages}></Packages>
+
+      <Options
+        optionsTypes={data.optionsTypes}
+        options={data.options}
+      ></Options>
 
       <BottomNavBar></BottomNavBar>
     </div>

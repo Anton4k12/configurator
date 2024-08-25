@@ -7,8 +7,6 @@ export const ExteriorColor = ({ colorsTypes, colors }) => {
 
   const [selectedColor, setSelectedColor] = useState(colors[1]);
 
-  // const isAllSelected = selectedColorType === "all";
-
   const displayedColors = colors.filter((color) => {
     return color.type === selectedColorType;
     // if (color.type === selectedColorType) {
@@ -17,8 +15,6 @@ export const ExteriorColor = ({ colorsTypes, colors }) => {
     //   return false;
     // }
   });
-
-  // const displayedOptins = isAllSelected ? options : filteredOptions;
 
   const handleSelectColorType = (type) => {
     setSelectedColorType(type);
