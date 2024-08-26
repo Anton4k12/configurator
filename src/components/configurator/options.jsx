@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { InfoIcon } from "../icons/info-icon";
-import { PlusIcon } from "@radix-ui/react-icons";
+import { Option } from "./option";
 
 export const Options = ({ options, optionsTypes }) => {
   const [selectedOptionType, setSelectedOptionType] = useState("All");
@@ -28,19 +27,22 @@ export const Options = ({ options, optionsTypes }) => {
   const displayedOptins = isAllSelected ? options : displayedOptions;
 
   return (
-    <div className="px-3 pt-6">
-      <h2 className="pb-3">
-        <span className="px-7 text-[40px] font-extralight leading-[96px]">
+    <div className="pt-6">
+      <h2>
+        <span className="px-10 text-[40px] font-extralight leading-[96px]">
           Options
         </span>
       </h2>
 
-      <div data-buttons className="flex gap-5 px-2">
+      <div
+        data-buttons
+        className="sticky top-12 z-50 flex items-center gap-10 bg-white px-5 pb-4 pt-3 text-[11px] font-medium"
+      >
         <button
           onClick={() => handleSelectAllType()}
           className={cn(
-            "pb-1 text-xs font-medium uppercase",
-            selectedOptionType === "All" && "border-b border-black",
+            "uppercase text-[#666]",
+            selectedOptionType === "All" && "border-b border-black text-black",
           )}
         >
           All
@@ -50,8 +52,9 @@ export const Options = ({ options, optionsTypes }) => {
             <button
               onClick={() => handleSelectOptionType(type)}
               className={cn(
-                "pb-1 text-xs font-medium uppercase",
-                selectedOptionType === type && "border-b border-black",
+                "uppercase text-[#666]",
+                selectedOptionType === type &&
+                  "border-b border-black text-black",
               )}
             >
               {type}
@@ -60,28 +63,17 @@ export const Options = ({ options, optionsTypes }) => {
         })}
       </div>
 
-      <div className="grid grid-cols-4 gap-6 pt-[42px]">
+      <div className="grid grid-cols-4 gap-6 px-3 pt-[26px]">
         {displayedOptins.map((option) => {
-          return (
-            <div className="flex flex-col justify-between overflow-hidden rounded-2xl shadow-[1px_1px_6px_1px_rgb(238,238,238)]">
-              <img src={option.imageUrl}></img>
-              <div className="flex w-full flex-1 flex-col justify-between">
-                <div className="flex justify-between py-5">
-                  <div className="px-5 text-xl font-light">{option.name}</div>
-                  <div className="pr-3">
-                    <InfoIcon></InfoIcon>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between px-5 py-5">
-                  <div className="text-xs">$ {option.price}</div>
-                  <button className="flex items-center justify-center gap-1 border border-black px-6 py-4 text-[11px] uppercase">
-                    Add<PlusIcon className="size-4"></PlusIcon>
-                  </button>
-                </div>
-              </div>
-            </div>
-          );
+          return <Option option={option}></Option>;
         })}
+      </div>
+
+      <div className="px-3 py-[30px] text-center font-light tracking-[1px]">
+        * Some options may not be available as they are already included in a
+        previously-activated packages or they are incompatible with the options
+        selected as part of a package. To select the options, please modify the
+        previously-selected packages.
       </div>
     </div>
   );
