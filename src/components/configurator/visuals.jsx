@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ChevronRight } from "../icons/chevron-right";
 import { BrakeCalipers } from "./brake-calipers";
 import { ExteriorColor } from "./exterior-colors";
@@ -7,6 +8,16 @@ import { Wheels } from "./wheels";
 
 export const Visuals = ({ data }) => {
   console.log(data);
+
+  const initialWheel = data.wheels.find((wheel) => {
+    if (wheel.price === null) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  const [selectedWheel, setSelectedWheel] = useState(initialWheel);
   return (
     <div className="flex gap-6 pl-3">
       <div aria-label="image" className="sticky top-12 h-fit w-2/3 pt-6">
@@ -36,7 +47,11 @@ export const Visuals = ({ data }) => {
         </div>
 
         <div aria-label="wheels">
-          <Wheels wheels={data.wheels}></Wheels>
+          <Wheels
+            selectedWheel={selectedWheel}
+            onWheelSelect={setSelectedWheel}
+            wheels={data.wheels}
+          ></Wheels>
         </div>
 
         <div data-brake-calipers>

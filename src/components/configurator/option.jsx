@@ -8,23 +8,6 @@ import { ChevronRight } from "../icons/chevron-right";
 import CloseIcon from "../icons/close-icon";
 import { Modal } from "./modal";
 
-const customStyles = {
-  overlay: {
-    backgroundColor: "rgba(0,0,0,0.7)",
-    zIndex: 40,
-  },
-  content: {
-    left: "50%",
-    top: 0,
-    bottom: 0,
-    borderRadius: "none",
-    border: "none",
-    transform: "translateX(-50%)",
-    width: 560,
-    padding: "none",
-  },
-};
-
 export const Option = ({ option }) => {
   const [isSelected, setIsSelected] = useState(false);
 

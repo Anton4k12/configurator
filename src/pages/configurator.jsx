@@ -1,17 +1,10 @@
-import { Header } from "@/components/shared/header";
-import { useLocation } from "react-router-dom";
-import useSWR from "swr";
-import { fetcher } from "@/data";
+import { ConfiguratorPageContents } from "@/components/configurator/configurator-page-contents";
 import { Spinner } from "@/components/icons/spinner";
-import { TopNavBar } from "@/components/configurator/top-navbar";
-import { Visuals } from "@/components/configurator/visuals";
-import { BottomNavBar } from "@/components/configurator/bottom-navbar";
-import { Packages } from "@/components/configurator/packages";
-import { Options } from "@/components/configurator/options";
+import { Header } from "@/components/shared/header";
+import { fetcher } from "@/data";
+import useSWR from "swr";
 
 export const ConfiguratorPage = () => {
-  const { state, pathname } = useLocation();
-
   const { data, isLoading } = useSWR("/configurator", fetcher);
 
   if (isLoading) {
@@ -25,22 +18,5 @@ export const ConfiguratorPage = () => {
     );
   }
 
-  return (
-    <div className="pb-96">
-      <Header color="#FFFFFF"></Header>
-
-      <TopNavBar></TopNavBar>
-
-      <Visuals data={data}></Visuals>
-
-      <Packages packages={data.packages}></Packages>
-
-      <Options
-        optionsTypes={data.optionsTypes}
-        options={data.options}
-      ></Options>
-
-      <BottomNavBar></BottomNavBar>
-    </div>
-  );
+  return <ConfiguratorPageContents data={data}></ConfiguratorPageContents>;
 };

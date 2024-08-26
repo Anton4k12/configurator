@@ -2,9 +2,12 @@ import { MaseratiLogoSmall } from "../icons/maserati-logo-small";
 import { ChevronRight } from "../icons/chevron-right";
 import { HeartIcon } from "../icons/heart-icon";
 import { useLocation } from "react-router-dom";
+import { formatPrice } from "@/lib/utils";
 
-export const BottomNavBar = (info) => {
+export const BottomNavBar = ({ price }) => {
   const { state, pathname } = useLocation();
+
+  const formattedPrice = formatPrice(price);
   return (
     <div
       aria-label="bottom navbar"
@@ -26,7 +29,7 @@ export const BottomNavBar = (info) => {
           <div className="h-12 w-px bg-zinc-200/50"></div>
         </div>
 
-        <div className="text-xl font-light">yours at: {state.price}</div>
+        <div className="text-xl font-light">yours at: {formattedPrice}</div>
 
         <div className="h-6 w-px bg-zinc-200/50"></div>
       </div>

@@ -1,20 +1,11 @@
 import { useState } from "react";
-import { cn } from "@/lib/utils";
 import { Triangle } from "../icons/triangle";
 
-export const Wheels = ({ wheels }) => {
-  const initialWheel = wheels.find((wheel) => {
-    if (wheel.price === null) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-
-  const [selectedWheel, setSelectedWheel] = useState(initialWheel);
+export const Wheels = ({ wheels, selectedWheel, onWheelSelect }) => {
+  // const [selectedWheel, setSelectedWheel] = useState(initialWheel);
 
   const handleWheelClick = (wheel) => {
-    setSelectedWheel(wheel);
+    onWheelSelect(wheel);
   };
   return (
     <div className="flex flex-col gap-5">
