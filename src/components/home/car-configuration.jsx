@@ -17,7 +17,9 @@ export const CarConfiguration = (props) => {
         <p className="pt-6 text-[11px] font-medium">{props.year}</p>
       </div>
 
-      <img className="w-full" src={props.imageUrl} />
+      <Link to={"/configurator"} state={props}>
+        <img className="w-full" src={props.imageUrl} />
+      </Link>
 
       <div aria-label="characteristic" className="flex flex-col gap-2">
         <div className="flex items-center justify-between text-sm text-[rgb(102,102,102)]">
