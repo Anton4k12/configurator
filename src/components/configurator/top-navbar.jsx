@@ -1,6 +1,6 @@
 export const TopNavBar = () => {
   return (
-    <div aria-label="top navbar" className="sticky top-0 z-50 bg-white">
+    <div aria-label="top navbar" className="sticky top-0 z-10 bg-white">
       <hr />
 
       <div className="flex h-12 items-center justify-center gap-8">

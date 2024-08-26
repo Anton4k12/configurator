@@ -15,7 +15,7 @@ export const Options = ({ options, optionsTypes }) => {
 
   const isAllSelected = selectedOptionType === "All";
 
-  const displayedOptions = options.filter((option) => {
+  const filteredOptions = options.filter((option) => {
     return option.type === selectedOptionType;
     // if (color.type === selectedColorType) {
     //   return true;
@@ -24,7 +24,7 @@ export const Options = ({ options, optionsTypes }) => {
     // }
   });
 
-  const displayedOptins = isAllSelected ? options : displayedOptions;
+  const displayedOptions = isAllSelected ? options : filteredOptions;
 
   return (
     <div className="pt-6">
@@ -36,12 +36,12 @@ export const Options = ({ options, optionsTypes }) => {
 
       <div
         data-buttons
-        className="sticky top-12 z-50 flex items-center gap-10 bg-white px-5 pb-4 pt-3 text-[11px] font-medium"
+        className="sticky top-12 flex items-center gap-10 bg-white px-5 pb-4 pt-3 text-[11px] font-medium text-[#666]"
       >
         <button
           onClick={() => handleSelectAllType()}
           className={cn(
-            "uppercase text-[#666]",
+            "uppercase transition-colors hover:text-black",
             selectedOptionType === "All" && "border-b border-black text-black",
           )}
         >
@@ -52,7 +52,7 @@ export const Options = ({ options, optionsTypes }) => {
             <button
               onClick={() => handleSelectOptionType(type)}
               className={cn(
-                "uppercase text-[#666]",
+                "uppercase transition-colors hover:text-black",
                 selectedOptionType === type &&
                   "border-b border-black text-black",
               )}
@@ -64,7 +64,7 @@ export const Options = ({ options, optionsTypes }) => {
       </div>
 
       <div className="grid grid-cols-4 gap-6 px-3 pt-[26px]">
-        {displayedOptins.map((option) => {
+        {displayedOptions.map((option) => {
           return <Option option={option}></Option>;
         })}
       </div>

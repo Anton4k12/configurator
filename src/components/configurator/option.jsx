@@ -6,10 +6,12 @@ import { cn } from "@/lib/utils";
 import ReactModal from "react-modal";
 import { ChevronRight } from "../icons/chevron-right";
 import CloseIcon from "../icons/close-icon";
+import { Modal } from "./modal";
 
 const customStyles = {
   overlay: {
     backgroundColor: "rgba(0,0,0,0.7)",
+    zIndex: 40,
   },
   content: {
     left: "50%",
@@ -50,11 +52,7 @@ export const Option = ({ option }) => {
           <CloseIcon className="size-4"></CloseIcon>
         </button>
       )}
-      <ReactModal
-        style={customStyles}
-        isOpen={isModalOpen}
-        onRequestClose={handleCloseModal}
-      >
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <div>
           <div className="relative">
             <img className="h-[350px]" src={option.imageUrl}></img>
@@ -93,7 +91,7 @@ export const Option = ({ option }) => {
             </div>
           </div>
         </div>
-      </ReactModal>
+      </Modal>
       <div
         className={cn(
           "flex flex-col justify-between overflow-hidden rounded-2xl shadow-[1px_1px_6px_1px_rgb(238,238,238)]",

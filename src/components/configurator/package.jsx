@@ -6,22 +6,7 @@ import { cn } from "@/lib/utils";
 import { MinusIcon } from "../icons/minus-icon";
 import { ChevronRight } from "../icons/chevron-right";
 import CloseIcon from "../icons/close-icon";
-
-const customStyles = {
-  overlay: {
-    backgroundColor: "rgba(0,0,0,0.7)",
-  },
-  content: {
-    left: "50%",
-    top: 0,
-    bottom: 0,
-    borderRadius: "none",
-    border: "none",
-    transform: "translateX(-50%)",
-    width: 560,
-    padding: "none",
-  },
-};
+import { Modal } from "./modal";
 
 export const Package = ({ imageUrl, price, characteristics, name }) => {
   const [isSelected, setIsSelected] = useState(false);
@@ -50,11 +35,7 @@ export const Package = ({ imageUrl, price, characteristics, name }) => {
           <CloseIcon className="size-4"></CloseIcon>
         </button>
       )}
-      <ReactModal
-        style={customStyles}
-        isOpen={isModalOpen}
-        onRequestClose={handleCloseModal}
-      >
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <div>
           <div className="relative">
             <img className="h-[350px]" src={imageUrl}></img>
@@ -106,7 +87,7 @@ export const Package = ({ imageUrl, price, characteristics, name }) => {
             })}
           </ul>
         </div>
-      </ReactModal>
+      </Modal>
       <div
         className={cn(
           "flex overflow-hidden rounded-2xl pb-10 shadow-[1px_1px_6px_1px_rgb(238,238,238)]",
@@ -114,7 +95,11 @@ export const Package = ({ imageUrl, price, characteristics, name }) => {
         )}
       >
         <div data-image className="flex-1 space-y-5">
-          <img src={imageUrl} />
+          <img
+            onClick={handleOpenModal}
+            className="cursor-pointer"
+            src={imageUrl}
+          />
           <div className="flex items-center justify-between">
             <div className="pl-5 text-xs">$ {price}</div>
 
