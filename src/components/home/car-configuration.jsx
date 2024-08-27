@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { ChevronRight } from "../icons/chevron-right";
+import { formatPrice } from "@/lib/utils";
 
 export const CarConfiguration = (props) => {
+  const formattedPrice = formatPrice(props.price);
+
   return (
     <div aria-label="card" className="flex flex-col gap-5 pt-10">
       <div aria-label="text" className="flex flex-col">
@@ -11,7 +14,7 @@ export const CarConfiguration = (props) => {
 
         <div className="flex items-baseline gap-1">
           <span className="text-sm font-light">Starting from</span>
-          <span className="text-xl leading-none">{props.price}</span>
+          <span className="text-xl leading-none">{formattedPrice}</span>
         </div>
 
         <p className="pt-6 text-[11px] font-medium">{props.year}</p>
