@@ -1,11 +1,16 @@
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import { Triangle } from "../icons/triangle";
 
-export const ExteriorColor = ({ colorsTypes, colors }) => {
+export const ExteriorColor = ({
+  colorsTypes,
+  colors,
+  selectedColor,
+  onColorSelect,
+}) => {
   const [selectedColorType, setSelectedColorType] = useState(colorsTypes[0]);
 
-  const [selectedColor, setSelectedColor] = useState(colors[1]);
+  // const [selectedColor, setSelectedColor] = useState(colors[1]);
 
   const displayedColors = colors.filter((color) => {
     return color.type === selectedColorType;
@@ -21,8 +26,10 @@ export const ExteriorColor = ({ colorsTypes, colors }) => {
   };
 
   const handleSelectColor = (color) => {
-    setSelectedColor(color);
+    onColorSelect(color);
   };
+
+  const formattedPrice = formatPrice(selectedColor.price);
 
   return (
     <div className="flex w-full flex-col gap-5">
@@ -31,7 +38,7 @@ export const ExteriorColor = ({ colorsTypes, colors }) => {
       </div>
       <div className="text-[11px] uppercase tracking-wide text-[rgb(102,102,102)]">
         {selectedColor.type} — {selectedColor.name}{" "}
-        {selectedColor.price !== null && <span>$ {selectedColor.price}</span>}
+        {selectedColor.price !== null && <span>{formattedPrice}</span>}
       </div>
       <div data-tabs className="flex w-full gap-8">
         {colorsTypes.map((type) => {

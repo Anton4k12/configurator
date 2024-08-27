@@ -2,7 +2,7 @@ import { useState } from "react";
 import { InfoIcon } from "../icons/info-icon";
 import { PlusIcon } from "../icons/plus-icon";
 import { MinusIcon } from "../icons/minus-icon";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import ReactModal from "react-modal";
 import { ChevronRight } from "../icons/chevron-right";
 import CloseIcon from "../icons/close-icon";
@@ -25,6 +25,8 @@ export const Option = ({ option }) => {
     setIsModalOpen(false);
   };
 
+  const formattedPrice = formatPrice(option.price);
+
   return (
     <>
       {isModalOpen && (
@@ -45,7 +47,7 @@ export const Option = ({ option }) => {
             <div data-text className="flex flex-col gap-2">
               <div className="text-xl font-light">{option.name}</div>
 
-              <div className="text-xs text-[#404040]">$ {option.price}</div>
+              <div className="text-xs text-[#404040]">{formattedPrice}</div>
             </div>
 
             {!isSelected ? (
@@ -94,7 +96,7 @@ export const Option = ({ option }) => {
             </button>
           </div>
           <div className="flex items-center justify-between px-5 py-5">
-            <div className="text-xs">$ {option.price}</div>
+            <div className="text-xs">{formattedPrice}</div>
             {!isSelected ? (
               <button
                 onClick={handleSelect}

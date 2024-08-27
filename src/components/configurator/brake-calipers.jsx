@@ -1,53 +1,60 @@
 import { useState } from "react";
 import { Triangle } from "../icons/triangle";
+import { formatPrice } from "@/lib/utils";
 
-const mockBrakeCalipers = [
-  {
-    name: "Gloss Black Painted Brake Calipers",
-    imageUrl:
-      "/configurator/GranTurismo/Brake Calipers/Gloss Black Painted Brake Calipers.jpg",
-    price: 500,
-  },
-  {
-    name: "Gloss Red Painted Brake Calipers",
-    imageUrl:
-      "/configurator/GranTurismo/Brake Calipers/Gloss Red Painted Brake Calipers.jpg",
-    price: null,
-  },
-  {
-    name: "Gloss Yellow Painted Brake Calipers",
-    imageUrl:
-      "/configurator/GranTurismo/Brake Calipers/Gloss Yellow Painted Brake Calipers.jpg",
-    price: 500,
-  },
-  {
-    name: "Anodized Red Calipers",
-    imageUrl:
-      "/configurator/GranTurismo/Brake Calipers/Anodized Red Calipers.jpg",
-    price: "1,000",
-  },
-  {
-    name: "Brake Calipers Painted In Blue",
-    imageUrl:
-      "/configurator/GranTurismo/Brake Calipers/Brake Calipers Painted In Blue.jpg",
-    price: 500,
-  },
-];
+// const mockBrakeCalipers = [
+//   {
+//     name: "Gloss Black Painted Brake Calipers",
+//     imageUrl:
+//       "/configurator/GranTurismo/Brake Calipers/Gloss Black Painted Brake Calipers.jpg",
+//     price: 500,
+//   },
+//   {
+//     name: "Gloss Red Painted Brake Calipers",
+//     imageUrl:
+//       "/configurator/GranTurismo/Brake Calipers/Gloss Red Painted Brake Calipers.jpg",
+//     price: null,
+//   },
+//   {
+//     name: "Gloss Yellow Painted Brake Calipers",
+//     imageUrl:
+//       "/configurator/GranTurismo/Brake Calipers/Gloss Yellow Painted Brake Calipers.jpg",
+//     price: 500,
+//   },
+//   {
+//     name: "Anodized Red Calipers",
+//     imageUrl:
+//       "/configurator/GranTurismo/Brake Calipers/Anodized Red Calipers.jpg",
+//     price: "1,000",
+//   },
+//   {
+//     name: "Brake Calipers Painted In Blue",
+//     imageUrl:
+//       "/configurator/GranTurismo/Brake Calipers/Brake Calipers Painted In Blue.jpg",
+//     price: 500,
+//   },
+// ];
 
-export const BrakeCalipers = () => {
-  const initialBrake = mockBrakeCalipers.find((brake) => {
-    if (brake.price === null) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+export const BrakeCalipers = ({
+  selectedBrake,
+  onBrakeSelect,
+  mockBrakeCalipers,
+}) => {
+  // const initialBrake = mockBrakeCalipers.find((brake) => {
+  //   if (brake.price === null) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // });
 
-  const [selectedBrake, setSelectedBrake] = useState(initialBrake);
+  // const [selectedBrake, setSelectedBrake] = useState(initialBrake);
 
   const handleBrakeClick = (brake) => {
-    setSelectedBrake(brake);
+    onBrakeSelect(brake);
   };
+
+  const formattedPrice = formatPrice(selectedBrake.price);
   return (
     <div className="flex flex-col gap-5">
       <div className="text-[40px] font-extralight leading-none">
@@ -56,7 +63,7 @@ export const BrakeCalipers = () => {
 
       <div className="text-[11px] uppercase tracking-wide text-[rgb(102,102,102)]">
         {selectedBrake.diameter} {selectedBrake.name}{" "}
-        {selectedBrake.price !== null && <span>$ {selectedBrake.price}</span>}
+        {selectedBrake.price !== null && <span>{formattedPrice}</span>}
       </div>
 
       <div data-brake className="flex gap-3">

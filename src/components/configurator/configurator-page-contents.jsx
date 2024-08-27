@@ -12,6 +12,39 @@ import { Trim } from "./trim";
 import { Wheels } from "./wheels";
 import { useLocation } from "react-router-dom";
 
+const mockBrakeCalipers = [
+  {
+    name: "Gloss Black Painted Brake Calipers",
+    imageUrl:
+      "/configurator/GranTurismo/Brake Calipers/Gloss Black Painted Brake Calipers.jpg",
+    price: 500,
+  },
+  {
+    name: "Gloss Red Painted Brake Calipers",
+    imageUrl:
+      "/configurator/GranTurismo/Brake Calipers/Gloss Red Painted Brake Calipers.jpg",
+    price: null,
+  },
+  {
+    name: "Gloss Yellow Painted Brake Calipers",
+    imageUrl:
+      "/configurator/GranTurismo/Brake Calipers/Gloss Yellow Painted Brake Calipers.jpg",
+    price: 500,
+  },
+  {
+    name: "Anodized Red Calipers",
+    imageUrl:
+      "/configurator/GranTurismo/Brake Calipers/Anodized Red Calipers.jpg",
+    price: 1000,
+  },
+  {
+    name: "Brake Calipers Painted In Blue",
+    imageUrl:
+      "/configurator/GranTurismo/Brake Calipers/Brake Calipers Painted In Blue.jpg",
+    price: 500,
+  },
+];
+
 export const ConfiguratorPageContents = ({ data }) => {
   const { state, pathname } = useLocation();
 
@@ -23,9 +56,36 @@ export const ConfiguratorPageContents = ({ data }) => {
     }
   });
 
+  const initialTrim = data.trim.find((trim) => {
+    if (trim.price === null) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  const initialBrake = mockBrakeCalipers.find((brake) => {
+    if (brake.price === null) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
   const [selectedWheel, setSelectedWheel] = useState(initialWheel);
 
-  const price = state.price + selectedWheel?.price;
+  const [selectedColor, setSelectedColor] = useState(data.colors[1]);
+
+  const [selectedTrim, setSelectedTrim] = useState(initialTrim);
+
+  const [selectedBrake, setSelectedBrake] = useState(initialBrake);
+
+  const price =
+    state.price +
+    selectedWheel.price +
+    selectedColor.price +
+    selectedTrim.price +
+    selectedBrake.price;
   console.log(price);
 
   return (
@@ -57,6 +117,8 @@ export const ConfiguratorPageContents = ({ data }) => {
         <div className="flex w-1/3 flex-col gap-16 px-10 pt-6">
           <div>
             <ExteriorColor
+              selectedColor={selectedColor}
+              onColorSelect={setSelectedColor}
               colorsTypes={data.colorsTypes}
               colors={data.colors}
             ></ExteriorColor>
@@ -71,7 +133,11 @@ export const ConfiguratorPageContents = ({ data }) => {
           </div>
 
           <div data-brake-calipers>
-            <BrakeCalipers></BrakeCalipers>
+            <BrakeCalipers
+              selectedBrake={selectedBrake}
+              onBrakeSelect={setSelectedBrake}
+              mockBrakeCalipers={mockBrakeCalipers}
+            ></BrakeCalipers>
           </div>
 
           <div data-seats>
@@ -79,7 +145,11 @@ export const ConfiguratorPageContents = ({ data }) => {
           </div>
 
           <div data-trims>
-            <Trim trim={data.trim}></Trim>
+            <Trim
+              selectedTrim={selectedTrim}
+              onTrimSelect={setSelectedTrim}
+              trim={data.trim}
+            ></Trim>
           </div>
         </div>
       </div>

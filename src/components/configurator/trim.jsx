@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Triangle } from "../icons/triangle";
+import { formatPrice } from "@/lib/utils";
 
-export const Trim = ({ trim }) => {
-  const [selectedTrim, setSelectedTrim] = useState(trim[0]);
+export const Trim = ({ trim, selectedTrim, onTrimSelect }) => {
+  // const [selectedTrim, setSelectedTrim] = useState(trim[0]);
 
   const handleTrimClick = (trim) => {
-    setSelectedTrim(trim);
+    onTrimSelect(trim);
   };
+
+  const formattedPrice = formatPrice(selectedTrim.price);
 
   return (
     <div className="flex flex-col gap-5">
@@ -15,7 +18,7 @@ export const Trim = ({ trim }) => {
       <div>
         <div className="text-[11px] uppercase tracking-wide text-[rgb(102,102,102)]">
           {selectedTrim.name}{" "}
-          {selectedTrim.price !== null && <span>$ {selectedTrim.price}</span>}
+          {selectedTrim.price !== null && <span>{formattedPrice}</span>}
         </div>
       </div>
 

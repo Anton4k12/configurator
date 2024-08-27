@@ -2,7 +2,7 @@ import { useState } from "react";
 import { InfoIcon } from "../icons/info-icon";
 import { PlusIcon } from "../icons/plus-icon";
 import ReactModal from "react-modal";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import { MinusIcon } from "../icons/minus-icon";
 import { ChevronRight } from "../icons/chevron-right";
 import CloseIcon from "../icons/close-icon";
@@ -24,6 +24,8 @@ export const Package = ({ imageUrl, price, characteristics, name }) => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const formattedPrice = formatPrice(price);
 
   return (
     <>
@@ -56,7 +58,7 @@ export const Package = ({ imageUrl, price, characteristics, name }) => {
             <div data-text className="flex flex-col gap-2">
               <div className="text-xl font-light">{name}</div>
 
-              <div className="text-xs text-[#404040]">$ {price}</div>
+              <div className="text-xs text-[#404040]">{formattedPrice}</div>
             </div>
 
             {!isSelected ? (
@@ -101,7 +103,7 @@ export const Package = ({ imageUrl, price, characteristics, name }) => {
             src={imageUrl}
           />
           <div className="flex items-center justify-between">
-            <div className="pl-5 text-xs">$ {price}</div>
+            <div className="pl-5 text-xs">{formattedPrice}</div>
 
             {!isSelected ? (
               <button
