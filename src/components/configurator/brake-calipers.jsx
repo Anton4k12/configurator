@@ -38,7 +38,7 @@ import { formatPrice } from "@/lib/utils";
 export const BrakeCalipers = ({
   selectedBrake,
   onBrakeSelect,
-  mockBrakeCalipers,
+  brakeCalipers,
 }) => {
   // const initialBrake = mockBrakeCalipers.find((brake) => {
   //   if (brake.price === null) {
@@ -67,7 +67,7 @@ export const BrakeCalipers = ({
       </div>
 
       <div data-brake className="flex gap-3">
-        {mockBrakeCalipers.map((brake) => {
+        {brakeCalipers.map((brake) => {
           const isSelectedBrake = selectedBrake.name === brake.name;
           if (isSelectedBrake) {
             return (

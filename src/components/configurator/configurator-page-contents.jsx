@@ -12,38 +12,38 @@ import { Trim } from "./trim";
 import { Wheels } from "./wheels";
 import { useLocation } from "react-router-dom";
 
-const mockBrakeCalipers = [
-  {
-    name: "Gloss Black Painted Brake Calipers",
-    imageUrl:
-      "/configurator/GranTurismo/Brake Calipers/Gloss Black Painted Brake Calipers.jpg",
-    price: 500,
-  },
-  {
-    name: "Gloss Red Painted Brake Calipers",
-    imageUrl:
-      "/configurator/GranTurismo/Brake Calipers/Gloss Red Painted Brake Calipers.jpg",
-    price: null,
-  },
-  {
-    name: "Gloss Yellow Painted Brake Calipers",
-    imageUrl:
-      "/configurator/GranTurismo/Brake Calipers/Gloss Yellow Painted Brake Calipers.jpg",
-    price: 500,
-  },
-  {
-    name: "Anodized Red Calipers",
-    imageUrl:
-      "/configurator/GranTurismo/Brake Calipers/Anodized Red Calipers.jpg",
-    price: 1000,
-  },
-  {
-    name: "Brake Calipers Painted In Blue",
-    imageUrl:
-      "/configurator/GranTurismo/Brake Calipers/Brake Calipers Painted In Blue.jpg",
-    price: 500,
-  },
-];
+// const mockBrakeCalipers = [
+//   {
+//     name: "Gloss Black Painted Brake Calipers",
+//     imageUrl:
+//       "/configurator/GranTurismo/Brake Calipers/Gloss Black Painted Brake Calipers.jpg",
+//     price: 500,
+//   },
+//   {
+//     name: "Gloss Red Painted Brake Calipers",
+//     imageUrl:
+//       "/configurator/GranTurismo/Brake Calipers/Gloss Red Painted Brake Calipers.jpg",
+//     price: null,
+//   },
+//   {
+//     name: "Gloss Yellow Painted Brake Calipers",
+//     imageUrl:
+//       "/configurator/GranTurismo/Brake Calipers/Gloss Yellow Painted Brake Calipers.jpg",
+//     price: 500,
+//   },
+//   {
+//     name: "Anodized Red Calipers",
+//     imageUrl:
+//       "/configurator/GranTurismo/Brake Calipers/Anodized Red Calipers.jpg",
+//     price: 1000,
+//   },
+//   {
+//     name: "Brake Calipers Painted In Blue",
+//     imageUrl:
+//       "/configurator/GranTurismo/Brake Calipers/Brake Calipers Painted In Blue.jpg",
+//     price: 500,
+//   },
+// ];
 
 export const ConfiguratorPageContents = ({ data }) => {
   const { state, pathname } = useLocation();
@@ -64,7 +64,7 @@ export const ConfiguratorPageContents = ({ data }) => {
     }
   });
 
-  const initialBrake = mockBrakeCalipers.find((brake) => {
+  const initialBrake = data.brakeCalipers.find((brake) => {
     if (brake.price === null) {
       return true;
     } else {
@@ -80,12 +80,45 @@ export const ConfiguratorPageContents = ({ data }) => {
 
   const [selectedBrake, setSelectedBrake] = useState(initialBrake);
 
+  const [selectedPackagesIds, setSelectedPackagesIds] = useState([]);
+
+  const handleAddPackage = (id) => {
+    setSelectedPackagesIds([...selectedPackagesIds, id]);
+  };
+
+  const handleRemovePackage = (id) => {
+    const newIds = selectedPackagesIds.filter((pack) => {
+      if (id !== pack.id) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+    setSelectedPackagesIds(newIds);
+  };
+
+  const selectedPackages = data.packages.filter((pack) => {
+    if (selectedPackagesIds.includes(pack.id)) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  const totalPricePackage = selectedPackages.reduce(
+    (acc, pack) => acc + pack.price,
+    0,
+  );
+
+  console.log(totalPricePackage);
+
   const price =
     state.price +
     selectedWheel.price +
     selectedColor.price +
     selectedTrim.price +
-    selectedBrake.price;
+    selectedBrake.price +
+    totalPricePackage;
   console.log(price);
 
   return (
@@ -136,7 +169,7 @@ export const ConfiguratorPageContents = ({ data }) => {
             <BrakeCalipers
               selectedBrake={selectedBrake}
               onBrakeSelect={setSelectedBrake}
-              mockBrakeCalipers={mockBrakeCalipers}
+              brakeCalipers={data.brakeCalipers}
             ></BrakeCalipers>
           </div>
 
@@ -154,7 +187,12 @@ export const ConfiguratorPageContents = ({ data }) => {
         </div>
       </div>
 
-      <Packages packages={data.packages}></Packages>
+      <Packages
+        selectedIds={selectedPackagesIds}
+        packages={data.packages}
+        onPackAdd={handleAddPackage}
+        onPackRemove={handleRemovePackage}
+      ></Packages>
 
       <Options
         optionsTypes={data.optionsTypes}

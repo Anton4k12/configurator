@@ -3,7 +3,12 @@ import { PlusIcon } from "../icons/plus-icon";
 import { Package } from "./package";
 import { MinusIcon } from "../icons/minus-icon";
 
-export const Packages = ({ packages }) => {
+export const Packages = ({
+  packages,
+  selectedIds,
+  onPackAdd,
+  onPackRemove,
+}) => {
   const [isExtended, setIsExtended] = useState(false);
 
   const croppedPackages = packages.slice(0, 4);
@@ -24,6 +29,7 @@ export const Packages = ({ packages }) => {
 
       <div className="grid grid-cols-2 gap-6 pt-5">
         {displayedPackages.map((pack) => {
+          const isSelected = selectedIds.includes(pack.id);
           return (
             <Package
               key={pack.name}
@@ -31,6 +37,10 @@ export const Packages = ({ packages }) => {
               imageUrl={pack.imageUrl}
               price={pack.price}
               characteristics={pack.characteristics}
+              isSelected={isSelected}
+              id={pack.id}
+              onAdd={onPackAdd}
+              onRemove={onPackRemove}
             ></Package>
           );
         })}
