@@ -12,39 +12,6 @@ import { Trim } from "./trim";
 import { Wheels } from "./wheels";
 import { useLocation } from "react-router-dom";
 
-// const mockBrakeCalipers = [
-//   {
-//     name: "Gloss Black Painted Brake Calipers",
-//     imageUrl:
-//       "/configurator/GranTurismo/Brake Calipers/Gloss Black Painted Brake Calipers.jpg",
-//     price: 500,
-//   },
-//   {
-//     name: "Gloss Red Painted Brake Calipers",
-//     imageUrl:
-//       "/configurator/GranTurismo/Brake Calipers/Gloss Red Painted Brake Calipers.jpg",
-//     price: null,
-//   },
-//   {
-//     name: "Gloss Yellow Painted Brake Calipers",
-//     imageUrl:
-//       "/configurator/GranTurismo/Brake Calipers/Gloss Yellow Painted Brake Calipers.jpg",
-//     price: 500,
-//   },
-//   {
-//     name: "Anodized Red Calipers",
-//     imageUrl:
-//       "/configurator/GranTurismo/Brake Calipers/Anodized Red Calipers.jpg",
-//     price: 1000,
-//   },
-//   {
-//     name: "Brake Calipers Painted In Blue",
-//     imageUrl:
-//       "/configurator/GranTurismo/Brake Calipers/Brake Calipers Painted In Blue.jpg",
-//     price: 500,
-//   },
-// ];
-
 export const ConfiguratorPageContents = ({ data }) => {
   const { state, pathname } = useLocation();
 
@@ -82,6 +49,8 @@ export const ConfiguratorPageContents = ({ data }) => {
 
   const [selectedPackagesIds, setSelectedPackagesIds] = useState([]);
 
+  const [selectedOptionsIds, setSelectedOptionsIds] = useState([]);
+
   const handleAddPackage = (id) => {
     setSelectedPackagesIds([...selectedPackagesIds, id]);
   };
@@ -110,7 +79,33 @@ export const ConfiguratorPageContents = ({ data }) => {
     0,
   );
 
-  console.log(totalPricePackage);
+  const handleAddOption = (id) => {
+    setSelectedOptionsIds([...selectedOptionsIds, id]);
+  };
+
+  const handleRemoveOption = (id) => {
+    const newIds = selectedOptionsIds.filter((option) => {
+      if (id !== option.id) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+    setSelectedOptionsIds(newIds);
+  };
+
+  const selectedOptions = data.options.filter((option) => {
+    if (selectedOptionsIds.includes(option.id)) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  const totalPriceOption = selectedOptions.reduce(
+    (acc, option) => acc + option.price,
+    0,
+  );
 
   const price =
     state.price +
@@ -118,7 +113,8 @@ export const ConfiguratorPageContents = ({ data }) => {
     selectedColor.price +
     selectedTrim.price +
     selectedBrake.price +
-    totalPricePackage;
+    totalPricePackage +
+    totalPriceOption;
   console.log(price);
 
   return (
@@ -195,8 +191,11 @@ export const ConfiguratorPageContents = ({ data }) => {
       ></Packages>
 
       <Options
+        selectedIds={selectedOptionsIds}
         optionsTypes={data.optionsTypes}
         options={data.options}
+        onOptionAdd={handleAddOption}
+        onOptionRemove={handleRemoveOption}
       ></Options>
 
       <BottomNavBar price={price}></BottomNavBar>

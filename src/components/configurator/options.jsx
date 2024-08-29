@@ -2,7 +2,13 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Option } from "./option";
 
-export const Options = ({ options, optionsTypes }) => {
+export const Options = ({
+  options,
+  optionsTypes,
+  selectedIds,
+  onOptionRemove,
+  onOptionAdd,
+}) => {
   const [selectedOptionType, setSelectedOptionType] = useState("All");
 
   const handleSelectOptionType = (type) => {
@@ -65,7 +71,16 @@ export const Options = ({ options, optionsTypes }) => {
 
       <div className="grid grid-cols-4 gap-6 px-3 pt-[26px]">
         {displayedOptions.map((option) => {
-          return <Option option={option}></Option>;
+          const isSelected = selectedIds.includes(option.id);
+          return (
+            <Option
+              option={option}
+              isSelected={isSelected}
+              id={option.id}
+              onAdd={onOptionAdd}
+              onRemove={onOptionRemove}
+            ></Option>
+          );
         })}
       </div>
 

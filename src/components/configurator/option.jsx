@@ -8,14 +8,8 @@ import { ChevronRight } from "../icons/chevron-right";
 import CloseIcon from "../icons/close-icon";
 import { Modal } from "./modal";
 
-export const Option = ({ option }) => {
-  const [isSelected, setIsSelected] = useState(false);
-
+export const Option = ({ option, isSelected, id, onAdd, onRemove }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleSelect = () => {
-    setIsSelected(!isSelected);
-  };
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -52,14 +46,14 @@ export const Option = ({ option }) => {
 
             {!isSelected ? (
               <button
-                onClick={handleSelect}
+                onClick={() => onAdd(id)}
                 className="flex items-center justify-center gap-1 border border-black px-6 py-4 text-[11px] uppercase"
               >
                 Add<PlusIcon className="size-4"></PlusIcon>
               </button>
             ) : (
               <button
-                onClick={handleSelect}
+                onClick={() => onRemove(id)}
                 className="flex items-center justify-center gap-1 border border-black px-6 py-4 text-[11px] uppercase"
               >
                 Remove
@@ -99,14 +93,14 @@ export const Option = ({ option }) => {
             <div className="text-xs">{formattedPrice}</div>
             {!isSelected ? (
               <button
-                onClick={handleSelect}
+                onClick={() => onAdd(id)}
                 className="flex items-center justify-center gap-1 border border-black px-6 py-4 text-[11px] uppercase"
               >
                 Add<PlusIcon className="size-4"></PlusIcon>
               </button>
             ) : (
               <button
-                onClick={handleSelect}
+                onClick={() => onRemove(id)}
                 className="flex items-center justify-center gap-1 border border-white px-6 py-4 text-[11px] uppercase"
               >
                 Remove
