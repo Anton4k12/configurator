@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { Triangle } from "../icons/triangle";
 
-export const Seats = ({ seats }) => {
-  const [selectedSeat, setSelectedSeat] = useState(seats[0]);
-
-  const handleSeatClick = (seat) => {
-    setSelectedSeat(seat);
-  };
-
+export const Seats = ({ seats, selectedSeat, onSeatSelect }) => {
   return (
     <div className="flex flex-col gap-5">
       <div className="text-[40px] font-extralight leading-none">Seats</div>
@@ -40,7 +34,7 @@ export const Seats = ({ seats }) => {
           }
           return (
             <img
-              onClick={() => handleSeatClick(seat)}
+              onClick={() => onSeatSelect(seat)}
               key={seat.name}
               className="size-[50px] cursor-pointer rounded-full"
               src={seat.imageUrl}

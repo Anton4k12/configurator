@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { ChevronRight } from "../icons/chevron-right";
 import { Header } from "../shared/header";
 import { BottomNavBar } from "./bottom-navbar";
@@ -11,60 +11,42 @@ import { TopNavBar } from "./top-navbar";
 import { Trim } from "./trim";
 import { Wheels } from "./wheels";
 import { useLocation } from "react-router-dom";
+import { createConfiguratorStore, ConfiguratorContext } from "@/state";
+import { useStore } from "zustand";
 
 export const ConfiguratorPageContents = ({ data }) => {
   const { state, pathname } = useLocation();
 
-  const initialWheel = data.wheels.find((wheel) => {
-    if (wheel.price === null) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+  const store = useContext(ConfiguratorContext);
 
-  const initialTrim = data.trim.find((trim) => {
-    if (trim.price === null) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+  const selectedWheel = useStore(store, (state) => state.selectedWheel);
+  const selectWheel = useStore(store, (state) => state.selectWheel);
 
-  const initialBrake = data.brakeCalipers.find((brake) => {
-    if (brake.price === null) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+  const selectedColor = useStore(store, (state) => state.selectedColor);
+  const selectColor = useStore(store, (state) => state.selectColor);
 
-  const [selectedWheel, setSelectedWheel] = useState(initialWheel);
+  const selectedBrake = useStore(store, (state) => state.selectedBrake);
+  const selectBrake = useStore(store, (state) => state.selectBrake);
 
-  const [selectedColor, setSelectedColor] = useState(data.colors[1]);
+  const selectedTrim = useStore(store, (state) => state.selectedTrim);
+  const selectTrim = useStore(store, (state) => state.selectTrim);
 
-  const [selectedTrim, setSelectedTrim] = useState(initialTrim);
+  const selectedSeat = useStore(store, (state) => state.selectedSeat);
+  const selectSeat = useStore(store, (state) => state.selectSeat);
 
-  const [selectedBrake, setSelectedBrake] = useState(initialBrake);
+  const selectedPackagesIds = useStore(
+    store,
+    (state) => state.selectedPackagesIds,
+  );
+  const addPackage = useStore(store, (state) => state.addPackage);
+  const removePackage = useStore(store, (state) => state.removePackage);
 
-  const [selectedPackagesIds, setSelectedPackagesIds] = useState([]);
-
-  const [selectedOptionsIds, setSelectedOptionsIds] = useState([]);
-
-  const handleAddPackage = (id) => {
-    setSelectedPackagesIds([...selectedPackagesIds, id]);
-  };
-
-  const handleRemovePackage = (id) => {
-    const newIds = selectedPackagesIds.filter((pack) => {
-      if (id !== pack.id) {
-        return false;
-      } else {
-        return true;
-      }
-    });
-    setSelectedPackagesIds(newIds);
-  };
+  const selectedOptionsIds = useStore(
+    store,
+    (state) => state.selectedOptionsIds,
+  );
+  const addOption = useStore(store, (state) => state.addOption);
+  const removeOption = useStore(store, (state) => state.removeOption);
 
   const selectedPackages = data.packages.filter((pack) => {
     if (selectedPackagesIds.includes(pack.id)) {
@@ -78,21 +60,6 @@ export const ConfiguratorPageContents = ({ data }) => {
     (acc, pack) => acc + pack.price,
     0,
   );
-
-  const handleAddOption = (id) => {
-    setSelectedOptionsIds([...selectedOptionsIds, id]);
-  };
-
-  const handleRemoveOption = (id) => {
-    const newIds = selectedOptionsIds.filter((option) => {
-      if (id !== option.id) {
-        return false;
-      } else {
-        return true;
-      }
-    });
-    setSelectedOptionsIds(newIds);
-  };
 
   const selectedOptions = data.options.filter((option) => {
     if (selectedOptionsIds.includes(option.id)) {
@@ -147,7 +114,7 @@ export const ConfiguratorPageContents = ({ data }) => {
           <div>
             <ExteriorColor
               selectedColor={selectedColor}
-              onColorSelect={setSelectedColor}
+              onColorSelect={selectColor}
               colorsTypes={data.colorsTypes}
               colors={data.colors}
             ></ExteriorColor>
@@ -156,7 +123,7 @@ export const ConfiguratorPageContents = ({ data }) => {
           <div aria-label="wheels">
             <Wheels
               selectedWheel={selectedWheel}
-              onWheelSelect={setSelectedWheel}
+              onWheelSelect={selectWheel}
               wheels={data.wheels}
             ></Wheels>
           </div>
@@ -164,19 +131,23 @@ export const ConfiguratorPageContents = ({ data }) => {
           <div data-brake-calipers>
             <BrakeCalipers
               selectedBrake={selectedBrake}
-              onBrakeSelect={setSelectedBrake}
+              onBrakeSelect={selectBrake}
               brakeCalipers={data.brakeCalipers}
             ></BrakeCalipers>
           </div>
 
           <div data-seats>
-            <Seats seats={data.seats}></Seats>
+            <Seats
+              selectedSeat={selectedSeat}
+              onSeatSelect={selectSeat}
+              seats={data.seats}
+            ></Seats>
           </div>
 
           <div data-trims>
             <Trim
               selectedTrim={selectedTrim}
-              onTrimSelect={setSelectedTrim}
+              onTrimSelect={selectTrim}
               trim={data.trim}
             ></Trim>
           </div>
@@ -186,16 +157,16 @@ export const ConfiguratorPageContents = ({ data }) => {
       <Packages
         selectedIds={selectedPackagesIds}
         packages={data.packages}
-        onPackAdd={handleAddPackage}
-        onPackRemove={handleRemovePackage}
+        onPackAdd={addPackage}
+        onPackRemove={removePackage}
       ></Packages>
 
       <Options
         selectedIds={selectedOptionsIds}
         optionsTypes={data.optionsTypes}
         options={data.options}
-        onOptionAdd={handleAddOption}
-        onOptionRemove={handleRemoveOption}
+        onOptionAdd={addOption}
+        onOptionRemove={removeOption}
       ></Options>
 
       <BottomNavBar price={price}></BottomNavBar>

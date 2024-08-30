@@ -5,6 +5,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import { TestPage } from "./pages/test";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
