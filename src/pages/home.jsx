@@ -1,22 +1,12 @@
 import { useState } from "react";
 import { ChevronRight } from "../components/icons/chevron-right";
 import { Header } from "../components/shared/header";
-import { SelectModel } from "../components/home/select-model";
-import { CarConfigurations } from "../components/home/car-configurations";
+import { Car } from "@/components/home/car";
+import useSWR from "swr";
+import { fetcher } from "@/data";
 
 export function HomePage() {
-  const [selectedCar, setSelectedCar] = useState();
-
-  const handleCarSelect = (name) => {
-    setSelectedCar(name);
-  };
-
-  const handleGoBack = () => {
-    setSelectedCar(undefined);
-  };
-
-  const isCarSelected = selectedCar !== undefined;
-
+  const { data, isLoading } = useSWR("/cars", fetcher);
   return (
     <>
       <Header color={{ backgroundColor: "#F6F6F6" }}></Header>
@@ -41,14 +31,28 @@ export function HomePage() {
 
         <hr className="border-zinc-400" />
 
-        {isCarSelected ? (
+        {/* {isCarSelected ? (
           <CarConfigurations
             onGoBack={handleGoBack}
             modelName={selectedCar}
           ></CarConfigurations>
         ) : (
           <SelectModel onCarSelect={handleCarSelect}></SelectModel>
-        )}
+        )} */}
+
+        <div aria-label="cars selector" className="w-full">
+          <div className="grid grid-cols-3 gap-12">
+            {data &&
+              data.map((car) => (
+                <Car name={car.name} imageUrl={car.imageUrl}></Car>
+              ))}
+            {/* <Car
+              name="GranTurismo"
+              imageUrl="/home/cars/GranTurismo.webp"
+            ></Car>
+            <Car name="GranCabrio" imageUrl="/home/cars/GranCabrio.webp"></Car> */}
+          </div>
+        </div>
       </div>
     </>
   );

@@ -18,7 +18,7 @@ export const BottomNavBar = ({ price }) => {
           <MaseratiLogoSmall className="cursor-pointer"></MaseratiLogoSmall>
           <div className="flex flex-col">
             <div className="text-xl font-light">
-              {state.name} {state.model}
+              {state.carName} {state.name}
             </div>
             <div className="text-xs uppercase text-[rgb(33,37,41)]">
               Engine - {state.engineLayout} - {state.displacement} -{" "}

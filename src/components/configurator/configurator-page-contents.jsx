@@ -75,7 +75,7 @@ export const ConfiguratorPageContents = ({ data }) => {
   );
 
   const price =
-    state.price +
+    state.startingPrice +
     selectedWheel.price +
     selectedColor.price +
     selectedTrim.price +

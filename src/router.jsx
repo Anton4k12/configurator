@@ -6,12 +6,21 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import { TestPage } from "./pages/test";
+import { CarPage } from "./pages/car";
+
+export const routes = {
+  home: "/",
+  car: "/:carName",
+  model: "/:carName/:carModel",
+  configurator: "/configurator",
+};
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<HomePage />}></Route>
-      <Route path="/configurator" element={<ConfiguratorPage />}></Route>
+      <Route path={routes.home} element={<HomePage />}></Route>
+      <Route path={routes.car} element={<CarPage />}></Route>
+      <Route path={routes.configurator} element={<ConfiguratorPage />}></Route>
     </>,
   ),
 );
