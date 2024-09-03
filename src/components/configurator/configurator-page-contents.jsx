@@ -13,6 +13,7 @@ import { Wheels } from "./wheels";
 import { useLocation } from "react-router-dom";
 import { createConfiguratorStore, ConfiguratorContext } from "@/state";
 import { useStore } from "zustand";
+import { Summary } from "./summary";
 
 export const ConfiguratorPageContents = ({ data }) => {
   const { state, pathname } = useLocation();
@@ -168,6 +169,8 @@ export const ConfiguratorPageContents = ({ data }) => {
         onOptionAdd={addOption}
         onOptionRemove={removeOption}
       ></Options>
+
+      <Summary></Summary>
 
       <BottomNavBar price={price}></BottomNavBar>
     </div>
