@@ -75,6 +75,14 @@ export const ConfiguratorPageContents = ({ data }) => {
     0,
   );
 
+  const personalizatedPrice =
+    selectedWheel.price +
+    selectedColor.price +
+    selectedTrim.price +
+    selectedBrake.price +
+    totalPricePackage +
+    totalPriceOption;
+
   const price =
     state.startingPrice +
     selectedWheel.price +
@@ -170,7 +178,10 @@ export const ConfiguratorPageContents = ({ data }) => {
         onOptionRemove={removeOption}
       ></Options>
 
-      <Summary></Summary>
+      <Summary
+        price={price}
+        personalizatedPrice={personalizatedPrice}
+      ></Summary>
 
       <BottomNavBar price={price}></BottomNavBar>
     </div>
