@@ -2,6 +2,7 @@ import { ConfiguratorContext } from "@/state";
 import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { useStore } from "zustand";
+import SaveIcon from "../icons/save-icon";
 
 export const Summary = ({ price, personalizatedPrice }) => {
   const { state, pathname } = useLocation();
@@ -12,8 +13,10 @@ export const Summary = ({ price, personalizatedPrice }) => {
   const selectedSeat = useStore(store, (state) => state.selectedSeat);
   return (
     <div>
-      <div className="rounded-2xl bg-[#eee] py-10 text-6xl">
-        Your ...
+      <div className="flex flex-col items-center rounded-2xl bg-[#eee] py-10 text-6xl font-extralight">
+        <div className="tracking-wide">
+          Your {state.carName} {state.name}
+        </div>
         <div className="flex gap-3 pl-3 pt-[60px]">
           <div
             data-summary
@@ -110,8 +113,21 @@ export const Summary = ({ price, personalizatedPrice }) => {
             </div>
           </div>
 
-          <div data-sticky-summary className="w-1/3 bg-white">
-            <div className="w-full">hi</div>
+          <div data-sticky-summary className="w-1/3 bg-white px-[43px] py-8">
+            <div className="pb-8">
+              <div className="flex justify-between pb-[6px] text-center">
+                <div className="text-[40px] font-light">
+                  {state.carName} {state.name}
+                </div>
+                <SaveIcon></SaveIcon>
+              </div>
+
+              <div className="text-sm tracking-[1px] text-[#666]">
+                Total price
+              </div>
+
+              <div className="text-xl">${price}</div>
+            </div>
           </div>
         </div>
       </div>
