@@ -10,15 +10,18 @@ import { Seats } from "./seats";
 import { TopNavBar } from "./top-navbar";
 import { Trim } from "./trim";
 import { Wheels } from "./wheels";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { createConfiguratorStore, ConfiguratorContext } from "@/state";
 import { useStore } from "zustand";
 import { Summary } from "./summary";
+import useSWR from "swr";
+import { fetcher } from "@/data";
+import { LoadingScreen } from "../shared/loading-screen";
 
-export const ConfiguratorPageContents = ({ data }) => {
-  const { state, pathname } = useLocation();
-
+export const ConfiguratorPageContents = ({ data, models }) => {
   const store = useContext(ConfiguratorContext);
+
+  const { carName, carModel } = useParams();
 
   const selectedWheel = useStore(store, (state) => state.selectedWheel);
   const selectWheel = useStore(store, (state) => state.selectWheel);
@@ -75,6 +78,10 @@ export const ConfiguratorPageContents = ({ data }) => {
     0,
   );
 
+  const model = models.find((model) => {
+    return model.carName === carName && model.name === carModel;
+  });
+
   const personalizatedPrice =
     selectedWheel.price +
     selectedColor.price +
@@ -84,14 +91,13 @@ export const ConfiguratorPageContents = ({ data }) => {
     totalPriceOption;
 
   const price =
-    state.startingPrice +
+    model.startingPrice +
     selectedWheel.price +
     selectedColor.price +
     selectedTrim.price +
     selectedBrake.price +
     totalPricePackage +
     totalPriceOption;
-  console.log(price);
 
   return (
     <div className="pb-96">
@@ -181,9 +187,10 @@ export const ConfiguratorPageContents = ({ data }) => {
       <Summary
         price={price}
         personalizatedPrice={personalizatedPrice}
+        model={model}
       ></Summary>
 
-      <BottomNavBar price={price}></BottomNavBar>
+      <BottomNavBar model={model} price={price}></BottomNavBar>
     </div>
   );
 };

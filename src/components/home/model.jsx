@@ -20,7 +20,7 @@ export const Model = ({ model, carName }) => {
         <p className="pt-6 text-[11px] font-medium">{model.year}</p>
       </div>
 
-      <Link to={"/configurator"} state={model}>
+      <Link to={`/${carName}/${model.name}`}>
         <img className="w-full" src={model.imageUrl} />
       </Link>
 
@@ -32,7 +32,9 @@ export const Model = ({ model, carName }) => {
 
         <div className="flex items-center justify-between text-sm text-[rgb(102,102,102)]">
           Displacement{" "}
-          <div className="text-xl text-black">{model.displacement}</div>
+          <div className="text-xl text-black">
+            {model.displacement ? model.displacement : "—"}
+          </div>
         </div>
 
         <div className="flex items-center justify-between text-sm text-[rgb(102,102,102)]">
@@ -55,8 +57,7 @@ export const Model = ({ model, carName }) => {
 
       <div>
         <Link
-          to={"/configurator"}
-          state={model}
+          to={`/${carName}/${model.name}`}
           className="relative flex w-full justify-start bg-[rgb(255,200,69)] py-5 pl-5 text-[11px] font-medium uppercase"
         >
           Configure{" "}

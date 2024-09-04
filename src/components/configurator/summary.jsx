@@ -4,23 +4,21 @@ import { useLocation } from "react-router-dom";
 import { useStore } from "zustand";
 import SaveIcon from "../icons/save-icon";
 
-export const Summary = ({ price, personalizatedPrice }) => {
-  const { state, pathname } = useLocation();
-
+export const Summary = ({ price, personalizatedPrice, model }) => {
   const store = useContext(ConfiguratorContext);
 
   const selectedColor = useStore(store, (state) => state.selectedColor);
   const selectedSeat = useStore(store, (state) => state.selectedSeat);
   return (
     <div>
-      <div className="flex flex-col items-center rounded-2xl bg-[#eee] py-10 text-6xl font-extralight">
-        <div className="tracking-wide">
-          Your {state.carName} {state.name}
+      <div className="flex flex-col items-center rounded-2xl bg-[#eee] py-10 font-extralight">
+        <div className="text-6xl tracking-wide">
+          Your {model.carName} {model.name}
         </div>
         <div className="flex gap-3 pl-3 pt-[60px]">
           <div
             data-summary
-            className="flex w-2/3 flex-col gap-[60px] bg-white px-[93px] pt-[60px]"
+            className="flex w-2/3 flex-col gap-[60px] rounded-2xl bg-white px-[93px] pt-[60px]"
           >
             <img className="rounded-2xl" src="/home/GranTurismo/gfx1.jpeg" />
 
@@ -77,7 +75,7 @@ export const Summary = ({ price, personalizatedPrice }) => {
                 </div>
 
                 <div className="text-xl">
-                  {state.engineLayout} {state.maxPower}
+                  {model.engineLayout} {model.maxPower}
                 </div>
               </div>
 
@@ -97,7 +95,7 @@ export const Summary = ({ price, personalizatedPrice }) => {
 
               <div className="pt-8">
                 <div className="text-sm font-medium">
-                  Base price ${state.startingPrice}
+                  Base price ${model.startingPrice}
                 </div>
 
                 {personalizatedPrice !== 0 && (
@@ -113,13 +111,18 @@ export const Summary = ({ price, personalizatedPrice }) => {
             </div>
           </div>
 
-          <div data-sticky-summary className="w-1/3 bg-white px-[43px] py-8">
+          <div
+            data-sticky-summary
+            className="w-1/3 rounded-2xl bg-white px-[43px] py-8"
+          >
             <div className="pb-8">
-              <div className="flex justify-between pb-[6px] text-center">
-                <div className="text-[40px] font-light">
-                  {state.carName} {state.name}
+              <div className="flex items-center justify-between pb-[6px] text-left leading-none">
+                <div className="text-[45px] font-light">
+                  {model.carName} {model.name}
                 </div>
-                <SaveIcon></SaveIcon>
+                <div className="pr-2">
+                  <SaveIcon></SaveIcon>
+                </div>
               </div>
 
               <div className="text-sm tracking-[1px] text-[#666]">

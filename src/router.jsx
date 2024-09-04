@@ -20,7 +20,7 @@ export const router = createBrowserRouter(
     <>
       <Route path={routes.home} element={<HomePage />}></Route>
       <Route path={routes.car} element={<CarPage />}></Route>
-      <Route path={routes.configurator} element={<ConfiguratorPage />}></Route>
+      <Route path={routes.model} element={<ConfiguratorPage />}></Route>
     </>,
   ),
 );

@@ -1,28 +1,36 @@
 import { ConfiguratorPageContents } from "@/components/configurator/configurator-page-contents";
 import { Spinner } from "@/components/icons/spinner";
 import { Header } from "@/components/shared/header";
+import { LoadingScreen } from "@/components/shared/loading-screen";
 import { fetcher } from "@/data";
 import { createConfiguratorStore, ConfiguratorContext } from "@/state";
 import { useRef } from "react";
+import { useParams } from "react-router-dom";
 import useSWR from "swr";
 
 export const ConfiguratorPage = () => {
-  const { data, isLoading } = useSWR("/configurator", fetcher);
+  const { carName, carModel } = useParams();
 
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen flex-col">
-        <Header color="#FFFFFF"></Header>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Spinner className="size-10"></Spinner>
-        </div>
-      </div>
-    );
+  const { data, isLoading: isLoadingModelDetails } = useSWR(
+    `/modelDetails/${carName}/${carModel}`,
+    fetcher,
+  );
+
+  const { data: modelsData, isLoading: isLoadingModels } = useSWR(
+    `/models/${carName}`,
+    fetcher,
+  );
+
+  if (isLoadingModelDetails || isLoadingModels) {
+    return <LoadingScreen></LoadingScreen>;
   }
 
   return (
     <StateProvider data={data}>
-      <ConfiguratorPageContents data={data}></ConfiguratorPageContents>;
+      <ConfiguratorPageContents
+        models={modelsData.models}
+        data={data}
+      ></ConfiguratorPageContents>
     </StateProvider>
   );
 };
