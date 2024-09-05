@@ -143,7 +143,7 @@ export const Summary = ({ price, personalizatedPrice, model }) => {
 
           <div
             data-sticky-summary
-            className="sticky top-12 h-fit w-1/3 rounded-t-2xl bg-white px-[43px] py-8"
+            className="sticky top-9 h-fit w-1/3 rounded-t-2xl bg-white px-[43px] py-8"
           >
             <div className="pb-8">
               <div className="flex items-center justify-between pb-[6px] text-left leading-none">

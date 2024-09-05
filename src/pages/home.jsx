@@ -28,9 +28,7 @@ export function HomePage() {
             </button>
           </div>
         </div>
-
         <hr className="border-zinc-400" />
-
         {/* {isCarSelected ? (
           <CarConfigurations
             onGoBack={handleGoBack}
@@ -38,13 +36,16 @@ export function HomePage() {
           ></CarConfigurations>
         ) : (
           <SelectModel onCarSelect={handleCarSelect}></SelectModel>
-        )} */}
-
+        )} */}{" "}
         <div aria-label="cars selector" className="w-full">
           <div className="grid grid-cols-3 gap-12">
             {data &&
               data.map((car) => (
-                <Car name={car.name} imageUrl={car.imageUrl}></Car>
+                <Car
+                  isLoading={isLoading}
+                  name={car.name}
+                  imageUrl={car.imageUrl}
+                ></Car>
               ))}
             {/* <Car
               name="GranTurismo"

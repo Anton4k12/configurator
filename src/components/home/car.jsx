@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronRight } from "../icons/chevron-right";
 
-export const Car = ({ name, imageUrl }) => {
+export const Car = ({ name, imageUrl, isLoading }) => {
   const carPath = `/${name}`;
 
   const navigate = useNavigate();
@@ -9,6 +9,14 @@ export const Car = ({ name, imageUrl }) => {
   const handleClick = () => {
     navigate(carPath);
   };
+
+  // if (isLoading) {
+  //   <div className="flex flex-col items-center gap-4">
+  //     <div className="animate-pulse bg-zinc-600 pt-10 text-2xl"></div>
+  //     <div className="w-[432px] animate-pulse cursor-pointer bg-zinc-600" />
+  //     <div className="relative animate-pulse border border-black bg-zinc-600 px-5 py-4 pr-44 text-[11px] font-medium uppercase"></div>
+  //   </div>;
+  // }
 
   return (
     <div className="flex flex-col items-center gap-4">
