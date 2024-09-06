@@ -33,30 +33,18 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
 
               <hr className="border-zinc-400" />
 
-              <div className="flex justify-between pt-10">
-                <div className="flex flex-1 items-center gap-4">
-                  <img
-                    className="rounded-full"
-                    src={selectedColor.imageUrl}
-                  ></img>
+              <div className="flex justify-between pt-10 *:flex-1">
+                <Detail
+                  imageUrl={selectedColor.imageUrl}
+                  name={selectedColor.name}
+                  category="Exterior Color"
+                ></Detail>
 
-                  <div className="flex flex-col">
-                    <div className="text-sm text-[#666]">Exterior Color</div>
-
-                    <div className="text-sm">{selectedColor.name}</div>
-                  </div>
-                </div>
-
-                <div className="flex flex-1 items-center gap-4">
-                  <img
-                    className="rounded-full"
-                    src={selectedSeat.imageUrl}
-                  ></img>
-                  <div className="flex flex-col">
-                    <div className="text-sm text-[#666]">Seats</div>
-                    <div className="text-sm">{selectedSeat.name}</div>
-                  </div>
-                </div>
+                <Detail
+                  imageUrl={selectedSeat.imageUrl}
+                  name={selectedSeat.name}
+                  category="Seats"
+                ></Detail>
               </div>
             </div>
             <div className="text-[11px] uppercase tracking-[1px]">
@@ -228,6 +216,20 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+};
+
+const Detail = ({ imageUrl, name, category }) => {
+  return (
+    <div className="flex items-center gap-4">
+      <img className="rounded-full" src={imageUrl}></img>
+
+      <div className="flex flex-col">
+        <div className="text-sm text-[#666]">{category}</div>
+
+        <div className="text-sm">{name}</div>
       </div>
     </div>
   );
