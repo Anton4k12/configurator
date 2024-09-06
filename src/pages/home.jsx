@@ -37,23 +37,31 @@ export function HomePage() {
         ) : (
           <SelectModel onCarSelect={handleCarSelect}></SelectModel>
         )} */}{" "}
-        <div aria-label="cars selector" className="w-full">
-          <div className="grid grid-cols-3 gap-12">
-            {data &&
-              data.map((car) => (
-                <Car
-                  isLoading={isLoading}
-                  name={car.name}
-                  imageUrl={car.imageUrl}
-                ></Car>
-              ))}
-            {/* <Car
+        {!isLoading ? (
+          <div aria-label="cars selector" className="w-full">
+            <div className="grid grid-cols-3 gap-12">
+              {data &&
+                data.map((car) => (
+                  <Car
+                    isLoading={isLoading}
+                    name={car.name}
+                    imageUrl={car.imageUrl}
+                  ></Car>
+                ))}
+              {/* <Car
               name="GranTurismo"
               imageUrl="/home/cars/GranTurismo.webp"
             ></Car>
             <Car name="GranCabrio" imageUrl="/home/cars/GranCabrio.webp"></Car> */}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="flex flex-col items-center gap-4">
+            <div className="animate-pulse bg-zinc-600 pt-10 text-2xl"></div>
+            <div className="w-full animate-pulse cursor-pointer bg-zinc-600" />
+            <div className="relative animate-pulse bg-zinc-600 px-5 py-4 pr-44 text-[11px] font-medium uppercase"></div>
+          </div>
+        )}
       </div>
     </>
   );

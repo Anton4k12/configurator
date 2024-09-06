@@ -11,11 +11,11 @@ export const Car = ({ name, imageUrl, isLoading }) => {
   };
 
   // if (isLoading) {
-  //   <div className="flex flex-col items-center gap-4">
-  //     <div className="animate-pulse bg-zinc-600 pt-10 text-2xl"></div>
-  //     <div className="w-[432px] animate-pulse cursor-pointer bg-zinc-600" />
-  //     <div className="relative animate-pulse border border-black bg-zinc-600 px-5 py-4 pr-44 text-[11px] font-medium uppercase"></div>
-  //   </div>;
+  // <div className="flex flex-col items-center gap-4">
+  //   <div className="animate-pulse bg-zinc-600 pt-10 text-2xl"></div>
+  //   <div className="w-[432px] animate-pulse cursor-pointer bg-zinc-600" />
+  //   <div className="relative animate-pulse border border-black bg-zinc-600 px-5 py-4 pr-44 text-[11px] font-medium uppercase"></div>
+  // </div>;
   // }
 
   return (
