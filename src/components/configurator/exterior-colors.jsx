@@ -1,24 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { cn, formatPrice } from "@/lib/utils";
 import { Triangle } from "../icons/triangle";
+import { ConfiguratorContext } from "@/state";
+import { useStore } from "zustand";
 
-export const ExteriorColor = ({
-  colorsTypes,
-  colors,
-  selectedColor,
-  onColorSelect,
-}) => {
+export const ExteriorColor = ({ colorsTypes, colors }) => {
+  const store = useContext(ConfiguratorContext);
+
   const [selectedColorType, setSelectedColorType] = useState(colorsTypes[0]);
 
-  // const [selectedColor, setSelectedColor] = useState(colors[1]);
+  //@ts-ignore
+  const selectedColor = useStore(store, (state) => state.selectedColor);
+  const selectColor = useStore(store, (state) => state.selectColor);
 
   const displayedColors = colors.filter((color) => {
     return color.type === selectedColorType;
-    // if (color.type === selectedColorType) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
   });
 
   const handleSelectColorType = (type) => {
@@ -26,7 +22,7 @@ export const ExteriorColor = ({
   };
 
   const handleSelectColor = (color) => {
-    onColorSelect(color);
+    selectColor(color);
   };
 
   const formattedPrice = formatPrice(selectedColor.price);
@@ -81,9 +77,6 @@ export const ExteriorColor = ({
               src={color.imageUrl}
             />
           );
-          // return (
-          //   <img className="size-[50px] rounded-full" src={color.imageUrl} />
-          // );
         })}
       </div>
     </div>

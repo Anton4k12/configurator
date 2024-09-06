@@ -27,11 +27,7 @@ export const createConfiguratorStore = (initProps) => {
     removePackage: (id) => {
       set((state) => ({
         selectedPackagesIds: state.selectedPackagesIds.filter((packId) => {
-          if (id === packId) {
-            return false;
-          } else {
-            return true;
-          }
+          return id !== packId;
         }),
       }));
     },
@@ -45,11 +41,7 @@ export const createConfiguratorStore = (initProps) => {
     removeOption: (id) => {
       set((state) => ({
         selectedOptionsIds: state.selectedOptionsIds.filter((optionId) => {
-          if (id === optionId) {
-            return false;
-          } else {
-            return true;
-          }
+          return id !== optionId;
         }),
       }));
     },

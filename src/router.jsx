@@ -1,26 +1,24 @@
-import { Route } from "react-router-dom";
-import { HomePage } from "./pages/home";
-import { ConfiguratorPage } from "./pages/configurator";
 import {
+  Route,
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import { TestPage } from "./pages/test";
-import { CarPage } from "./pages/car";
+import { ConfiguratorPage } from "./pages/configurator";
+import { HomePage } from "./pages/home";
+import { ModelPage } from "./pages/model";
 
 export const routes = {
   home: "/",
-  car: "/:carName",
-  model: "/:carName/:carModel",
-  configurator: "/configurator",
+  model: "/:modelName",
+  subModel: "/:modelName/:subModelName",
 };
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path={routes.home} element={<HomePage />}></Route>
-      <Route path={routes.car} element={<CarPage />}></Route>
-      <Route path={routes.model} element={<ConfiguratorPage />}></Route>
+      <Route path={routes.model} element={<ModelPage />}></Route>
+      <Route path={routes.subModel} element={<ConfiguratorPage />}></Route>
     </>,
   ),
 );

@@ -1,4 +1,7 @@
-import { useContext, useRef, useState } from "react";
+import { ConfiguratorContext } from "@/state";
+import { useContext } from "react";
+import { useParams } from "react-router-dom";
+import { useStore } from "zustand";
 import { ChevronRight } from "../icons/chevron-right";
 import { Header } from "../shared/header";
 import { BottomNavBar } from "./bottom-navbar";
@@ -7,27 +10,20 @@ import { ExteriorColor } from "./exterior-colors";
 import { Options } from "./options";
 import { Packages } from "./packages";
 import { Seats } from "./seats";
+import { Summary } from "./summary";
 import { TopNavBar } from "./top-navbar";
 import { Trim } from "./trim";
 import { Wheels } from "./wheels";
-import { useLocation, useParams } from "react-router-dom";
-import { createConfiguratorStore, ConfiguratorContext } from "@/state";
-import { useStore } from "zustand";
-import { Summary } from "./summary";
-import useSWR from "swr";
-import { fetcher } from "@/data";
-import { LoadingScreen } from "../shared/loading-screen";
 
-export const ConfiguratorPageContents = ({ data, models }) => {
+export const ConfiguratorPageContents = ({ data, subModels }) => {
   const store = useContext(ConfiguratorContext);
 
-  const { carName, carModel } = useParams();
+  const { modelName, subModelName } = useParams();
+
+  const selectedColor = useStore(store, (state) => state.selectedColor);
 
   const selectedWheel = useStore(store, (state) => state.selectedWheel);
   const selectWheel = useStore(store, (state) => state.selectWheel);
-
-  const selectedColor = useStore(store, (state) => state.selectedColor);
-  const selectColor = useStore(store, (state) => state.selectColor);
 
   const selectedBrake = useStore(store, (state) => state.selectedBrake);
   const selectBrake = useStore(store, (state) => state.selectBrake);
@@ -53,11 +49,7 @@ export const ConfiguratorPageContents = ({ data, models }) => {
   const removeOption = useStore(store, (state) => state.removeOption);
 
   const selectedPackages = data.packages.filter((pack) => {
-    if (selectedPackagesIds.includes(pack.id)) {
-      return true;
-    } else {
-      return false;
-    }
+    return selectedPackagesIds.includes(pack.id);
   });
 
   const totalPricePackage = selectedPackages.reduce(
@@ -66,11 +58,7 @@ export const ConfiguratorPageContents = ({ data, models }) => {
   );
 
   const selectedOptions = data.options.filter((option) => {
-    if (selectedOptionsIds.includes(option.id)) {
-      return true;
-    } else {
-      return false;
-    }
+    return selectedOptionsIds.includes(option.id);
   });
 
   const totalPriceOption = selectedOptions.reduce(
@@ -78,11 +66,11 @@ export const ConfiguratorPageContents = ({ data, models }) => {
     0,
   );
 
-  const model = models.find((model) => {
-    return model.carName === carName && model.name === carModel;
+  const subModel = subModels.find((subModel) => {
+    return subModel.modelName === modelName && subModel.name === subModelName;
   });
 
-  const personalizatedPrice =
+  const personalizedPrice =
     selectedWheel.price +
     selectedColor.price +
     selectedTrim.price +
@@ -91,7 +79,7 @@ export const ConfiguratorPageContents = ({ data, models }) => {
     totalPriceOption;
 
   const price =
-    model.startingPrice +
+    subModel.startingPrice +
     selectedWheel.price +
     selectedColor.price +
     selectedTrim.price +
@@ -128,8 +116,6 @@ export const ConfiguratorPageContents = ({ data, models }) => {
         <div className="flex w-1/3 flex-col gap-16 px-10 pt-6">
           <div>
             <ExteriorColor
-              selectedColor={selectedColor}
-              onColorSelect={selectColor}
               colorsTypes={data.colorsTypes}
               colors={data.colors}
             ></ExteriorColor>
@@ -186,11 +172,11 @@ export const ConfiguratorPageContents = ({ data, models }) => {
 
       <Summary
         price={price}
-        personalizatedPrice={personalizatedPrice}
-        model={model}
+        personalizatedPrice={personalizedPrice}
+        subModel={subModel}
       ></Summary>
 
-      <BottomNavBar model={model} price={price}></BottomNavBar>
+      <BottomNavBar subModel={subModel} price={price}></BottomNavBar>
     </div>
   );
 };

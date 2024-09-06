@@ -1,35 +1,31 @@
 import { ConfiguratorPageContents } from "@/components/configurator/configurator-page-contents";
-import { Spinner } from "@/components/icons/spinner";
-import { Header } from "@/components/shared/header";
 import { LoadingScreen } from "@/components/shared/loading-screen";
 import { fetcher } from "@/data";
-import { createConfiguratorStore, ConfiguratorContext } from "@/state";
+import { ConfiguratorContext, createConfiguratorStore } from "@/state";
 import { useRef } from "react";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 
 export const ConfiguratorPage = () => {
-  const { carName, carModel } = useParams();
+  const { modelName, subModelName } = useParams();
 
-  const { data, isLoading: isLoadingModelDetails } = useSWR(
-    `/modelDetails/${carName}/${carModel}`,
+  const { data: subModelDetailsData, isLoading: isLoadingSubModelDetails } =
+    useSWR(`/subModelDetails/${modelName}/${subModelName}`, fetcher);
+
+  const { data: subModelsData, isLoading: isLoadingSubModels } = useSWR(
+    `/subModels/${modelName}`,
     fetcher,
   );
 
-  const { data: modelsData, isLoading: isLoadingModels } = useSWR(
-    `/models/${carName}`,
-    fetcher,
-  );
-
-  if (isLoadingModelDetails || isLoadingModels) {
+  if (isLoadingSubModelDetails || isLoadingSubModels) {
     return <LoadingScreen></LoadingScreen>;
   }
 
   return (
-    <StateProvider data={data}>
+    <StateProvider data={subModelDetailsData}>
       <ConfiguratorPageContents
-        models={modelsData.models}
-        data={data}
+        subModels={subModelsData.subModels}
+        data={subModelDetailsData}
       ></ConfiguratorPageContents>
     </StateProvider>
   );
@@ -37,27 +33,15 @@ export const ConfiguratorPage = () => {
 
 const StateProvider = ({ data, children }) => {
   const initialWheel = data.wheels.find((wheel) => {
-    if (wheel.price === null) {
-      return true;
-    } else {
-      return false;
-    }
+    return wheel.price === null;
   });
 
   const initialBrake = data.brakeCalipers.find((brake) => {
-    if (brake.price === null) {
-      return true;
-    } else {
-      return false;
-    }
+    return brake.price === null;
   });
 
   const initialTrim = data.trim.find((trim) => {
-    if (trim.price === null) {
-      return true;
-    } else {
-      return false;
-    }
+    return trim.price === null;
   });
 
   const store = useRef(

@@ -56,6 +56,7 @@ export const Options = ({
         {optionsTypes.map((type) => {
           return (
             <button
+              key={type}
               onClick={() => handleSelectOptionType(type)}
               className={cn(
                 "uppercase transition-colors hover:text-black",
@@ -74,6 +75,7 @@ export const Options = ({
           const isSelected = selectedIds.includes(option.id);
           return (
             <Option
+              key={option.id}
               option={option}
               isSelected={isSelected}
               id={option.id}

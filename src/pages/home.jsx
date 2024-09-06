@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { Model } from "@/components/home/model";
+import { fetcher } from "@/data";
+import useSWR from "swr";
 import { ChevronRight } from "../components/icons/chevron-right";
 import { Header } from "../components/shared/header";
-import { Car } from "@/components/home/car";
-import useSWR from "swr";
-import { fetcher } from "@/data";
 
 export function HomePage() {
-  const { data, isLoading } = useSWR("/cars", fetcher);
+  const { data: modelsData, isLoading } = useSWR("/models", fetcher);
   return (
     <>
       <Header color={{ backgroundColor: "#F6F6F6" }}></Header>
@@ -29,40 +28,40 @@ export function HomePage() {
           </div>
         </div>
         <hr className="border-zinc-400" />
-        {/* {isCarSelected ? (
-          <CarConfigurations
-            onGoBack={handleGoBack}
-            modelName={selectedCar}
-          ></CarConfigurations>
-        ) : (
-          <SelectModel onCarSelect={handleCarSelect}></SelectModel>
-        )} */}{" "}
-        {!isLoading ? (
-          <div aria-label="cars selector" className="w-full">
-            <div className="grid grid-cols-3 gap-12">
-              {data &&
-                data.map((car) => (
-                  <Car
-                    isLoading={isLoading}
-                    name={car.name}
-                    imageUrl={car.imageUrl}
-                  ></Car>
-                ))}
-              {/* <Car
-              name="GranTurismo"
-              imageUrl="/home/cars/GranTurismo.webp"
-            ></Car>
-            <Car name="GranCabrio" imageUrl="/home/cars/GranCabrio.webp"></Car> */}
-            </div>
+
+        <div aria-label="cars selector" className="w-full">
+          <div className="grid grid-cols-3 gap-12">
+            {!isLoading ? (
+              <>
+                {modelsData &&
+                  modelsData.map((model) => (
+                    <Model
+                      key={model.id}
+                      name={model.name}
+                      imageUrl={model.imageUrl}
+                    ></Model>
+                  ))}
+              </>
+            ) : (
+              <>
+                <Skeleton></Skeleton>
+                <Skeleton></Skeleton>
+                <Skeleton></Skeleton>
+              </>
+            )}
           </div>
-        ) : (
-          <div className="flex flex-col items-center gap-4">
-            <div className="animate-pulse bg-zinc-600 pt-10 text-2xl"></div>
-            <div className="w-full animate-pulse cursor-pointer bg-zinc-600" />
-            <div className="relative animate-pulse bg-zinc-600 px-5 py-4 pr-44 text-[11px] font-medium uppercase"></div>
-          </div>
-        )}
+        </div>
       </div>
     </>
   );
 }
+
+const Skeleton = () => {
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <div className="animate-pulse bg-zinc-100 pt-10 text-2xl"></div>
+      <div className="h-60 w-full animate-pulse cursor-pointer bg-zinc-100" />
+      <div className="relative animate-pulse bg-zinc-100 px-5 py-4 pr-44 text-[11px] font-medium uppercase"></div>
+    </div>
+  );
+};

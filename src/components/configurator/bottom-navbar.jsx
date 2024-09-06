@@ -4,7 +4,7 @@ import { HeartIcon } from "../icons/heart-icon";
 import { useLocation } from "react-router-dom";
 import { formatPrice } from "@/lib/utils";
 
-export const BottomNavBar = ({ price, model }) => {
+export const BottomNavBar = ({ price, subModel }) => {
   const formattedPrice = formatPrice(price);
   return (
     <div
@@ -16,12 +16,12 @@ export const BottomNavBar = ({ price, model }) => {
           <MaseratiLogoSmall className="cursor-pointer"></MaseratiLogoSmall>
           <div className="flex flex-col">
             <div className="text-xl font-light">
-              {model.carName} {model.name}
+              {subModel.modelName} {subModel.name}
             </div>
             <div className="text-xs uppercase text-[rgb(33,37,41)]">
-              Engine - {model.engineLayout}{" "}
-              {model.displacement && `- ${model.displacement}`} -{" "}
-              {model.maxPower}
+              Engine - {subModel.engineLayout}{" "}
+              {subModel.displacement && `- ${subModel.displacement}`} -{" "}
+              {subModel.maxPower}
             </div>
           </div>
 

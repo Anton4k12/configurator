@@ -8,7 +8,7 @@ import ArrowUturnIcon from "../icons/arrow-uturn-icon";
 import ArrowCircleIcon from "../icons/arrow-circle-icon";
 import DownloadIcon from "../icons/download-icon";
 
-export const Summary = ({ price, personalizatedPrice, model }) => {
+export const Summary = ({ price, personalizatedPrice, subModel }) => {
   const store = useContext(ConfiguratorContext);
 
   const selectedColor = useStore(store, (state) => state.selectedColor);
@@ -17,7 +17,7 @@ export const Summary = ({ price, personalizatedPrice, model }) => {
     <div>
       <div className="flex flex-col items-center rounded-2xl bg-[#eee] pt-10 font-extralight">
         <div className="text-6xl tracking-wide">
-          Your {model.carName} {model.name}
+          Your {subModel.modelName} {subModel.name}
         </div>
         <div className="flex gap-3 pl-3 pt-[60px]">
           <div
@@ -79,7 +79,7 @@ export const Summary = ({ price, personalizatedPrice, model }) => {
                 </div>
 
                 <div className="text-xl">
-                  {model.engineLayout} {model.maxPower}
+                  {subModel.engineLayout} {subModel.maxPower}
                 </div>
               </div>
 
@@ -99,7 +99,7 @@ export const Summary = ({ price, personalizatedPrice, model }) => {
 
               <div className="pb-20 pt-8">
                 <div className="text-sm font-medium">
-                  Base price ${model.startingPrice}
+                  Base price ${subModel.startingPrice}
                 </div>
 
                 {personalizatedPrice !== 0 && (
@@ -148,7 +148,7 @@ export const Summary = ({ price, personalizatedPrice, model }) => {
             <div className="pb-8">
               <div className="flex items-center justify-between pb-[6px] text-left leading-none">
                 <div className="text-[40px] font-light">
-                  {model.carName} {model.name}
+                  {subModel.modelName} {subModel.name}
                 </div>
                 <div className="pr-2">
                   <SaveIcon></SaveIcon>

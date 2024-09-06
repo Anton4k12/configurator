@@ -1,4 +1,4 @@
-import { Model } from "@/components/home/model";
+import { SubModel } from "@/components/home/sub-model";
 import { ChevronRight } from "@/components/icons/chevron-right";
 import { GranTurismoIcon } from "@/components/icons/granturismo-logo";
 import { Header } from "@/components/shared/header";
@@ -7,10 +7,10 @@ import { routes } from "@/router";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
 
-export const CarPage = () => {
-  const { carName } = useParams();
+export const ModelPage = () => {
+  const { modelName } = useParams();
 
-  const { data: data, isLoading } = useSWR(`/models/${carName}`, fetcher);
+  const { data: data, isLoading } = useSWR(`/subModels/${modelName}`, fetcher);
 
   const navigate = useNavigate();
 
@@ -60,12 +60,12 @@ export const CarPage = () => {
 
           <div className="grid grid-cols-4 gap-12">
             {data &&
-              data.models.map((model) => (
-                <Model
-                  model={model}
-                  carName={carName}
-                  key={model.model}
-                ></Model>
+              data.subModels.map((subModel) => (
+                <SubModel
+                  subModel={subModel}
+                  modelName={modelName}
+                  key={subModel.id}
+                ></SubModel>
               ))}
           </div>
         </>

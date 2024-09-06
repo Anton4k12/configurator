@@ -87,8 +87,12 @@ export const Package = ({
           <ul className="list-inside list-disc px-6 py-6 text-sm font-light tracking-wider text-[#333]">
             <div className="py-3">The package contains:</div>
 
-            {characteristics.map((charac) => {
-              return <li className="py-2 pl-6">{charac}</li>;
+            {characteristics.map((char, i) => {
+              return (
+                <li key={i} className="py-2 pl-6">
+                  {char}
+                </li>
+              );
             })}
           </ul>
         </div>
@@ -135,8 +139,8 @@ export const Package = ({
               isSelected && "text-white",
             )}
           >
-            {characteristics.map((char) => {
-              return <li>{char}</li>;
+            {characteristics.map((char, i) => {
+              return <li key={i}>{char}</li>;
             })}
           </ul>
           <button onClick={handleOpenModal} className="absolute right-3 top-0">
