@@ -58,10 +58,10 @@ export function HomePage() {
 
 const Skeleton = () => {
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div className="animate-pulse bg-zinc-100 pt-10 text-2xl"></div>
-      <div className="h-60 w-full animate-pulse cursor-pointer bg-zinc-100" />
-      <div className="relative animate-pulse bg-zinc-100 px-5 py-4 pr-44 text-[11px] font-medium uppercase"></div>
+    <div className="flex flex-col items-center gap-2 pt-10">
+      <div className="h-8 w-1/3 animate-pulse rounded-xl bg-zinc-100 text-2xl"></div>
+      <div className="h-52 w-full animate-pulse cursor-pointer rounded-xl bg-zinc-100" />
+      <div className="relative h-14 w-2/3 animate-pulse rounded-xl bg-zinc-100 px-5 py-4 pr-44 text-[11px] font-medium uppercase"></div>
     </div>
   );
 };

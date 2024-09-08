@@ -59,17 +59,48 @@ export const ModelPage = () => {
           </div>
 
           <div className="grid grid-cols-4 gap-12">
-            {data &&
-              data.subModels.map((subModel) => (
-                <SubModel
-                  subModel={subModel}
-                  modelName={modelName}
-                  key={subModel.id}
-                ></SubModel>
-              ))}
+            {!isLoading ? (
+              <>
+                {" "}
+                {data &&
+                  data.subModels.map((subModel) => (
+                    <SubModel
+                      subModel={subModel}
+                      modelName={modelName}
+                      key={subModel.id}
+                    ></SubModel>
+                  ))}
+              </>
+            ) : (
+              <>
+                <Skeleton></Skeleton>
+                <Skeleton></Skeleton>
+                <Skeleton></Skeleton>
+                <Skeleton></Skeleton>
+              </>
+            )}
           </div>
         </>
       </div>
     </>
+  );
+};
+
+const Skeleton = () => {
+  return (
+    <div className="flex flex-col gap-2">
+      <div
+        aria-label="text"
+        className="flex h-[102px] animate-pulse flex-col rounded-2xl bg-zinc-100"
+      ></div>
+      <div className="h-36 w-full animate-pulse rounded-2xl bg-zinc-100" />
+      <div>
+        <div
+          aria-label="characteristic"
+          className="flex h-52 animate-pulse flex-col gap-2 rounded-2xl bg-zinc-100"
+        ></div>
+        <div className="h-14 animate-pulse rounded-2xl bg-zinc-100"></div>
+      </div>
+    </div>
   );
 };
