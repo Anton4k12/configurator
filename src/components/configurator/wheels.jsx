@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Triangle } from "../icons/triangle";
 import { formatPrice } from "@/lib/utils";
+import { useStore } from "zustand";
+import { ConfiguratorContext } from "@/state";
 
-export const Wheels = ({ wheels, selectedWheel, onWheelSelect }) => {
-  // const [selectedWheel, setSelectedWheel] = useState(initialWheel);
+export const Wheels = ({ wheels, selectedWheel }) => {
+  const store = useContext(ConfiguratorContext);
 
-  const handleWheelClick = (wheel) => {
-    onWheelSelect(wheel);
-  };
+  const selectWheel = useStore(store, (state) => state.selectWheel);
 
   const formattedPrice = formatPrice(selectedWheel.price);
 
@@ -39,7 +39,7 @@ export const Wheels = ({ wheels, selectedWheel, onWheelSelect }) => {
           }
           return (
             <img
-              onClick={() => handleWheelClick(wheel)}
+              onClick={() => selectWheel(wheel)}
               key={wheel.name}
               className="size-[50px] cursor-pointer rounded-full"
               src={wheel.imageUrl}

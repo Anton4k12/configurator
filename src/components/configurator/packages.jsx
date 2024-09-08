@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { PlusIcon } from "../icons/plus-icon";
 import { Package } from "./package";
 import { MinusIcon } from "../icons/minus-icon";
+import { ConfiguratorContext } from "@/state";
+import { useStore } from "zustand";
 
-export const Packages = ({
-  packages,
-  selectedIds,
-  onPackAdd,
-  onPackRemove,
-}) => {
+export const Packages = ({ packages, selectedIds }) => {
+  const store = useContext(ConfiguratorContext);
+
+  const addPackage = useStore(store, (state) => state.addPackage);
+  const removePackage = useStore(store, (state) => state.removePackage);
+
   const [isExtended, setIsExtended] = useState(false);
 
   const croppedPackages = packages.slice(0, 4);
@@ -39,8 +41,8 @@ export const Packages = ({
               characteristics={pack.characteristics}
               isSelected={isSelected}
               id={pack.id}
-              onAdd={onPackAdd}
-              onRemove={onPackRemove}
+              onAdd={addPackage}
+              onRemove={removePackage}
             ></Package>
           );
         })}

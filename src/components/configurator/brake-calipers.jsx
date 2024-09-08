@@ -1,58 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Triangle } from "../icons/triangle";
 import { formatPrice } from "@/lib/utils";
+import { ConfiguratorContext } from "@/state";
+import { useStore } from "zustand";
 
-// const mockBrakeCalipers = [
-//   {
-//     name: "Gloss Black Painted Brake Calipers",
-//     imageUrl:
-//       "/configurator/GranTurismo/Brake Calipers/Gloss Black Painted Brake Calipers.jpg",
-//     price: 500,
-//   },
-//   {
-//     name: "Gloss Red Painted Brake Calipers",
-//     imageUrl:
-//       "/configurator/GranTurismo/Brake Calipers/Gloss Red Painted Brake Calipers.jpg",
-//     price: null,
-//   },
-//   {
-//     name: "Gloss Yellow Painted Brake Calipers",
-//     imageUrl:
-//       "/configurator/GranTurismo/Brake Calipers/Gloss Yellow Painted Brake Calipers.jpg",
-//     price: 500,
-//   },
-//   {
-//     name: "Anodized Red Calipers",
-//     imageUrl:
-//       "/configurator/GranTurismo/Brake Calipers/Anodized Red Calipers.jpg",
-//     price: "1,000",
-//   },
-//   {
-//     name: "Brake Calipers Painted In Blue",
-//     imageUrl:
-//       "/configurator/GranTurismo/Brake Calipers/Brake Calipers Painted In Blue.jpg",
-//     price: 500,
-//   },
-// ];
+export const BrakeCalipers = ({ selectedBrake, brakeCalipers }) => {
+  const store = useContext(ConfiguratorContext);
 
-export const BrakeCalipers = ({
-  selectedBrake,
-  onBrakeSelect,
-  brakeCalipers,
-}) => {
-  // const initialBrake = mockBrakeCalipers.find((brake) => {
-  //   if (brake.price === null) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // });
-
-  // const [selectedBrake, setSelectedBrake] = useState(initialBrake);
-
-  const handleBrakeClick = (brake) => {
-    onBrakeSelect(brake);
-  };
+  const selectBrake = useStore(store, (state) => state.selectBrake);
 
   const formattedPrice = formatPrice(selectedBrake.price);
   return (
@@ -85,7 +40,7 @@ export const BrakeCalipers = ({
           }
           return (
             <img
-              onClick={() => handleBrakeClick(brake)}
+              onClick={() => selectBrake(brake)}
               key={brake.name}
               className="size-[50px] cursor-pointer rounded-full"
               src={brake.imageUrl}

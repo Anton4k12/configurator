@@ -23,30 +23,22 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
   const selectedColor = useStore(store, (state) => state.selectedColor);
 
   const selectedWheel = useStore(store, (state) => state.selectedWheel);
-  const selectWheel = useStore(store, (state) => state.selectWheel);
 
   const selectedBrake = useStore(store, (state) => state.selectedBrake);
-  const selectBrake = useStore(store, (state) => state.selectBrake);
 
   const selectedTrim = useStore(store, (state) => state.selectedTrim);
-  const selectTrim = useStore(store, (state) => state.selectTrim);
 
   const selectedSeat = useStore(store, (state) => state.selectedSeat);
-  const selectSeat = useStore(store, (state) => state.selectSeat);
 
   const selectedPackagesIds = useStore(
     store,
     (state) => state.selectedPackagesIds,
   );
-  const addPackage = useStore(store, (state) => state.addPackage);
-  const removePackage = useStore(store, (state) => state.removePackage);
 
   const selectedOptionsIds = useStore(
     store,
     (state) => state.selectedOptionsIds,
   );
-  const addOption = useStore(store, (state) => state.addOption);
-  const removeOption = useStore(store, (state) => state.removeOption);
 
   const selectedPackages = data.packages.filter((pack) => {
     return selectedPackagesIds.includes(pack.id);
@@ -122,35 +114,22 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
           </div>
 
           <div aria-label="wheels">
-            <Wheels
-              selectedWheel={selectedWheel}
-              onWheelSelect={selectWheel}
-              wheels={data.wheels}
-            ></Wheels>
+            <Wheels selectedWheel={selectedWheel} wheels={data.wheels}></Wheels>
           </div>
 
           <div data-brake-calipers>
             <BrakeCalipers
               selectedBrake={selectedBrake}
-              onBrakeSelect={selectBrake}
               brakeCalipers={data.brakeCalipers}
             ></BrakeCalipers>
           </div>
 
           <div data-seats>
-            <Seats
-              selectedSeat={selectedSeat}
-              onSeatSelect={selectSeat}
-              seats={data.seats}
-            ></Seats>
+            <Seats selectedSeat={selectedSeat} seats={data.seats}></Seats>
           </div>
 
           <div data-trims>
-            <Trim
-              selectedTrim={selectedTrim}
-              onTrimSelect={selectTrim}
-              trim={data.trim}
-            ></Trim>
+            <Trim selectedTrim={selectedTrim} trim={data.trim}></Trim>
           </div>
         </div>
       </div>
@@ -158,16 +137,12 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
       <Packages
         selectedIds={selectedPackagesIds}
         packages={data.packages}
-        onPackAdd={addPackage}
-        onPackRemove={removePackage}
       ></Packages>
 
       <Options
         selectedIds={selectedOptionsIds}
         optionsTypes={data.optionsTypes}
         options={data.options}
-        onOptionAdd={addOption}
-        onOptionRemove={removeOption}
       ></Options>
 
       <Summary

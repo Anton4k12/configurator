@@ -7,12 +7,26 @@ import { ChevronRight } from "../icons/chevron-right";
 import ArrowUturnIcon from "../icons/arrow-uturn-icon";
 import ArrowCircleIcon from "../icons/arrow-circle-icon";
 import DownloadIcon from "../icons/download-icon";
+import { formatPrice } from "@/lib/utils";
 
 export const Summary = ({ price, personalizatedPrice, subModel }) => {
   const store = useContext(ConfiguratorContext);
 
   const selectedColor = useStore(store, (state) => state.selectedColor);
   const selectedSeat = useStore(store, (state) => state.selectedSeat);
+  const selectedWheel = useStore(store, (state) => state.selectedWheel);
+  const selectedBrake = useStore(store, (state) => state.selectedBrake);
+  const selectedTrim = useStore(store, (state) => state.selectedTrim);
+
+  const formattedPrice = formatPrice(price);
+  const formattedPersonalizatedPrice = formatPrice(personalizatedPrice);
+  const formattedStartingPrice = formatPrice(subModel.startingPrice);
+
+  const formatterColorPrice = formatPrice(selectedColor.price);
+  const formatterWheelPrice = formatPrice(selectedWheel.price);
+  const formatterBrakePrice = formatPrice(selectedBrake.price);
+  const formatterTrimPrice = formatPrice(selectedTrim.price);
+
   return (
     <div>
       <div className="flex flex-col items-center rounded-2xl bg-[#eee] pt-10 font-extralight">
@@ -47,15 +61,102 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
                 ></Detail>
               </div>
             </div>
-            <div className="text-[11px] uppercase tracking-[1px]">
-              <div className="py-9 font-medium">exterior</div>
 
-              <hr className="border-zinc-400" />
+            <div>
+              <div className="py-9 text-[11px] font-medium uppercase tracking-[1px]">
+                exterior
+              </div>
 
-              <div className="py-9 font-medium">interior</div>
+              <img
+                className="rounded-2xl pb-[30px]"
+                src="/home/GranTurismo/gfx2.jpeg"
+              />
 
-              <hr className="border-zinc-400" />
+              <div className="flex flex-col gap-6">
+                <div className="flex items-center justify-between">
+                  <Detail
+                    imageUrl={selectedColor.imageUrl}
+                    name={selectedColor.name}
+                    category="Exterior Color"
+                  ></Detail>
+
+                  {selectedColor.price === null ? (
+                    <div className="text-[#212529]">$ 0</div>
+                  ) : (
+                    <div className="text-[#212529]">{formatterColorPrice}</div>
+                  )}
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <Detail
+                    imageUrl={selectedWheel.imageUrl}
+                    name={selectedWheel.name}
+                    category="Wheels"
+                  ></Detail>
+
+                  {selectedWheel.price === null ? (
+                    <div className="text-[#212529]">$ 0</div>
+                  ) : (
+                    <div className="text-[#212529]">{formatterWheelPrice}</div>
+                  )}
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <Detail
+                    imageUrl={selectedBrake.imageUrl}
+                    name={selectedBrake.name}
+                    category="Brake Calipers"
+                  ></Detail>
+
+                  {selectedBrake.price === null ? (
+                    <div className="text-[#212529]">$ 0</div>
+                  ) : (
+                    <div className="text-[#212529]">{formatterBrakePrice}</div>
+                  )}
+                </div>
+              </div>
             </div>
+
+            <div>
+              <hr className="border-zinc-400" />
+
+              <div className="py-9 text-[11px] font-medium uppercase tracking-[1px]">
+                interior
+              </div>
+
+              <img
+                className="rounded-2xl pb-[30px]"
+                src="/home/GranTurismo/gfx7.jpeg"
+              />
+
+              <div className="flex flex-col gap-6">
+                <div className="flex items-center justify-between">
+                  <Detail
+                    imageUrl={selectedSeat.imageUrl}
+                    name={selectedSeat.name}
+                    category="Seats"
+                  ></Detail>
+
+                  <div className="text-[#212529]">$ 0</div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <Detail
+                    imageUrl={selectedTrim.imageUrl}
+                    name={selectedTrim.name}
+                    category="Trim"
+                  ></Detail>
+
+                  {selectedTrim.price === null ? (
+                    <div className="text-[#212529]">$ 0</div>
+                  ) : (
+                    <div className="text-[#212529]">{formatterTrimPrice}</div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <hr className="border-zinc-400 text-[11px] uppercase tracking-[1px]" />
 
             <div className="pb-[60px]">
               <div className="pb-6 text-[26px] font-light">Specifications</div>
@@ -87,17 +188,17 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
 
               <div className="pb-20 pt-8">
                 <div className="text-sm font-medium">
-                  Base price ${subModel.startingPrice}
+                  Base price {formattedStartingPrice}
                 </div>
 
                 {personalizatedPrice !== 0 && (
                   <div className="text-sm font-medium">
-                    Personalization ${personalizatedPrice}
+                    Personalization {formattedPersonalizatedPrice}
                   </div>
                 )}
 
                 <div className="text-sm font-medium">
-                  As configured ${price}
+                  As configured {formattedPrice}
                 </div>
               </div>
 
@@ -110,8 +211,11 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
                   models; USD 1,995 for all Quattroporte, GranTurismo, and
                   GranTurismo Convertible models
                 </div>
+
                 <br />
+
                 <br />
+
                 <div className="text-xs font-medium tracking-[1px] text-[#212529]">
                   Maserati cars may be factory equipped with low-profile, high
                   performance summer tires which are more susceptible to road
@@ -147,7 +251,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
                 Total price
               </div>
 
-              <div className="text-xl">${price}</div>
+              <div className="text-xl">{formattedPrice}</div>
             </div>
 
             <div data-buttons className="flex flex-col gap-3 pb-9">
@@ -227,9 +331,11 @@ const Detail = ({ imageUrl, name, category }) => {
       <img className="rounded-full" src={imageUrl}></img>
 
       <div className="flex flex-col">
-        <div className="text-sm text-[#666]">{category}</div>
+        <div className="text-sm font-light tracking-[1px] text-[#666]">
+          {category}
+        </div>
 
-        <div className="text-sm">{name}</div>
+        <div className="text-sm font-normal tracking-[1px]">{name}</div>
       </div>
     </div>
   );

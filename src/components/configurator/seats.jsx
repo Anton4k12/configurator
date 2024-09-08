@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Triangle } from "../icons/triangle";
+import { ConfiguratorContext } from "@/state";
+import { useStore } from "zustand";
 
-export const Seats = ({ seats, selectedSeat, onSeatSelect }) => {
+export const Seats = ({ seats, selectedSeat }) => {
+  const store = useContext(ConfiguratorContext);
+
+  const selectSeat = useStore(store, (state) => state.selectSeat);
   return (
     <div className="flex flex-col gap-5">
       <div className="text-[40px] font-extralight leading-none">Seats</div>
@@ -34,7 +39,7 @@ export const Seats = ({ seats, selectedSeat, onSeatSelect }) => {
           }
           return (
             <img
-              onClick={() => onSeatSelect(seat)}
+              onClick={() => selectSeat(seat)}
               key={seat.name}
               className="size-[50px] cursor-pointer rounded-full"
               src={seat.imageUrl}

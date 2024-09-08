@@ -1,14 +1,15 @@
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Option } from "./option";
+import { ConfiguratorContext } from "@/state";
+import { useStore } from "zustand";
 
-export const Options = ({
-  options,
-  optionsTypes,
-  selectedIds,
-  onOptionRemove,
-  onOptionAdd,
-}) => {
+export const Options = ({ options, optionsTypes, selectedIds }) => {
+  const store = useContext(ConfiguratorContext);
+
+  const addOption = useStore(store, (state) => state.addOption);
+  const removeOption = useStore(store, (state) => state.removeOption);
+
   const [selectedOptionType, setSelectedOptionType] = useState("All");
 
   const handleSelectOptionType = (type) => {
@@ -79,8 +80,8 @@ export const Options = ({
               option={option}
               isSelected={isSelected}
               id={option.id}
-              onAdd={onOptionAdd}
-              onRemove={onOptionRemove}
+              onAdd={addOption}
+              onRemove={removeOption}
             ></Option>
           );
         })}

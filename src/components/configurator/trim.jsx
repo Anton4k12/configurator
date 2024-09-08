@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Triangle } from "../icons/triangle";
 import { formatPrice } from "@/lib/utils";
+import { ConfiguratorContext } from "@/state";
+import { useStore } from "zustand";
 
-export const Trim = ({ trim, selectedTrim, onTrimSelect }) => {
-  // const [selectedTrim, setSelectedTrim] = useState(trim[0]);
+export const Trim = ({ trim, selectedTrim }) => {
+  const store = useContext(ConfiguratorContext);
 
-  const handleTrimClick = (trim) => {
-    onTrimSelect(trim);
-  };
+  const selectTrim = useStore(store, (state) => state.selectTrim);
 
   const formattedPrice = formatPrice(selectedTrim.price);
 
@@ -41,7 +41,7 @@ export const Trim = ({ trim, selectedTrim, onTrimSelect }) => {
           }
           return (
             <img
-              onClick={() => handleTrimClick(trim)}
+              onClick={() => selectTrim(trim)}
               key={trim.name}
               className="size-[50px] cursor-pointer rounded-full"
               src={trim.imageUrl}
