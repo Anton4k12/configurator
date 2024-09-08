@@ -68,7 +68,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
               </div>
 
               <img
-                className="rounded-2xl pb-[30px]"
+                className="mb-[30px] rounded-2xl"
                 src="/home/GranTurismo/gfx2.jpeg"
               />
 
@@ -125,7 +125,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
               </div>
 
               <img
-                className="rounded-2xl pb-[30px]"
+                className="mb-[30px] rounded-2xl"
                 src="/home/GranTurismo/gfx7.jpeg"
               />
 
