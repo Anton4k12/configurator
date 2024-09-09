@@ -1,14 +1,11 @@
+import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
 import { cn } from "@/lib/utils";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Option } from "./option";
-import { ConfiguratorContext } from "@/state";
-import { useStore } from "zustand";
 
 export const Options = ({ options, optionsTypes, selectedIds }) => {
-  const store = useContext(ConfiguratorContext);
-
-  const addOption = useStore(store, (state) => state.addOption);
-  const removeOption = useStore(store, (state) => state.removeOption);
+  const addOption = useConfiguratorContext((s) => s.addOption);
+  const removeOption = useConfiguratorContext((s) => s.removeOption);
 
   const [selectedOptionType, setSelectedOptionType] = useState("All");
 

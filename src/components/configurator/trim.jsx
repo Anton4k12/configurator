@@ -1,13 +1,10 @@
-import { useContext, useState } from "react";
-import { Triangle } from "../icons/triangle";
 import { formatPrice } from "@/lib/utils";
-import { ConfiguratorContext } from "@/state";
 import { useStore } from "zustand";
+import { Triangle } from "../icons/triangle";
+import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
 
 export const Trim = ({ trim, selectedTrim }) => {
-  const store = useContext(ConfiguratorContext);
-
-  const selectTrim = useStore(store, (state) => state.selectTrim);
+  const selectTrim = useConfiguratorContext((state) => state.selectTrim);
 
   const formattedPrice = formatPrice(selectedTrim.price);
 

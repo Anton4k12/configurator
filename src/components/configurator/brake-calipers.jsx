@@ -1,13 +1,9 @@
-import { useContext, useState } from "react";
-import { Triangle } from "../icons/triangle";
+import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
 import { formatPrice } from "@/lib/utils";
-import { ConfiguratorContext } from "@/state";
-import { useStore } from "zustand";
+import { Triangle } from "../icons/triangle";
 
 export const BrakeCalipers = ({ selectedBrake, brakeCalipers }) => {
-  const store = useContext(ConfiguratorContext);
-
-  const selectBrake = useStore(store, (state) => state.selectBrake);
+  const selectBrake = useConfiguratorContext((s) => s.selectBrake);
 
   const formattedPrice = formatPrice(selectedBrake.price);
   return (

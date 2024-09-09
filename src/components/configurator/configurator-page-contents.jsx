@@ -1,7 +1,5 @@
-import { ConfiguratorContext } from "@/state";
-import { useContext } from "react";
+import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
 import { useParams } from "react-router-dom";
-import { useStore } from "zustand";
 import { ChevronRight } from "../icons/chevron-right";
 import { Header } from "../shared/header";
 import { BottomNavBar } from "./bottom-navbar";
@@ -16,68 +14,39 @@ import { Trim } from "./trim";
 import { Wheels } from "./wheels";
 
 export const ConfiguratorPageContents = ({ data, subModels }) => {
-  const store = useContext(ConfiguratorContext);
-
   const { modelName, subModelName } = useParams();
 
-  const selectedColor = useStore(store, (state) => state.selectedColor);
+  const selectedColor = useConfiguratorContext((s) => s.selectedColor);
 
-  const selectedWheel = useStore(store, (state) => state.selectedWheel);
+  const selectedWheel = useConfiguratorContext((s) => s.selectedWheel);
 
-  const selectedBrake = useStore(store, (state) => state.selectedBrake);
+  const selectedBrake = useConfiguratorContext((s) => s.selectedBrake);
 
-  const selectedTrim = useStore(store, (state) => state.selectedTrim);
+  const selectedTrim = useConfiguratorContext((s) => s.selectedTrim);
 
-  const selectedSeat = useStore(store, (state) => state.selectedSeat);
+  const selectedSeat = useConfiguratorContext((s) => s.selectedSeat);
 
-  const selectedPackagesIds = useStore(
-    store,
-    (state) => state.selectedPackagesIds,
+  const selectedPackagesIds = useConfiguratorContext(
+    (s) => s.selectedPackagesIds,
   );
 
-  const selectedOptionsIds = useStore(
-    store,
-    (state) => state.selectedOptionsIds,
-  );
-
-  const selectedPackages = data.packages.filter((pack) => {
-    return selectedPackagesIds.includes(pack.id);
-  });
-
-  const totalPricePackage = selectedPackages.reduce(
-    (acc, pack) => acc + pack.price,
-    0,
-  );
-
-  const selectedOptions = data.options.filter((option) => {
-    return selectedOptionsIds.includes(option.id);
-  });
-
-  const totalPriceOption = selectedOptions.reduce(
-    (acc, option) => acc + option.price,
-    0,
+  const selectedOptionsIds = useConfiguratorContext(
+    (s) => s.selectedOptionsIds,
   );
 
   const subModel = subModels.find((subModel) => {
     return subModel.modelName === modelName && subModel.name === subModelName;
   });
 
-  const personalizedPrice =
-    selectedWheel.price +
-    selectedColor.price +
-    selectedTrim.price +
-    selectedBrake.price +
-    totalPricePackage +
-    totalPriceOption;
+  const getPrice = useConfiguratorContext((s) => s.getPrice);
 
-  const price =
-    subModel.startingPrice +
-    selectedWheel.price +
-    selectedColor.price +
-    selectedTrim.price +
-    selectedBrake.price +
-    totalPricePackage +
-    totalPriceOption;
+  const price = getPrice({
+    startingPrice: subModel.startingPrice,
+    packages: data.packages,
+    options: data.options,
+  });
+
+  const personalizatedPrice = price - subModel.startingPrice;
 
   return (
     <div className="pb-96">
@@ -85,7 +54,6 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
 
       <TopNavBar></TopNavBar>
 
-      {/* <Visuals data={data}></Visuals> */}
       <div className="flex gap-6 pl-3">
         <div aria-label="image" className="sticky top-12 h-fit w-2/3 pt-6">
           <img
@@ -147,7 +115,7 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
 
       <Summary
         price={price}
-        personalizatedPrice={personalizedPrice}
+        personalizatedPrice={personalizatedPrice}
         subModel={subModel}
       ></Summary>
 

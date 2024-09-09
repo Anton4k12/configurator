@@ -1,22 +1,17 @@
-import { ConfiguratorContext } from "@/state";
-import { useContext } from "react";
-import { useLocation } from "react-router-dom";
-import { useStore } from "zustand";
-import SaveIcon from "../icons/save-icon";
-import { ChevronRight } from "../icons/chevron-right";
-import ArrowUturnIcon from "../icons/arrow-uturn-icon";
-import ArrowCircleIcon from "../icons/arrow-circle-icon";
-import DownloadIcon from "../icons/download-icon";
+import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
 import { formatPrice } from "@/lib/utils";
+import ArrowCircleIcon from "../icons/arrow-circle-icon";
+import ArrowUturnIcon from "../icons/arrow-uturn-icon";
+import { ChevronRight } from "../icons/chevron-right";
+import DownloadIcon from "../icons/download-icon";
+import SaveIcon from "../icons/save-icon";
 
 export const Summary = ({ price, personalizatedPrice, subModel }) => {
-  const store = useContext(ConfiguratorContext);
-
-  const selectedColor = useStore(store, (state) => state.selectedColor);
-  const selectedSeat = useStore(store, (state) => state.selectedSeat);
-  const selectedWheel = useStore(store, (state) => state.selectedWheel);
-  const selectedBrake = useStore(store, (state) => state.selectedBrake);
-  const selectedTrim = useStore(store, (state) => state.selectedTrim);
+  const selectedColor = useConfiguratorContext((state) => state.selectedColor);
+  const selectedSeat = useConfiguratorContext((state) => state.selectedSeat);
+  const selectedWheel = useConfiguratorContext((state) => state.selectedWheel);
+  const selectedBrake = useConfiguratorContext((state) => state.selectedBrake);
+  const selectedTrim = useConfiguratorContext((state) => state.selectedTrim);
 
   const formattedPrice = formatPrice(price);
   const formattedPersonalizatedPrice = formatPrice(personalizatedPrice);
