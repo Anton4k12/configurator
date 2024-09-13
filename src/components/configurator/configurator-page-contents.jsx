@@ -1,5 +1,5 @@
 import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
-import { useParams } from "react-router-dom";
+import { replace, useNavigate, useParams } from "react-router-dom";
 import { ChevronRight } from "../icons/chevron-right";
 import { Header } from "../shared/header";
 import { BottomNavBar } from "./bottom-navbar";
@@ -12,6 +12,9 @@ import { Summary } from "./summary";
 import { TopNavBar } from "./top-navbar";
 import { Trim } from "./trim";
 import { Wheels } from "./wheels";
+import ScrollToHashElement from "@cascadia-code/scroll-to-hash-element";
+import { useEffect } from "react";
+import { ScrollToAnchor } from "../shared/scroller";
 
 export const ConfiguratorPageContents = ({ data, subModels }) => {
   const { modelName, subModelName } = useParams();
@@ -48,9 +51,33 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
 
   const personalizatedPrice = price - subModel.startingPrice;
 
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const logScroll = () => {
+  //     const packages = document
+  //       .querySelector("#packages")
+  //       .getBoundingClientRect();
+
+  //     if (packages.y <= 0) {
+  //       navigate("#packages", { replace: true });
+  //     }
+
+  //     console.log(document.documentElement.scrollTop, { packages });
+  //   };
+
+  //   document.addEventListener("scroll", logScroll);
+
+  //   return () => {
+  //     document.removeEventListener("scroll", logScroll);
+  //   };
+  // }, []);
+
   return (
     <div className="pb-96">
       <Header color="#FFFFFF"></Header>
+
+      <ScrollToAnchor></ScrollToAnchor>
 
       <TopNavBar></TopNavBar>
 
@@ -73,32 +100,22 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
           </div>
         </div>
 
-        <div className="flex w-1/3 flex-col gap-16 px-10 pt-6">
-          <div>
-            <ExteriorColor
-              colorsTypes={data.colorsTypes}
-              colors={data.colors}
-            ></ExteriorColor>
-          </div>
+        <div className="flex w-1/3 flex-col px-10 *:py-8">
+          <ExteriorColor
+            colorsTypes={data.colorsTypes}
+            colors={data.colors}
+          ></ExteriorColor>
 
-          <div aria-label="wheels">
-            <Wheels selectedWheel={selectedWheel} wheels={data.wheels}></Wheels>
-          </div>
+          <Wheels selectedWheel={selectedWheel} wheels={data.wheels}></Wheels>
 
-          <div data-brake-calipers>
-            <BrakeCalipers
-              selectedBrake={selectedBrake}
-              brakeCalipers={data.brakeCalipers}
-            ></BrakeCalipers>
-          </div>
+          <BrakeCalipers
+            selectedBrake={selectedBrake}
+            brakeCalipers={data.brakeCalipers}
+          ></BrakeCalipers>
 
-          <div data-seats>
-            <Seats selectedSeat={selectedSeat} seats={data.seats}></Seats>
-          </div>
+          <Seats selectedSeat={selectedSeat} seats={data.seats}></Seats>
 
-          <div data-trims>
-            <Trim selectedTrim={selectedTrim} trim={data.trim}></Trim>
-          </div>
+          <Trim selectedTrim={selectedTrim} trim={data.trim}></Trim>
         </div>
       </div>
 

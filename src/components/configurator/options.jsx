@@ -31,7 +31,7 @@ export const Options = ({ options, optionsTypes, selectedIds }) => {
   const displayedOptions = isAllSelected ? options : filteredOptions;
 
   return (
-    <div className="pt-6">
+    <div id="options" className="pt-6">
       <h2>
         <span className="px-10 text-[40px] font-extralight leading-[96px]">
           Options

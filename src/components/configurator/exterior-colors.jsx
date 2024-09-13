@@ -24,7 +24,7 @@ export const ExteriorColor = ({ colorsTypes, colors }) => {
   const formattedPrice = formatPrice(selectedColor.price);
 
   return (
-    <div className="flex w-full flex-col gap-5">
+    <div id="exterior" className="flex w-full flex-col gap-5">
       <div className="text-[40px] font-extralight leading-none">
         Exterior Colors
       </div>

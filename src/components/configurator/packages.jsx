@@ -19,7 +19,7 @@ export const Packages = ({ packages, selectedIds }) => {
   const displayedPackages = isExtended ? packages : croppedPackages;
 
   return (
-    <div className="px-3 pt-6">
+    <div id="packages" className="px-3 pt-6">
       <h2>
         <span className="px-7 text-[40px] font-extralight leading-[96px]">
           Packages

@@ -23,7 +23,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
   const formatterTrimPrice = formatPrice(selectedTrim.price);
 
   return (
-    <div>
+    <div id="summary">
       <div className="flex flex-col items-center rounded-2xl bg-[#eee] pt-10 font-extralight">
         <div className="text-6xl tracking-wide">
           Your {subModel.modelName} {subModel.name}
