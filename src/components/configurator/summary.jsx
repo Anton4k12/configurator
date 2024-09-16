@@ -5,6 +5,12 @@ import ArrowUturnIcon from "../icons/arrow-uturn-icon";
 import { ChevronRight } from "../icons/chevron-right";
 import DownloadIcon from "../icons/download-icon";
 import SaveIcon from "../icons/save-icon";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "../ui/accordion";
 
 export const Summary = ({ price, personalizatedPrice, subModel }) => {
   const selectedColor = useConfiguratorContext((state) => state.selectedColor);
@@ -57,101 +63,112 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
               </div>
             </div>
 
-            <div>
-              <div className="py-9 text-[11px] font-medium uppercase tracking-[1px]">
-                exterior
-              </div>
+            <Accordion type="multiple" collapsible>
+              <AccordionItem value="item-1">
+                <AccordionTrigger>
+                  <div className="text-[11px] font-medium uppercase tracking-[1px]">
+                    exterior
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-[60px]">
+                  <img
+                    className="mb-[30px] rounded-2xl"
+                    src="/home/GranTurismo/gfx2.jpeg"
+                  />
 
-              <img
-                className="mb-[30px] rounded-2xl"
-                src="/home/GranTurismo/gfx2.jpeg"
-              />
+                  <div className="flex flex-col gap-6">
+                    <div className="flex items-center justify-between">
+                      <Detail
+                        imageUrl={selectedColor.imageUrl}
+                        name={selectedColor.name}
+                        category="Exterior Color"
+                      ></Detail>
 
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center justify-between">
-                  <Detail
-                    imageUrl={selectedColor.imageUrl}
-                    name={selectedColor.name}
-                    category="Exterior Color"
-                  ></Detail>
+                      {selectedColor.price === null ? (
+                        <div className="text-[#212529]">$ 0</div>
+                      ) : (
+                        <div className="text-[#212529]">
+                          {formatterColorPrice}
+                        </div>
+                      )}
+                    </div>
 
-                  {selectedColor.price === null ? (
-                    <div className="text-[#212529]">$ 0</div>
-                  ) : (
-                    <div className="text-[#212529]">{formatterColorPrice}</div>
-                  )}
-                </div>
+                    <div className="flex items-center justify-between">
+                      <Detail
+                        imageUrl={selectedWheel.imageUrl}
+                        name={selectedWheel.name}
+                        category="Wheels"
+                      ></Detail>
 
-                <div className="flex items-center justify-between">
-                  <Detail
-                    imageUrl={selectedWheel.imageUrl}
-                    name={selectedWheel.name}
-                    category="Wheels"
-                  ></Detail>
+                      {selectedWheel.price === null ? (
+                        <div className="text-[#212529]">$ 0</div>
+                      ) : (
+                        <div className="text-[#212529]">
+                          {formatterWheelPrice}
+                        </div>
+                      )}
+                    </div>
 
-                  {selectedWheel.price === null ? (
-                    <div className="text-[#212529]">$ 0</div>
-                  ) : (
-                    <div className="text-[#212529]">{formatterWheelPrice}</div>
-                  )}
-                </div>
+                    <div className="flex items-center justify-between">
+                      <Detail
+                        imageUrl={selectedBrake.imageUrl}
+                        name={selectedBrake.name}
+                        category="Brake Calipers"
+                      ></Detail>
 
-                <div className="flex items-center justify-between">
-                  <Detail
-                    imageUrl={selectedBrake.imageUrl}
-                    name={selectedBrake.name}
-                    category="Brake Calipers"
-                  ></Detail>
+                      {selectedBrake.price === null ? (
+                        <div className="text-[#212529]">$ 0</div>
+                      ) : (
+                        <div className="text-[#212529]">
+                          {formatterBrakePrice}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-2">
+                <AccordionTrigger>
+                  <div className="text-[11px] font-medium uppercase tracking-[1px]">
+                    interior
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="pb-[60px]">
+                  <img
+                    className="mb-[30px] rounded-2xl"
+                    src="/home/GranTurismo/gfx7.jpeg"
+                  />
 
-                  {selectedBrake.price === null ? (
-                    <div className="text-[#212529]">$ 0</div>
-                  ) : (
-                    <div className="text-[#212529]">{formatterBrakePrice}</div>
-                  )}
-                </div>
-              </div>
-            </div>
+                  <div className="flex flex-col gap-6">
+                    <div className="flex items-center justify-between">
+                      <Detail
+                        imageUrl={selectedSeat.imageUrl}
+                        name={selectedSeat.name}
+                        category="Seats"
+                      ></Detail>
 
-            <div>
-              <hr className="border-zinc-400" />
+                      <div className="text-[#212529]">$ 0</div>
+                    </div>
 
-              <div className="py-9 text-[11px] font-medium uppercase tracking-[1px]">
-                interior
-              </div>
+                    <div className="flex items-center justify-between">
+                      <Detail
+                        imageUrl={selectedTrim.imageUrl}
+                        name={selectedTrim.name}
+                        category="Trim"
+                      ></Detail>
 
-              <img
-                className="mb-[30px] rounded-2xl"
-                src="/home/GranTurismo/gfx7.jpeg"
-              />
-
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center justify-between">
-                  <Detail
-                    imageUrl={selectedSeat.imageUrl}
-                    name={selectedSeat.name}
-                    category="Seats"
-                  ></Detail>
-
-                  <div className="text-[#212529]">$ 0</div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <Detail
-                    imageUrl={selectedTrim.imageUrl}
-                    name={selectedTrim.name}
-                    category="Trim"
-                  ></Detail>
-
-                  {selectedTrim.price === null ? (
-                    <div className="text-[#212529]">$ 0</div>
-                  ) : (
-                    <div className="text-[#212529]">{formatterTrimPrice}</div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <hr className="border-zinc-400 text-[11px] uppercase tracking-[1px]" />
+                      {selectedTrim.price === null ? (
+                        <div className="text-[#212529]">$ 0</div>
+                      ) : (
+                        <div className="text-[#212529]">
+                          {formatterTrimPrice}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
 
             <div className="pb-[60px]">
               <div className="pb-6 text-[26px] font-light">Specifications</div>

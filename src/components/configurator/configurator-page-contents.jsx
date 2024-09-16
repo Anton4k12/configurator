@@ -15,6 +15,13 @@ import { Wheels } from "./wheels";
 import ScrollToHashElement from "@cascadia-code/scroll-to-hash-element";
 import { useEffect } from "react";
 import { ScrollToAnchor } from "../shared/scroller";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel";
 
 export const ConfiguratorPageContents = ({ data, subModels }) => {
   const { modelName, subModelName } = useParams();
@@ -82,7 +89,7 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
       <TopNavBar></TopNavBar>
 
       <div className="flex gap-6 pl-3">
-        <div aria-label="image" className="sticky top-12 h-fit w-2/3 pt-6">
+        {/* <div aria-label="image" className="sticky top-12 h-fit w-2/3 pt-6">
           <img
             className="rounded-2xl"
             src="/home/GranTurismo/Trofeo/configurator/GranTurismo-config.jpeg"
@@ -98,7 +105,31 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
               className="size-3 rotate-180"
             ></ChevronRight>
           </div>
-        </div>
+        </div> */}
+
+        <Carousel
+          className="sticky top-12 h-fit w-2/3 pt-6"
+          opts={{
+            loop: true,
+          }}
+        >
+          <CarouselContent>
+            <CarouselItem>
+              <img
+                className="overflow-hidden rounded-2xl"
+                src="/home/GranTurismo/Trofeo/configurator/GranTurismo-config.jpeg"
+              />
+            </CarouselItem>
+            <CarouselItem>
+              <img
+                className="overflow-hidden rounded-2xl"
+                src="/home/GranTurismo/gfx1.jpeg"
+              />
+            </CarouselItem>
+          </CarouselContent>
+          <CarouselPrevious></CarouselPrevious>
+          <CarouselNext></CarouselNext>
+        </Carousel>
 
         <div className="flex w-1/3 flex-col px-10 *:py-8">
           <ExteriorColor
