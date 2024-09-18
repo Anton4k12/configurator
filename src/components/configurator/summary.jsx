@@ -11,6 +11,21 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "../ui/accordion";
+import { GranTurismoIcon } from "../icons/granturismo-logo";
+
+const techSpecs = [
+  {
+    name: "GranTurismo",
+    model: "Modena",
+    maxSpeed: 188,
+    displacement: 3.0,
+    horsepower: 483,
+    engineLayout: "V6",
+    length: 195.2,
+    width: 83.2,
+    widthNoMirrors: 77,
+  },
+];
 
 export const Summary = ({ price, personalizatedPrice, subModel }) => {
   const selectedColor = useConfiguratorContext((state) => state.selectedColor);
