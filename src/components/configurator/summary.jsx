@@ -12,6 +12,7 @@ import {
   AccordionContent,
 } from "../ui/accordion";
 import { GranTurismoIcon } from "../icons/granturismo-logo";
+import { useParams } from "react-router-dom";
 
 const techSpecs = [
   {
@@ -24,6 +25,58 @@ const techSpecs = [
     length: 195.2,
     width: 83.2,
     widthNoMirrors: 77,
+    height: 53.2,
+    wheelbase: 115.3,
+    frontTrack: 64.8,
+    rearTrack: 65.3,
+    frontOverhang: 949,
+    rearOverhang: 1081,
+    turningCircle: 488,
+    trunkCapacity: 10.9,
+    curbWeight: 3957,
+  },
+  {
+    name: "GranTurismo",
+    model: "Trofeo",
+    maxSpeed: 199,
+    displacement: 3.0,
+    horsepower: 542,
+    engineLayout: "V6",
+    length: 195.2,
+    width: 83.2,
+    widthNoMirrors: 77,
+    height: 53.2,
+    wheelbase: 115.3,
+    frontTrack: 64.8,
+    rearTrack: 65.3,
+    frontOverhang: 949,
+    rearOverhang: 1088,
+    turningCircle: 488,
+    trunkCapacity: 10.9,
+    curbWeight: 3957,
+  },
+
+  {
+    name: "GranTurismo",
+    model: "Folgore",
+    acceleration: 3.3,
+    maxSpeed: 199,
+    horsepower: 542,
+    batteryCapacity: 92.5,
+    RechargePowerAC: 22,
+    RechargePowerDC: 270,
+    length: 195.2,
+    width: 83.2,
+    widthNoMirrors: 77,
+    height: 54.1,
+    wheelbase: 115.3,
+    frontTrack: 64.9,
+    rearTrack: 65.4,
+    frontOverhang: 949,
+    rearOverhang: 1081,
+    turningCircle: 488,
+    trunkCapacity: 9.5,
+    curbWeight: 4982,
   },
 ];
 
@@ -42,6 +95,15 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
   const formatterWheelPrice = formatPrice(selectedWheel.price);
   const formatterBrakePrice = formatPrice(selectedBrake.price);
   const formatterTrimPrice = formatPrice(selectedTrim.price);
+
+  const { modelName, subModelName } = useParams();
+
+  const whatModel = techSpecs.filter((specs) => {
+    if (subModelName === specs.model) {
+      return true;
+    }
+    return false;
+  });
 
   return (
     <div id="summary">
@@ -201,11 +263,57 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
 
               <hr className="border-zinc-400" />
 
-              <div className="py-[35px] text-[11px] font-medium uppercase tracking-[1px]">
+              {/* <div className="py-[35px] text-[11px] font-medium uppercase tracking-[1px]">
                 Technical specifications
-              </div>
+              </div> */}
 
-              <hr className="border-zinc-400" />
+              <Accordion type="multiple" collapsible>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger>
+                    <div className="py-[35px] text-[11px] font-medium uppercase tracking-[1px]">
+                      Technical specifications
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    {whatModel &&
+                      whatModel.map((spec) => {
+                        return (
+                          <div>
+                            <div className="flex justify-between">
+                              <div>Max speed</div>
+                              <div>{spec.maxSpeed} mph</div>
+                            </div>
+                            <div className="flex justify-between">
+                              <div>Displacement</div>
+                              <div>{spec.displacement} L??????</div>
+                            </div>
+                            <div className="flex justify-between">
+                              <div>Horsepower</div>
+                              <div>{spec.horsepower} HP</div>
+                            </div>
+                            <div className="flex justify-between">
+                              <div>Engine Layout</div>
+                              <div>{spec.engineLayout}</div>
+                            </div>
+
+                            <div className="flex justify-between">
+                              <div>Length</div>
+                              <div>{spec.length} in</div>
+                            </div>
+                            <div className="flex justify-between">
+                              <div>Width (with side mirrors) </div>
+                              <div>{spec.width} in</div>
+                            </div>
+                            <div className="flex justify-between">
+                              <div>Width (without side mirrors)</div>
+                              <div>{spec.widthNoMirrors} in</div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </div>
 
             <div>
