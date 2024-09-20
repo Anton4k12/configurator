@@ -168,7 +168,7 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
         subModel={subModel}
       ></Summary>
 
-      {/* <BottomNavBar subModel={subModel} price={price}></BottomNavBar> */}
+      <BottomNavBar subModel={subModel} price={price}></BottomNavBar>
 
       <Footer></Footer>
     </div>

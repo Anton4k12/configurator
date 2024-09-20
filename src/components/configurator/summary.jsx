@@ -14,12 +14,34 @@ import {
 import { GranTurismoIcon } from "../icons/granturismo-logo";
 import { useParams } from "react-router-dom";
 
+const specs = {
+  Modena: [
+    { label: "Max speed", value: "188 mph" },
+    { label: "Displacement", value: "3.0 L" },
+    // etc...
+  ],
+  Trofeo: [
+    // same as modena
+  ],
+  Folgore: [], // same as well
+};
+
+const techSpecsDimensions = [
+  [
+    {
+      label: "Length",
+      value: "195.2 in",
+    },
+  ],
+  [{}],
+];
+
 const techSpecs = [
   {
     name: "GranTurismo",
     model: "Modena",
     maxSpeed: 188,
-    displacement: 3.0,
+    displacement: "3.0",
     horsepower: 483,
     engineLayout: "V6",
     length: 195.2,
@@ -39,7 +61,7 @@ const techSpecs = [
     name: "GranTurismo",
     model: "Trofeo",
     maxSpeed: 199,
-    displacement: 3.0,
+    displacement: "3.0",
     horsepower: 542,
     engineLayout: "V6",
     length: 195.2,
@@ -98,12 +120,14 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
 
   const { modelName, subModelName } = useParams();
 
-  const whatModel = techSpecs.filter((specs) => {
-    if (subModelName === specs.model) {
-      return true;
-    }
-    return false;
-  });
+  const currentSpecs = specs[subModelName];
+
+  // const whatModel = techSpecs.filter((specs) => {
+  //   if (subModelName === specs.model) {
+  //     return true;
+  //   }
+  //   return false;
+  // });
 
   return (
     <div id="summary">
@@ -275,7 +299,18 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
-                    {whatModel &&
+                    {currentSpecs.map((spec) => {
+                      return (
+                        <>
+                          <div className="flex justify-between">
+                            <div>{spec.label}</div>
+                            <div>{spec.value}</div>
+                          </div>
+                          <hr className="border-black" />
+                        </>
+                      );
+                    })}
+                    {/* {whatModel &&
                       whatModel.map((spec) => {
                         return (
                           <div className="flex flex-col gap-6 pt-6">
@@ -306,7 +341,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
                                 <>
                                   <div className="flex justify-between">
                                     <div>Displacement</div>
-                                    <div>{spec.displacement} L??????</div>
+                                    <div>{spec.displacement} L</div>
                                   </div>
 
                                   <hr className="border-black" />
@@ -478,7 +513,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
                             </div>
                           </div>
                         );
-                      })}
+                      })} */}
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
