@@ -270,7 +270,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
               <Accordion type="multiple" collapsible>
                 <AccordionItem value="item-3">
                   <AccordionTrigger>
-                    <div className="py-[35px] text-[11px] font-medium uppercase tracking-[1px]">
+                    <div className="flex flex-col items-center text-[11px] font-medium uppercase tracking-[1px]">
                       Technical specifications
                     </div>
                   </AccordionTrigger>
@@ -278,35 +278,203 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
                     {whatModel &&
                       whatModel.map((spec) => {
                         return (
-                          <div>
-                            <div className="flex justify-between">
-                              <div>Max speed</div>
-                              <div>{spec.maxSpeed} mph</div>
-                            </div>
-                            <div className="flex justify-between">
-                              <div>Displacement</div>
-                              <div>{spec.displacement} L??????</div>
-                            </div>
-                            <div className="flex justify-between">
-                              <div>Horsepower</div>
-                              <div>{spec.horsepower} HP</div>
-                            </div>
-                            <div className="flex justify-between">
-                              <div>Engine Layout</div>
-                              <div>{spec.engineLayout}</div>
+                          <div className="flex flex-col gap-6 pt-6">
+                            <div className="text-[11px] font-medium uppercase tracking-[0.44] *:pb-4">
+                              {spec.model === "Folgore" && (
+                                <>
+                                  <div className="flex justify-between">
+                                    <div>Acceleration (0-60 mph)</div>
+                                    <div className="lowercase">
+                                      {spec.acceleration} mph
+                                    </div>
+                                  </div>
+
+                                  <hr className="border-black" />
+                                </>
+                              )}
+
+                              <div className="flex justify-between">
+                                <div>Max speed</div>
+                                <div className="lowercase">
+                                  {spec.maxSpeed} mph
+                                </div>
+                              </div>
+
+                              <hr className="border-black" />
+
+                              {spec.model !== "Folgore" && (
+                                <>
+                                  <div className="flex justify-between">
+                                    <div>Displacement</div>
+                                    <div>{spec.displacement} L??????</div>
+                                  </div>
+
+                                  <hr className="border-black" />
+                                </>
+                              )}
+
+                              <div className="flex justify-between">
+                                <div>Horsepower</div>
+                                <div>{spec.horsepower} HP</div>
+                              </div>
+
+                              <hr className="border-black" />
+
+                              {spec.model !== "Folgore" && (
+                                <>
+                                  <div className="flex justify-between">
+                                    <div>Engine Layout</div>
+                                    <div>{spec.engineLayout}</div>
+                                  </div>
+
+                                  <hr className="border-black" />
+                                </>
+                              )}
+
+                              {spec.model === "Folgore" && (
+                                <>
+                                  <div className="flex justify-between">
+                                    <div>Battery capacity</div>
+                                    <div>{spec.batteryCapacity} kWh</div>
+                                  </div>
+
+                                  <hr className="border-black" />
+                                </>
+                              )}
+
+                              {spec.model === "Folgore" && (
+                                <>
+                                  <div className="flex justify-between">
+                                    <div>Recharge Power AC</div>
+                                    <div>{spec.RechargePowerAC} Kw</div>
+                                  </div>
+
+                                  <hr className="border-black" />
+                                </>
+                              )}
+
+                              {spec.model === "Folgore" && (
+                                <>
+                                  <div className="flex justify-between">
+                                    <div>Recharge Power DC</div>
+                                    <div>{spec.RechargePowerDC} Kw</div>
+                                  </div>
+
+                                  <hr className="border-black" />
+                                </>
+                              )}
                             </div>
 
-                            <div className="flex justify-between">
-                              <div>Length</div>
-                              <div>{spec.length} in</div>
+                            <div className="text-[11px] font-medium uppercase tracking-[0.44]">
+                              Dimensions and weight
                             </div>
-                            <div className="flex justify-between">
-                              <div>Width (with side mirrors) </div>
-                              <div>{spec.width} in</div>
-                            </div>
-                            <div className="flex justify-between">
-                              <div>Width (without side mirrors)</div>
-                              <div>{spec.widthNoMirrors} in</div>
+
+                            <div className="text-[11px] font-medium uppercase tracking-[0.44] *:pb-4">
+                              <div className="flex justify-between">
+                                <div>Length</div>
+                                <div className="lowercase">
+                                  {spec.length} in
+                                </div>
+                              </div>
+
+                              <hr className="border-black" />
+
+                              <div className="flex justify-between">
+                                <div>Width (with side mirrors) </div>
+                                <div className="lowercase">{spec.width} in</div>
+                              </div>
+
+                              <hr className="border-black" />
+
+                              <div className="flex justify-between">
+                                <div>Width (without side mirrors)</div>
+                                <div className="lowercase">
+                                  {spec.widthNoMirrors} in
+                                </div>
+                              </div>
+
+                              <hr className="border-black" />
+
+                              <div className="flex justify-between">
+                                <div>Height</div>
+                                <div className="lowercase">
+                                  {spec.height} in
+                                </div>
+                              </div>
+
+                              <hr className="border-black" />
+
+                              <div className="flex justify-between">
+                                <div>Wheelbase </div>
+                                <div className="lowercase">
+                                  {spec.wheelbase} in
+                                </div>
+                              </div>
+
+                              <hr className="border-black" />
+
+                              <div className="flex justify-between">
+                                <div>Front Track</div>
+                                <div className="lowercase">
+                                  {spec.frontTrack} in
+                                </div>
+                              </div>
+
+                              <hr className="border-black" />
+
+                              <div className="flex justify-between">
+                                <div>Rear Track</div>
+                                <div className="lowercase">
+                                  {spec.rearTrack} in
+                                </div>
+                              </div>
+
+                              <hr className="border-black" />
+
+                              <div className="flex justify-between">
+                                <div>Front overhang </div>
+                                <div className="lowercase">
+                                  {spec.frontOverhang} mm
+                                </div>
+                              </div>
+
+                              <hr className="border-black" />
+
+                              <div className="flex justify-between">
+                                <div>Rear overhang</div>
+                                <div className="lowercase">
+                                  {spec.rearOverhang} mm
+                                </div>
+                              </div>
+
+                              <hr className="border-black" />
+
+                              <div className="flex justify-between">
+                                <div>Turning circle</div>
+                                <div className="lowercase">
+                                  {spec.turningCircle} in
+                                </div>
+                              </div>
+
+                              <hr className="border-black" />
+
+                              <div className="flex justify-between">
+                                <div>Trunk capacity </div>
+                                <div className="lowercase">
+                                  {spec.trunkCapacity} ft
+                                </div>
+                              </div>
+
+                              <hr className="border-black" />
+
+                              <div className="flex justify-between">
+                                <div>Curb weight</div>
+                                <div className="lowercase">
+                                  {spec.curbWeight} lb
+                                </div>
+                              </div>
+
+                              <hr className="border-black" />
                             </div>
                           </div>
                         );
@@ -339,7 +507,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
 
               <hr className="border-zinc-400" />
 
-              <div className="pt-6">
+              <div className="pb-20 pt-6">
                 <div className="text-xs font-medium tracking-[1px] text-[#212529]">
                   *MSRP listed may not include preparation, delivery and
                   destination charges: USD 1,495 for all Ghibli and Levante

@@ -22,6 +22,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
+import { Footer } from "../shared/footer";
 
 export const ConfiguratorPageContents = ({ data, subModels }) => {
   const { modelName, subModelName } = useParams();
@@ -81,7 +82,7 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
   // }, []);
 
   return (
-    <div className="pb-96">
+    <div>
       <Header color="#FFFFFF"></Header>
 
       <ScrollToAnchor></ScrollToAnchor>
@@ -167,7 +168,9 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
         subModel={subModel}
       ></Summary>
 
-      <BottomNavBar subModel={subModel} price={price}></BottomNavBar>
+      {/* <BottomNavBar subModel={subModel} price={price}></BottomNavBar> */}
+
+      <Footer></Footer>
     </div>
   );
 };

@@ -20,7 +20,7 @@ export const Header = ({ color }) => {
       </div>
 
       <div aria-label="logo" className="cursor-pointer">
-        <MaseratiLogo></MaseratiLogo>
+        <MaseratiLogo color="#000000"></MaseratiLogo>
       </div>
 
       <div
