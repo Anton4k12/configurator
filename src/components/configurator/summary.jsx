@@ -18,23 +18,69 @@ const specs = {
   Modena: [
     { label: "Max speed", value: "188 mph" },
     { label: "Displacement", value: "3.0 L" },
-    // etc...
+    { label: "Horsepower", value: "483 HP" },
+    { label: "Engine Layout", value: "V6" },
   ],
   Trofeo: [
-    // same as modena
+    { label: "Max speed", value: "199 mph" },
+    { label: "Displacement", value: "3.0 L" },
+    { label: "Horsepower", value: "542 HP" },
+    { label: "Engine Layout", value: "V6" },
   ],
-  Folgore: [], // same as well
+  Folgore: [
+    { label: "Acceleration (0-60 mph)", value: "3.3 sec" },
+    { label: "Max speed", value: "202 mph" },
+    { label: "Horsepower", value: "751 HP" },
+    { label: "Battery capacity", value: "92.5 kWh" },
+    { label: "Recharge Power AC", value: "22 Kw" },
+    { label: "Recharge Power DC", value: "270 Kw" },
+  ],
 };
 
-const techSpecsDimensions = [
-  [
-    {
-      label: "Length",
-      value: "195.2 in",
-    },
+const techSpecsDimensions = {
+  Modena: [
+    { label: "Length", value: "195.2 in" },
+    { label: "Width (with side mirrors)", value: "83.2 in" },
+    { label: "Width (without side mirrors)", value: "77 in" },
+    { label: "Height", value: "53.2 in" },
+    { label: "Wheelbase", value: "115.3 in" },
+    { label: "Front track", value: "64.8 in" },
+    { label: "Rear track", value: "65.3 in" },
+    { label: "Front overhang", value: "949 mm" },
+    { label: "Rear overhang", value: "1081 mm" },
+    { label: "Turning circle", value: "488 in" },
+    { label: "Trunk capacity", value: "10.9 ft" },
+    { label: "Curb weight", value: "3957 lb" },
   ],
-  [{}],
-];
+  Trofeo: [
+    { label: "Length", value: "195.2 in" },
+    { label: "Width (with side mirrors)", value: "83.2 in" },
+    { label: "Width (without side mirrors)", value: "77 in" },
+    { label: "Height", value: "53.2 in" },
+    { label: "Wheelbase", value: "115.3 in" },
+    { label: "Front track", value: "64.8 in" },
+    { label: "Rear track", value: "65.3 in" },
+    { label: "Front overhang", value: "949 mm" },
+    { label: "Rear overhang", value: "1088 mm" },
+    { label: "Turning circle", value: "488 in" },
+    { label: "Trunk capacity", value: "10.9 ft" },
+    { label: "Curb weight", value: "3957 lb" },
+  ],
+  Folgore: [
+    { label: "Length", value: "195.2 in" },
+    { label: "Width (with side mirrors)", value: "83.2 in" },
+    { label: "Width (without side mirrors)", value: "77 in" },
+    { label: "Height", value: "54.1 in" },
+    { label: "Wheelbase", value: "115.3 in" },
+    { label: "Front track", value: "64.9 in" },
+    { label: "Rear track", value: "65.4 in" },
+    { label: "Front overhang", value: "949 mm" },
+    { label: "Rear overhang", value: "1081 mm" },
+    { label: "Turning circle", value: "488 in" },
+    { label: "Trunk capacity", value: "9.5 ft" },
+    { label: "Curb weight", value: "4982 lb" },
+  ],
+};
 
 const techSpecs = [
   {
@@ -121,6 +167,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
   const { modelName, subModelName } = useParams();
 
   const currentSpecs = specs[subModelName];
+  const currentDimensionsSpecs = techSpecsDimensions[subModelName];
 
   // const whatModel = techSpecs.filter((specs) => {
   //   if (subModelName === specs.model) {
@@ -299,17 +346,39 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
-                    {currentSpecs.map((spec) => {
-                      return (
-                        <>
-                          <div className="flex justify-between">
-                            <div>{spec.label}</div>
-                            <div>{spec.value}</div>
-                          </div>
-                          <hr className="border-black" />
-                        </>
-                      );
-                    })}
+                    <div className="flex flex-col gap-6">
+                      <div>
+                        {currentSpecs.map((spec) => {
+                          return (
+                            <>
+                              <div className="flex justify-between text-[11px] font-medium tracking-[0.44] *:py-4">
+                                <div className="uppercase">{spec.label}</div>
+                                <div>{spec.value}</div>
+                              </div>
+                              <hr className="border-black" />
+                            </>
+                          );
+                        })}
+                      </div>
+
+                      <div className="pt-6 text-[11px] font-medium uppercase tracking-[1px]">
+                        Dimensions and weight
+                      </div>
+
+                      <div>
+                        {currentDimensionsSpecs.map((spec) => {
+                          return (
+                            <>
+                              <div className="flex justify-between text-[11px] font-medium tracking-[0.44] *:py-4">
+                                <div className="uppercase">{spec.label}</div>
+                                <div>{spec.value}</div>
+                              </div>
+                              <hr className="border-black" />
+                            </>
+                          );
+                        })}
+                      </div>
+                    </div>
                     {/* {whatModel &&
                       whatModel.map((spec) => {
                         return (
