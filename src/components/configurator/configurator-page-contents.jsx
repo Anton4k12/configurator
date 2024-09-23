@@ -23,6 +23,9 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import { Footer } from "../shared/footer";
+import useSWR from "swr";
+import { formatPrice, getImagesHash } from "@/lib/utils";
+import { fetcher } from "@/data";
 
 export const ConfiguratorPageContents = ({ data, subModels }) => {
   const { modelName, subModelName } = useParams();
@@ -44,6 +47,32 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
   const selectedOptionsIds = useConfiguratorContext(
     (s) => s.selectedOptionsIds,
   );
+
+  const colorPrice = selectedColor.price
+    ? ` ${formatPrice(selectedColor.price)}`
+    : "";
+  const wheelPrice = selectedWheel.price
+    ? ` ${formatPrice(selectedWheel.price)}`
+    : "";
+  const brakePrice = selectedBrake.price
+    ? ` ${formatPrice(selectedBrake.price)}`
+    : "";
+  const trimPrice = selectedTrim.price
+    ? ` ${formatPrice(selectedTrim.price)}`
+    : "";
+
+  const state = {
+    color: `${selectedColor.type} Colors ${selectedColor.name}${colorPrice}`,
+    wheel: `${selectedWheel.diameter} ${selectedWheel.name}${wheelPrice}`,
+    brake: `${selectedBrake.name}${brakePrice}`,
+    trim: `${selectedTrim.name}${trimPrice}`,
+    seat: `${selectedSeat.name}__${selectedSeat.id}`,
+  };
+  const queryParam = `?color=${encodeURI(state.color)}&wheel=${encodeURI(state.wheel)}&brake=${encodeURI(state.brake)}&trim=${encodeURI(state.trim)}&seat=${encodeURI(state.seat)}`;
+
+  const { data: images, isLoading } = useSWR(`/images${queryParam}`, fetcher);
+
+  console.log({ images, isLoading });
 
   const subModel = subModels.find((subModel) => {
     return subModel.modelName === modelName && subModel.name === subModelName;
@@ -115,18 +144,14 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
           }}
         >
           <CarouselContent>
-            <CarouselItem>
-              <img
-                className="overflow-hidden rounded-2xl"
-                src="/home/GranTurismo/Trofeo/configurator/GranTurismo-config.jpeg"
-              />
-            </CarouselItem>
-            <CarouselItem>
-              <img
-                className="overflow-hidden rounded-2xl"
-                src="/home/GranTurismo/gfx1.jpeg"
-              />
-            </CarouselItem>
+            {images &&
+              images.map((src, i) => {
+                return (
+                  <CarouselItem key={i}>
+                    <img className="overflow-hidden rounded-2xl" src={src} />
+                  </CarouselItem>
+                );
+              })}
           </CarouselContent>
           <CarouselPrevious></CarouselPrevious>
           <CarouselNext></CarouselNext>
