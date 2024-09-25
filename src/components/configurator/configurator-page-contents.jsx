@@ -53,7 +53,7 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
     wheel: `${selectedWheel.name}`,
     brake: `${selectedBrake.name}`,
     trim: `${selectedTrim.name}`,
-    seat: `${selectedSeat.name}__${selectedSeat.id}`,
+    seat: `${selectedSeat.id}`,
   };
   const queryParam = `?color=${encodeURI(state.color)}&wheel=${encodeURI(state.wheel)}&brake=${encodeURI(state.brake)}&trim=${encodeURI(state.trim)}&seat=${encodeURI(state.seat)}`;
 
