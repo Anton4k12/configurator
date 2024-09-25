@@ -48,24 +48,11 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
     (s) => s.selectedOptionsIds,
   );
 
-  const colorPrice = selectedColor.price
-    ? ` ${formatPrice(selectedColor.price)}`
-    : "";
-  const wheelPrice = selectedWheel.price
-    ? ` ${formatPrice(selectedWheel.price)}`
-    : "";
-  const brakePrice = selectedBrake.price
-    ? ` ${formatPrice(selectedBrake.price)}`
-    : "";
-  const trimPrice = selectedTrim.price
-    ? ` ${formatPrice(selectedTrim.price)}`
-    : "";
-
   const state = {
-    color: `${selectedColor.type} Colors ${selectedColor.name}${colorPrice}`,
-    wheel: `${selectedWheel.diameter} ${selectedWheel.name}${wheelPrice}`,
-    brake: `${selectedBrake.name}${brakePrice}`,
-    trim: `${selectedTrim.name}${trimPrice}`,
+    color: `${selectedColor.name}`,
+    wheel: `${selectedWheel.name}`,
+    brake: `${selectedBrake.name}`,
+    trim: `${selectedTrim.name}`,
     seat: `${selectedSeat.name}__${selectedSeat.id}`,
   };
   const queryParam = `?color=${encodeURI(state.color)}&wheel=${encodeURI(state.wheel)}&brake=${encodeURI(state.brake)}&trim=${encodeURI(state.trim)}&seat=${encodeURI(state.seat)}`;
