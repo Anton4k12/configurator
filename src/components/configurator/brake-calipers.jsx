@@ -7,8 +7,8 @@ export const BrakeCalipers = ({ selectedBrake, brakeCalipers }) => {
 
   const formattedPrice = formatPrice(selectedBrake.price);
   return (
-    <div className="flex flex-col gap-5">
-      <div className="text-[40px] font-extralight leading-none">
+    <div className="flex flex-col gap-5 px-[35px] lg:px-0">
+      <div className="text-[35px] font-extralight leading-none lg:text-[40px]">
         Brake Calipers
       </div>
 
@@ -17,7 +17,7 @@ export const BrakeCalipers = ({ selectedBrake, brakeCalipers }) => {
         {selectedBrake.price !== null && <span>{formattedPrice}</span>}
       </div>
 
-      <div data-brake className="flex gap-3">
+      <div data-brake className="flex flex-wrap gap-3">
         {brakeCalipers.map((brake) => {
           const isSelectedBrake = selectedBrake.name === brake.name;
           if (isSelectedBrake) {

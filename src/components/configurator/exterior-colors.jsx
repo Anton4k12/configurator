@@ -24,8 +24,8 @@ export const ExteriorColor = ({ colorsTypes, colors }) => {
   const formattedPrice = formatPrice(selectedColor.price);
 
   return (
-    <div id="exterior" className="flex w-full flex-col gap-5">
-      <div className="text-[40px] font-extralight leading-none">
+    <div id="exterior" className="flex w-full flex-col gap-5 px-[35px] lg:px-0">
+      <div className="text-[35px] font-extralight leading-none lg:text-[40px]">
         Exterior Colors
       </div>
       <div className="text-[11px] uppercase tracking-wide text-[rgb(102,102,102)]">
@@ -48,7 +48,7 @@ export const ExteriorColor = ({ colorsTypes, colors }) => {
           );
         })}
       </div>
-      <div data-colors className="flex gap-3">
+      <div data-colors className="flex flex-wrap gap-3">
         {displayedColors.map((color) => {
           const isSelectedColor = selectedColor.name === color.name;
           if (isSelectedColor) {

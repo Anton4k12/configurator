@@ -8,15 +8,17 @@ export const Wheels = ({ wheels, selectedWheel }) => {
   const formattedPrice = formatPrice(selectedWheel.price);
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="text-[40px] font-extralight leading-none">Wheels</div>
+    <div className="flex flex-col gap-5 px-[35px] lg:px-0">
+      <div className="text-[35px] font-extralight leading-none lg:text-[40px]">
+        Wheels
+      </div>
 
       <div className="text-[11px] uppercase tracking-wide text-[rgb(102,102,102)]">
         {selectedWheel.diameter} {selectedWheel.name}{" "}
         {selectedWheel.price !== null && <span>{formattedPrice}</span>}
       </div>
 
-      <div data-wheels className="flex gap-3">
+      <div data-wheels className="flex flex-wrap gap-3">
         {wheels.map((wheel) => {
           const isSelectedWheel = selectedWheel.name === wheel.name;
           if (isSelectedWheel) {

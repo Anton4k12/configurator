@@ -12,6 +12,7 @@ export const routes = {
   home: "/",
   model: "/:modelName",
   subModel: "/:modelName/:subModelName",
+  subModelTest: "/:modelName/:subModelName/test",
 };
 
 export const router = createBrowserRouter(
@@ -20,7 +21,7 @@ export const router = createBrowserRouter(
       <Route path={routes.home} element={<HomePage />}></Route>
       <Route path={routes.model} element={<ModelPage />}></Route>
       <Route path={routes.subModel} element={<ConfiguratorPage />}></Route>
-      <Route path="test" element={<TestPage></TestPage>}></Route>
+      <Route path={routes.subModelTest} element={<TestPage />}></Route>
     </>,
   ),
 );

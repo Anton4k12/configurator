@@ -9,8 +9,10 @@ export const Trim = ({ trim, selectedTrim }) => {
   const formattedPrice = formatPrice(selectedTrim.price);
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="text-[40px] font-extralight leading-none">Trim</div>
+    <div className="flex flex-col gap-5 px-[35px] lg:px-0">
+      <div className="text-[35px] font-extralight leading-none lg:text-[40px]">
+        Trim
+      </div>
 
       <div>
         <div className="text-[11px] uppercase tracking-wide text-[rgb(102,102,102)]">
@@ -19,7 +21,7 @@ export const Trim = ({ trim, selectedTrim }) => {
         </div>
       </div>
 
-      <div data-wheels className="flex gap-3">
+      <div data-wheels className="flex flex-wrap gap-3">
         {trim.map((trim) => {
           const isSelectedTrim = selectedTrim.name === trim.name;
           if (isSelectedTrim) {

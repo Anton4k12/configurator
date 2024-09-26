@@ -7,7 +7,7 @@ export const TopNavBar = () => {
 
   return (
     <div aria-label="top navbar" className="sticky top-0 z-10 bg-white">
-      <hr />
+      <hr className="hidden lg:block" />
 
       <div className="flex h-12 items-center justify-center gap-8">
         <Link
@@ -31,7 +31,7 @@ export const TopNavBar = () => {
         <Link
           to={"#packages"}
           className={cn(
-            "text-xs font-medium uppercase tracking-wide",
+            "hidden text-xs font-medium uppercase tracking-wide lg:block",
             location.hash === "#packages" && "font-bold",
           )}
         >
@@ -40,7 +40,7 @@ export const TopNavBar = () => {
         <Link
           to={"#options"}
           className={cn(
-            "text-xs font-medium uppercase tracking-wide",
+            "hidden text-xs font-medium uppercase tracking-wide lg:block",
             location.hash === "#options" && "font-bold",
           )}
         >

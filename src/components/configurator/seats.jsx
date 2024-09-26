@@ -4,8 +4,10 @@ import { Triangle } from "../icons/triangle";
 export const Seats = ({ seats, selectedSeat }) => {
   const selectSeat = useConfiguratorContext((s) => s.selectSeat);
   return (
-    <div id="interior" className="flex flex-col gap-5">
-      <div className="text-[40px] font-extralight leading-none">Seats</div>
+    <div id="interior" className="flex flex-col gap-5 px-[35px] lg:px-0">
+      <div className="text-[35px] font-extralight leading-none lg:text-[40px]">
+        Seats
+      </div>
 
       <div>
         <div className="pb-2 text-[11px] uppercase tracking-wide text-[rgb(102,102,102)]">
@@ -16,7 +18,7 @@ export const Seats = ({ seats, selectedSeat }) => {
         </div>
       </div>
 
-      <div data-wheels className="flex gap-3">
+      <div data-wheels className="flex flex-wrap gap-3">
         {seats.map((seat) => {
           const isSelectedSeat = selectedSeat.name === seat.name;
           if (isSelectedSeat) {
