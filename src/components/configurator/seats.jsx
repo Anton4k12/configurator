@@ -1,8 +1,8 @@
-import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
+import { useConfiguratorStore } from "@/state/v2";
 import { Triangle } from "../icons/triangle";
 
 export const Seats = ({ seats, selectedSeat }) => {
-  const selectSeat = useConfiguratorContext((s) => s.selectSeat);
+  const selectSeat = useConfiguratorStore((s) => s.selectSeat);
   return (
     <div id="interior" className="flex flex-col gap-5 px-[35px] lg:px-0">
       <div className="text-[35px] font-extralight leading-none lg:text-[40px]">

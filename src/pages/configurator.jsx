@@ -2,6 +2,7 @@ import { ConfiguratorPageContents } from "@/components/configurator/configurator
 import { LoadingScreen } from "@/components/shared/loading-screen";
 import { fetcher } from "@/data";
 import { ConfiguratorContext, createConfiguratorStore } from "@/state";
+import { ConfiguratorProvider } from "@/state/v2";
 import { useRef } from "react";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
@@ -21,41 +22,34 @@ export const ConfiguratorPage = () => {
     return <LoadingScreen></LoadingScreen>;
   }
 
+  const initialWheel = subModelDetailsData.wheels.find((wheel) => {
+    return wheel.price === null;
+  });
+
+  const initialBrake = subModelDetailsData.brakeCalipers.find((brake) => {
+    return brake.price === null;
+  });
+
+  const initialTrim = subModelDetailsData.trim.find((trim) => {
+    return trim.price === null;
+  });
+
+  const initialState = {
+    selectedWheel: initialWheel,
+    selectedBrake: initialBrake,
+    selectedTrim: initialTrim,
+    selectedColor: subModelDetailsData.colors[1],
+    selectedSeat: subModelDetailsData.seats[0],
+  };
+
   return (
-    <StateProvider data={subModelDetailsData}>
+    <ConfiguratorProvider
+      createStore={() => createConfiguratorStore(initialState)}
+    >
       <ConfiguratorPageContents
         subModels={subModelsData.subModels}
         data={subModelDetailsData}
       ></ConfiguratorPageContents>
-    </StateProvider>
-  );
-};
-
-const StateProvider = ({ data, children }) => {
-  const initialWheel = data.wheels.find((wheel) => {
-    return wheel.price === null;
-  });
-
-  const initialBrake = data.brakeCalipers.find((brake) => {
-    return brake.price === null;
-  });
-
-  const initialTrim = data.trim.find((trim) => {
-    return trim.price === null;
-  });
-
-  const store = useRef(
-    createConfiguratorStore({
-      selectedWheel: initialWheel,
-      selectedBrake: initialBrake,
-      selectedTrim: initialTrim,
-      selectedColor: data.colors[1],
-      selectedSeat: data.seats[0],
-    }),
-  ).current;
-  return (
-    <ConfiguratorContext.Provider value={store}>
-      {children}
-    </ConfiguratorContext.Provider>
+    </ConfiguratorProvider>
   );
 };

@@ -1,10 +1,9 @@
 import { formatPrice } from "@/lib/utils";
-import { useStore } from "zustand";
+import { useConfiguratorStore } from "@/state/v2";
 import { Triangle } from "../icons/triangle";
-import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
 
 export const Trim = ({ trim, selectedTrim }) => {
-  const selectTrim = useConfiguratorContext((state) => state.selectTrim);
+  const selectTrim = useConfiguratorStore((state) => state.selectTrim);
 
   const formattedPrice = formatPrice(selectedTrim.price);
 

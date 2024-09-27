@@ -1,9 +1,9 @@
-import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
 import { formatPrice } from "@/lib/utils";
 import { Triangle } from "../icons/triangle";
+import { useConfiguratorStore } from "@/state/v2";
 
 export const BrakeCalipers = ({ selectedBrake, brakeCalipers }) => {
-  const selectBrake = useConfiguratorContext((s) => s.selectBrake);
+  const selectBrake = useConfiguratorStore((s) => s.selectBrake);
 
   const formattedPrice = formatPrice(selectedBrake.price);
   return (

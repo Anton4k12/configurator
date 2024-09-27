@@ -1,12 +1,12 @@
-import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
+import { useConfiguratorStore } from "@/state/v2";
 import { useState } from "react";
 import { MinusIcon } from "../icons/minus-icon";
 import { PlusIcon } from "../icons/plus-icon";
 import { Package } from "./package";
 
 export const Packages = ({ packages, selectedIds }) => {
-  const addPackage = useConfiguratorContext((s) => s.addPackage);
-  const removePackage = useConfiguratorContext((s) => s.removePackage);
+  const addPackage = useConfiguratorStore((s) => s.addPackage);
+  const removePackage = useConfiguratorStore((s) => s.removePackage);
 
   const [isExtended, setIsExtended] = useState(false);
 

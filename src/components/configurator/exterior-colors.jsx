@@ -1,13 +1,13 @@
-import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
 import { cn, formatPrice } from "@/lib/utils";
+import { useConfiguratorStore } from "@/state/v2";
 import { useState } from "react";
 import { Triangle } from "../icons/triangle";
 
 export const ExteriorColor = ({ colorsTypes, colors }) => {
   const [selectedColorType, setSelectedColorType] = useState(colorsTypes[0]);
 
-  const selectedColor = useConfiguratorContext((s) => s.selectedColor);
-  const selectColor = useConfiguratorContext((s) => s.selectColor);
+  const selectedColor = useConfiguratorStore((s) => s.selectedColor);
+  const selectColor = useConfiguratorStore((s) => s.selectColor);
 
   const displayedColors = colors.filter((color) => {
     return color.type === selectedColorType;

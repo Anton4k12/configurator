@@ -1,7 +1,17 @@
-import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
-import { replace, useNavigate, useParams } from "react-router-dom";
-import { ChevronRight } from "../icons/chevron-right";
+import { fetcher } from "@/data";
+import { useConfiguratorStore } from "@/state/v2";
+import { useParams } from "react-router-dom";
+import useSWR from "swr";
+import { Footer } from "../shared/footer";
 import { Header } from "../shared/header";
+import { ScrollToAnchor } from "../shared/scroller";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel";
 import { BottomNavBar } from "./bottom-navbar";
 import { BrakeCalipers } from "./brake-calipers";
 import { ExteriorColor } from "./exterior-colors";
@@ -12,41 +22,25 @@ import { Summary } from "./summary";
 import { TopNavBar } from "./top-navbar";
 import { Trim } from "./trim";
 import { Wheels } from "./wheels";
-import ScrollToHashElement from "@cascadia-code/scroll-to-hash-element";
-import { useEffect } from "react";
-import { ScrollToAnchor } from "../shared/scroller";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "../ui/carousel";
-import { Footer } from "../shared/footer";
-import useSWR from "swr";
-import { formatPrice, getImagesHash } from "@/lib/utils";
-import { fetcher } from "@/data";
 
 export const ConfiguratorPageContents = ({ data, subModels }) => {
   const { modelName, subModelName } = useParams();
 
-  const selectedColor = useConfiguratorContext((s) => s.selectedColor);
+  const selectedColor = useConfiguratorStore((s) => s.selectedColor);
 
-  const selectedWheel = useConfiguratorContext((s) => s.selectedWheel);
+  const selectedWheel = useConfiguratorStore((s) => s.selectedWheel);
 
-  const selectedBrake = useConfiguratorContext((s) => s.selectedBrake);
+  const selectedBrake = useConfiguratorStore((s) => s.selectedBrake);
 
-  const selectedTrim = useConfiguratorContext((s) => s.selectedTrim);
+  const selectedTrim = useConfiguratorStore((s) => s.selectedTrim);
 
-  const selectedSeat = useConfiguratorContext((s) => s.selectedSeat);
+  const selectedSeat = useConfiguratorStore((s) => s.selectedSeat);
 
-  const selectedPackagesIds = useConfiguratorContext(
+  const selectedPackagesIds = useConfiguratorStore(
     (s) => s.selectedPackagesIds,
   );
 
-  const selectedOptionsIds = useConfiguratorContext(
-    (s) => s.selectedOptionsIds,
-  );
+  const selectedOptionsIds = useConfiguratorStore((s) => s.selectedOptionsIds);
 
   const state = {
     color: `${selectedColor.name}`,
@@ -65,7 +59,7 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
     return subModel.modelName === modelName && subModel.name === subModelName;
   });
 
-  const getPrice = useConfiguratorContext((s) => s.getPrice);
+  const getPrice = useConfiguratorStore((s) => s.getPrice);
 
   const price = getPrice({
     startingPrice: subModel.startingPrice,

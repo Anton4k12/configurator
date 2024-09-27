@@ -1,5 +1,6 @@
-import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
 import { formatPrice } from "@/lib/utils";
+import { useConfiguratorStore } from "@/state/v2";
+import { useParams } from "react-router-dom";
 import ArrowCircleIcon from "../icons/arrow-circle-icon";
 import ArrowUturnIcon from "../icons/arrow-uturn-icon";
 import { ChevronRight } from "../icons/chevron-right";
@@ -7,12 +8,10 @@ import DownloadIcon from "../icons/download-icon";
 import SaveIcon from "../icons/save-icon";
 import {
   Accordion,
+  AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  AccordionContent,
 } from "../ui/accordion";
-import { GranTurismoIcon } from "../icons/granturismo-logo";
-import { useParams } from "react-router-dom";
 
 const specs = {
   Modena: [
@@ -149,11 +148,11 @@ const techSpecs = [
 ];
 
 export const Summary = ({ price, personalizatedPrice, subModel }) => {
-  const selectedColor = useConfiguratorContext((state) => state.selectedColor);
-  const selectedSeat = useConfiguratorContext((state) => state.selectedSeat);
-  const selectedWheel = useConfiguratorContext((state) => state.selectedWheel);
-  const selectedBrake = useConfiguratorContext((state) => state.selectedBrake);
-  const selectedTrim = useConfiguratorContext((state) => state.selectedTrim);
+  const selectedColor = useConfiguratorStore((state) => state.selectedColor);
+  const selectedSeat = useConfiguratorStore((state) => state.selectedSeat);
+  const selectedWheel = useConfiguratorStore((state) => state.selectedWheel);
+  const selectedBrake = useConfiguratorStore((state) => state.selectedBrake);
+  const selectedTrim = useConfiguratorStore((state) => state.selectedTrim);
 
   const formattedPrice = formatPrice(price);
   const formattedPersonalizatedPrice = formatPrice(personalizatedPrice);

@@ -6,23 +6,23 @@ import { TopNavBar } from "@/components/configurator/top-navbar";
 import { Trim } from "@/components/configurator/trim";
 import { Wheels } from "@/components/configurator/wheels";
 import { Header } from "@/components/shared/header";
-import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
+import { useConfiguratorStore } from "@/state/v2";
 import { useParams } from "react-router-dom";
 
 export const Mobile = ({ data, subModels }) => {
   const { modelName, subModelName } = useParams();
 
-  const selectedColor = useConfiguratorContext((s) => s.selectedColor);
+  const selectedColor = useConfiguratorStore((s) => s.selectedColor);
 
-  const selectedWheel = useConfiguratorContext((s) => s.selectedWheel);
+  const selectedWheel = useConfiguratorStore((s) => s.selectedWheel);
 
-  const selectedBrake = useConfiguratorContext((s) => s.selectedBrake);
+  const selectedBrake = useConfiguratorStore((s) => s.selectedBrake);
 
-  const selectedTrim = useConfiguratorContext((s) => s.selectedTrim);
+  const selectedTrim = useConfiguratorStore((s) => s.selectedTrim);
 
-  const selectedSeat = useConfiguratorContext((s) => s.selectedSeat);
+  const selectedSeat = useConfiguratorStore((s) => s.selectedSeat);
 
-  const getPrice = useConfiguratorContext((s) => s.getPrice);
+  const getPrice = useConfiguratorStore((s) => s.getPrice);
 
   const subModel = subModels.find((subModel) => {
     return subModel.modelName === modelName && subModel.name === subModelName;

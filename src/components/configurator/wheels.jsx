@@ -1,9 +1,9 @@
-import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
 import { formatPrice } from "@/lib/utils";
+import { useConfiguratorStore } from "@/state/v2";
 import { Triangle } from "../icons/triangle";
 
 export const Wheels = ({ wheels, selectedWheel }) => {
-  const selectWheel = useConfiguratorContext((state) => state.selectWheel);
+  const selectWheel = useConfiguratorStore((state) => state.selectWheel);
 
   const formattedPrice = formatPrice(selectedWheel.price);
 
