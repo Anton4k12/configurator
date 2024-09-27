@@ -6,7 +6,7 @@ export const TopNavBar = () => {
   const location = useLocation();
 
   return (
-    <div aria-label="top navbar" className="sticky top-0 z-10 bg-white">
+    <div aria-label="top navbar" className="sticky top-0 z-50 bg-white">
       <hr className="hidden lg:block" />
 
       <div className="flex h-12 items-center justify-center gap-8">

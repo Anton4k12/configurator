@@ -43,7 +43,7 @@ export const Mobile = ({ data, subModels }) => {
       <TopNavBar></TopNavBar>
 
       <div data-exterior>
-        <div className="overflow-hidden px-7 pt-[41px]">
+        <div className="sticky top-0 z-40 overflow-hidden px-7 pt-[41px]">
           <img className="rounded-2xl" src="/home/GranTurismo/gfx1.jpeg" />
         </div>
 
@@ -67,7 +67,7 @@ export const Mobile = ({ data, subModels }) => {
       </div>
 
       <div data-interior>
-        <div className="overflow-hidden px-7 pt-4">
+        <div className="sticky top-0 z-40 overflow-hidden px-7 pt-4">
           <img className="rounded-2xl" src="/home/GranTurismo/gfx5.jpeg" />
         </div>
 

@@ -1,26 +1,35 @@
 import { create } from "zustand";
 import { createContext } from "zustand-di";
 
+const DEFAULT_PROPS = {
+  selectedWheel: {},
+  selectedColor: {},
+  selectedTrim: {},
+  selectedBrake: {},
+  selectedSeat: {},
+  selectedPackagesIds: [],
+  selectedOptionsIds: [],
+};
+
 /**
- * @typedef {Object} DefaultProps
+ * @typedef {Object} InitialState
  * @property {object} selectedWheel - The currently selected wheel.
  * @property {object} selectedColor - The currently selected color.
  * @property {object} selectedTrim - The currently selected trim.
  * @property {object} selectedBrake - The currently selected brake.
  * @property {object} selectedSeat - The currently selected seat.
- * @property {string[]} selectedPackagesIds - An array of selected package IDs.
- * @property {string[]} selectedOptionsIds - An array of selected option IDs.
  */
 
 export const [ConfiguratorProvider, useConfiguratorStore] = createContext();
 
 /**
  *
- * @param {DefaultProps} initialState
+ * @param {InitialState} initialState
  * @returns
  */
 export const createConfiguratorStore = (initialState) =>
   create((set, get) => ({
+    ...DEFAULT_PROPS,
     ...initialState,
 
     addPackage: (id) => {

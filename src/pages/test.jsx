@@ -5,6 +5,7 @@ import { Mobile } from "./mobile";
 import { LoadingScreen } from "@/components/shared/loading-screen";
 import { createConfiguratorStore, ConfiguratorContext } from "@/state";
 import { useRef } from "react";
+import { ConfiguratorProvider } from "@/state/v2";
 
 export const TestPage = () => {
   const { modelName, subModelName } = useParams();
@@ -21,41 +22,34 @@ export const TestPage = () => {
     return <LoadingScreen></LoadingScreen>;
   }
 
+  const initialWheel = subModelDetailsData.wheels.find((wheel) => {
+    return wheel.price === null;
+  });
+
+  const initialBrake = subModelDetailsData.brakeCalipers.find((brake) => {
+    return brake.price === null;
+  });
+
+  const initialTrim = subModelDetailsData.trim.find((trim) => {
+    return trim.price === null;
+  });
+
+  const initialState = {
+    selectedWheel: initialWheel,
+    selectedBrake: initialBrake,
+    selectedTrim: initialTrim,
+    selectedColor: subModelDetailsData.colors[1],
+    selectedSeat: subModelDetailsData.seats[0],
+  };
+
   return (
-    <StateProvider data={subModelDetailsData}>
+    <ConfiguratorProvider
+      createStore={() => createConfiguratorStore(initialState)}
+    >
       <Mobile
         subModels={subModelsData.subModels}
         data={subModelDetailsData}
       ></Mobile>
-    </StateProvider>
-  );
-};
-
-const StateProvider = ({ data, children }) => {
-  const initialWheel = data.wheels.find((wheel) => {
-    return wheel.price === null;
-  });
-
-  const initialBrake = data.brakeCalipers.find((brake) => {
-    return brake.price === null;
-  });
-
-  const initialTrim = data.trim.find((trim) => {
-    return trim.price === null;
-  });
-
-  const store = useRef(
-    createConfiguratorStore({
-      selectedWheel: initialWheel,
-      selectedBrake: initialBrake,
-      selectedTrim: initialTrim,
-      selectedColor: data.colors[1],
-      selectedSeat: data.seats[0],
-    }),
-  ).current;
-  return (
-    <ConfiguratorContext.Provider value={store}>
-      {children}
-    </ConfiguratorContext.Provider>
+    </ConfiguratorProvider>
   );
 };
