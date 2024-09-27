@@ -171,14 +171,14 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
 
   return (
     <div id="summary">
-      <div className="flex flex-col items-center rounded-2xl bg-[#eee] pt-10 font-extralight">
-        <div className="text-6xl tracking-wide">
+      <div className="flex flex-col items-center rounded-2xl pt-10 font-extralight lg:bg-[#eee]">
+        <div className="p-10 text-center text-6xl tracking-wide">
           Your {subModel.modelName} {subModel.name}
         </div>
-        <div className="flex gap-3 pl-3 pt-[60px]">
+        <div className="gap-3 px-3 lg:flex lg:pl-3 lg:pt-[60px]">
           <div
             data-summary
-            className="flex w-2/3 flex-col gap-[60px] rounded-t-2xl bg-white px-[93px] pt-[60px]"
+            className="flex flex-col gap-[60px] rounded-t-2xl bg-white px-4 pt-2 lg:w-2/3 lg:px-[93px] lg:pt-[60px]"
           >
             <img className="rounded-2xl" src="/home/GranTurismo/gfx1.jpeg" />
 
@@ -189,12 +189,14 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
 
               <hr className="border-zinc-400" />
 
-              <div className="flex justify-between pt-10 *:flex-1">
+              <div className="pt-10 lg:flex lg:justify-between lg:*:flex-1">
                 <Detail
                   imageUrl={selectedColor.imageUrl}
                   name={selectedColor.name}
                   category="Exterior Color"
                 ></Detail>
+
+                <hr className="block w-3/4 lg:hidden" />
 
                 <Detail
                   imageUrl={selectedSeat.imageUrl}

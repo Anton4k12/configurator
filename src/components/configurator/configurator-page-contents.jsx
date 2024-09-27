@@ -182,7 +182,7 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
 
       <BottomNavBar subModel={subModel} price={price}></BottomNavBar>
 
-      <Footer></Footer>
+      <Footer modelName={modelName} subModel={subModel}></Footer>
     </div>
   );
 };

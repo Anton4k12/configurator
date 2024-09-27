@@ -1,13 +1,17 @@
 import { BrakeCalipers } from "@/components/configurator/brake-calipers";
 import { ExteriorColor } from "@/components/configurator/exterior-colors";
 import { Seats } from "@/components/configurator/seats";
+import { Summary } from "@/components/configurator/summary";
 import { TopNavBar } from "@/components/configurator/top-navbar";
 import { Trim } from "@/components/configurator/trim";
 import { Wheels } from "@/components/configurator/wheels";
 import { Header } from "@/components/shared/header";
 import { useConfiguratorContext } from "@/hooks/useConfiguratorContext";
+import { useParams } from "react-router-dom";
 
 export const Mobile = ({ data, subModels }) => {
+  const { modelName, subModelName } = useParams();
+
   const selectedColor = useConfiguratorContext((s) => s.selectedColor);
 
   const selectedWheel = useConfiguratorContext((s) => s.selectedWheel);
@@ -17,6 +21,20 @@ export const Mobile = ({ data, subModels }) => {
   const selectedTrim = useConfiguratorContext((s) => s.selectedTrim);
 
   const selectedSeat = useConfiguratorContext((s) => s.selectedSeat);
+
+  const getPrice = useConfiguratorContext((s) => s.getPrice);
+
+  const subModel = subModels.find((subModel) => {
+    return subModel.modelName === modelName && subModel.name === subModelName;
+  });
+
+  const price = getPrice({
+    startingPrice: subModel.startingPrice,
+    packages: data.packages,
+    options: data.options,
+  });
+
+  const personalizatedPrice = price - subModel.startingPrice;
 
   return (
     <div className="pb-96">
@@ -74,6 +92,14 @@ export const Mobile = ({ data, subModels }) => {
             </p>
           </div>
         </div>
+      </div>
+
+      <div>
+        <Summary
+          price={price}
+          personalizatedPrice={personalizatedPrice}
+          subModel={subModel}
+        ></Summary>
       </div>
     </div>
   );
