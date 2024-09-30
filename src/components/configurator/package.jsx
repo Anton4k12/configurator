@@ -106,7 +106,7 @@ export const Package = ({
         <div data-image className="flex-1 space-y-5">
           <img
             onClick={handleOpenModal}
-            className="cursor-pointer"
+            className="h-[205px] cursor-pointer"
             src={imageUrl}
           />
           <div className="flex items-center justify-between">

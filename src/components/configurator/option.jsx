@@ -79,7 +79,7 @@ export const Option = ({ option, isSelected, id, onAdd, onRemove }) => {
       >
         <img
           onClick={handleOpenModal}
-          className="cursor-pointer"
+          className="h-[210px] cursor-pointer"
           src={option.imageUrl}
         ></img>
         <div className="flex w-full flex-1 flex-col justify-between">

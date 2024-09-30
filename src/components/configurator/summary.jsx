@@ -188,7 +188,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
 
               <hr className="border-zinc-400" />
 
-              <div className="flex flex-col gap-6 pt-10 lg:flex lg:justify-between lg:*:flex-1">
+              <div className="flex flex-col gap-4 pt-10 lg:flex lg:justify-between lg:*:flex-1">
                 <Detail
                   imageUrl={selectedColor.imageUrl}
                   name={selectedColor.name}
@@ -428,7 +428,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
 
           <div
             data-sticky-summary
-            className="sticky top-9 h-fit rounded-t-2xl bg-white px-[43px] py-8 lg:w-1/3"
+            className="sticky top-9 h-fit rounded-t-2xl bg-white px-[3px] py-8 lg:w-1/3 lg:px-[43px]"
           >
             <div className="pb-8">
               <div className="flex items-center justify-between pb-[6px] text-left leading-none">

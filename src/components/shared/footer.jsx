@@ -10,6 +10,7 @@ export const Footer = ({ modelName, subModel }) => {
         </div>
       </Link>
       <hr className="border-white" />
+      <div>made by https://github.com/Anton4k12</div>
       <div className="bg-black py-20"></div>
     </div>
   );

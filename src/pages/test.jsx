@@ -6,6 +6,7 @@ import { LoadingScreen } from "@/components/shared/loading-screen";
 import { createConfiguratorStore, ConfiguratorContext } from "@/state";
 import { useRef } from "react";
 import { ConfiguratorProvider } from "@/state/v2";
+import { TestPageV2 } from "./testv2";
 
 export const TestPage = () => {
   const { modelName, subModelName } = useParams();
@@ -46,10 +47,14 @@ export const TestPage = () => {
     <ConfiguratorProvider
       createStore={() => createConfiguratorStore(initialState)}
     >
-      <Mobile
+      {/* <Mobile
         subModels={subModelsData.subModels}
         data={subModelDetailsData}
-      ></Mobile>
+      ></Mobile> */}
+      <TestPageV2
+        subModels={subModelsData.subModels}
+        data={subModelDetailsData}
+      ></TestPageV2>
     </ConfiguratorProvider>
   );
 };

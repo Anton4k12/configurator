@@ -2,30 +2,29 @@ import { fetcher } from "@/data";
 import { useConfiguratorStore } from "@/state/v2";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
-import { Footer } from "../shared/footer";
-import { Header } from "../shared/header";
-import { ScrollToAnchor } from "../shared/scroller";
+import { Footer } from "@/components/shared/footer";
+import { Header } from "@/components/shared/header";
+import { ScrollToAnchor } from "@/components/shared/scroller";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../ui/carousel";
-import { BottomNavBar } from "./bottom-navbar";
-import { BrakeCalipers } from "./brake-calipers";
-import { ExteriorColor } from "./exterior-colors";
-import { Options } from "./options";
-import { Packages } from "./packages";
-import { Seats } from "./seats";
-import { Summary } from "./summary";
-import { TopNavBar } from "./top-navbar";
-import { Trim } from "./trim";
-import { Wheels } from "./wheels";
-import { useEffect, useState } from "react";
-import { usePrevious } from "@/hooks/usePrevious";
+} from "@/components/ui/carousel";
+import { BottomNavBar } from "@/components/configurator/bottom-navbar";
+import { BrakeCalipers } from "@/components/configurator/brake-calipers";
+import { ExteriorColor } from "@/components/configurator/exterior-colors";
+import { Options } from "@/components/configurator/options";
+import { Packages } from "@/components/configurator/packages";
+import { Seats } from "@/components/configurator/seats";
+import { Summary } from "@/components/configurator/summary";
+import { TopNavBar } from "@/components/configurator/top-navbar";
+import { Trim } from "@/components/configurator/trim";
+import { Wheels } from "@/components/configurator/wheels";
+import useScrollSpy from "@/hooks/useScrollSpy";
 
-export const ConfiguratorPageContents = ({ data, subModels }) => {
+export const TestPageV2 = ({ data, subModels }) => {
   const { modelName, subModelName } = useParams();
 
   const selectedColor = useConfiguratorStore((s) => s.selectedColor);
@@ -53,15 +52,9 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
   };
   const queryParam = `?color=${encodeURI(state.color)}&wheel=${encodeURI(state.wheel)}&brake=${encodeURI(state.brake)}&trim=${encodeURI(state.trim)}&seat=${encodeURI(state.seat)}`;
 
-  const { data: images, isLoading } = useSWR(`/images${queryParam}`, fetcher, {
-    keepPreviousData: true,
-  });
+  const { data: images, isLoading } = useSWR(`/images${queryParam}`, fetcher);
 
-  // const prevImages = usePrevious(images);
-
-  // const dispayedImages = images ? images : prevImages;
-
-  console.log({ images });
+  console.log({ images, isLoading });
 
   const subModel = subModels.find((subModel) => {
     return subModel.modelName === modelName && subModel.name === subModelName;
@@ -99,29 +92,11 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
   //   };
   // }, []);
 
-  const [api, setApi] = useState();
-  const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    setCurrent(api.selectedScrollSnap());
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap());
-    });
-  }, [api]);
-
-  console.log(current);
-  // console.log(images);
+  const activeId = useScrollSpy(48);
 
   return (
     <div>
       <Header color="#FFFFFF"></Header>
-
-      <ScrollToAnchor></ScrollToAnchor>
 
       <TopNavBar></TopNavBar>
 
@@ -145,7 +120,6 @@ export const ConfiguratorPageContents = ({ data, subModels }) => {
         </div> */}
 
         <Carousel
-          setApi={setApi}
           className="sticky top-12 h-fit w-2/3 pt-6"
           opts={{
             loop: true,
