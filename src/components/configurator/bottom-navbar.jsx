@@ -9,7 +9,7 @@ export const BottomNavBar = ({ price, subModel }) => {
   return (
     <div
       aria-label="bottom navbar"
-      className="fixed bottom-0 left-0 flex h-24 w-full items-center justify-between gap-10 bg-white px-10 py-2 shadow-[0_0_8px_rgb(168,168,168,0.5)]"
+      className="fixed bottom-0 left-0 hidden h-24 w-full items-center justify-between gap-10 bg-white px-10 py-2 shadow-[0_0_8px_rgb(168,168,168,0.5)] lg:flex"
     >
       <div className="flex w-1/2 items-center gap-10">
         <div className="flex items-center gap-4">

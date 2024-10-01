@@ -3,7 +3,7 @@ import { MaseratiLogo } from "../icons/maserati-logo";
 
 export const Footer = ({ modelName, subModel }) => {
   return (
-    <div>
+    <div className="hidden lg:block">
       <Link to={`/${modelName}/${subModel.name}/test`}>
         <div className="flex w-full justify-center bg-black py-6">
           <MaseratiLogo color="#FFFFFF"></MaseratiLogo>

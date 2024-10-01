@@ -47,14 +47,14 @@ export const TestPage = () => {
     <ConfiguratorProvider
       createStore={() => createConfiguratorStore(initialState)}
     >
-      {/* <Mobile
+      <Mobile
         subModels={subModelsData.subModels}
         data={subModelDetailsData}
-      ></Mobile> */}
-      <TestPageV2
+      ></Mobile>
+      {/* <TestPageV2
         subModels={subModelsData.subModels}
         data={subModelDetailsData}
-      ></TestPageV2>
+      ></TestPageV2> */}
     </ConfiguratorProvider>
   );
 };

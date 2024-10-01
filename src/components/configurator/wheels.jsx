@@ -8,7 +8,7 @@ export const Wheels = ({ wheels, selectedWheel }) => {
   const formattedPrice = formatPrice(selectedWheel.price);
 
   return (
-    <div className="flex flex-col gap-5 px-[35px] lg:px-0">
+    <div className="flex flex-col gap-5 px-8 lg:px-0">
       <div className="text-[35px] font-extralight leading-none lg:text-[40px]">
         Wheels
       </div>
