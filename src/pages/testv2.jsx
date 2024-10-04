@@ -92,7 +92,9 @@ export const TestPageV2 = ({ data, subModels }) => {
   //   };
   // }, []);
 
-  const activeId = useScrollSpy(48);
+  const scrollIds = ["exterior", "interior", "packages", "options", "summary"];
+
+  useScrollSpy(scrollIds, 48);
 
   return (
     <div>

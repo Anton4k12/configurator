@@ -1,14 +1,12 @@
+import { ConfiguratorPage } from "@/pages/configurator";
+import { LoadingScreen } from "@/components/shared/loading-screen";
 import { fetcher } from "@/data";
+import { createConfiguratorStore } from "@/state/v2";
+import { ConfiguratorProvider } from "@/state/v2";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
-import { Mobile } from "./mobile";
-import { LoadingScreen } from "@/components/shared/loading-screen";
-import { createConfiguratorStore, ConfiguratorContext } from "@/state";
-import { useRef } from "react";
-import { ConfiguratorProvider } from "@/state/v2";
-import { TestPageV2 } from "./testv2";
 
-export const TestPage = () => {
+export const ConfiguratorDataProvider = ({ children }) => {
   const { modelName, subModelName } = useParams();
 
   const { data: subModelDetailsData, isLoading: isLoadingSubModelDetails } =
@@ -41,20 +39,15 @@ export const TestPage = () => {
     selectedTrim: initialTrim,
     selectedColor: subModelDetailsData.colors[1],
     selectedSeat: subModelDetailsData.seats[0],
+    subModels: subModelsData.subModels,
+    detailsData: subModelDetailsData,
   };
 
   return (
     <ConfiguratorProvider
       createStore={() => createConfiguratorStore(initialState)}
     >
-      {/* <Mobile
-        subModels={subModelsData.subModels}
-        data={subModelDetailsData}
-      ></Mobile> */}
-      <TestPageV2
-        subModels={subModelsData.subModels}
-        data={subModelDetailsData}
-      ></TestPageV2>
+      {children}
     </ConfiguratorProvider>
   );
 };

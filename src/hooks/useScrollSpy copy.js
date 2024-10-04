@@ -1,7 +1,6 @@
 // hooks/useScrollSpy.js
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 /**
  * Custom hook to detect active section based on scroll position,
@@ -9,16 +8,21 @@ import { useNavigate } from "react-router-dom";
  *
  * @param {Array} scrollIds - Array of section objects with 'id' and 'name'.
  * @param {number} offset - Offset in pixels to account for fixed headers.
+ * @returns {string} - The ID of the currently active section.
  */
-const useScrollSpy = (scrollIds, offset) => {
+const useScrollSpy = (scrollIds, offset = 56) => {
+  const [activeId, setActiveId] = useState(() => {
+    const hash = window.location.hash;
+    const initialId = hash
+      ? scrollIds.find((id) => `#${id}` === hash)
+      : scrollIds[0];
+    return initialId || "";
+  });
+
   // calculates the active id based on the scroll position
-
-  const navigate = useNavigate();
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + offset;
-      const hash = window.location.hash.slice(1);
 
       for (const id of scrollIds) {
         const element = document.getElementById(id);
@@ -29,8 +33,8 @@ const useScrollSpy = (scrollIds, offset) => {
             scrollPosition >= offsetTop &&
             scrollPosition < offsetTop + offsetHeight
           ) {
-            if (hash !== id) {
-              navigate(`#${id}`, { replace: true });
+            if (activeId !== id) {
+              setActiveId(id);
             }
             break;
           }
@@ -44,7 +48,14 @@ const useScrollSpy = (scrollIds, offset) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [scrollIds, , offset]);
+  }, [scrollIds, activeId, offset]);
+
+  // updates the url hash based on the active id
+  useEffect(() => {
+    if (activeId) {
+      window.history.replaceState(null, "", `#${activeId}`);
+    }
+  }, [activeId]);
 
   // inital scroll to element on first render
   useEffect(() => {
@@ -64,7 +75,9 @@ const useScrollSpy = (scrollIds, offset) => {
     };
 
     scrollToHashSection();
-  }, []);
+  }, [offset]);
+
+  return activeId;
 };
 
 export default useScrollSpy;

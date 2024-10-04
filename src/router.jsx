@@ -3,10 +3,12 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import { ConfiguratorPage } from "./pages/configurator";
+import { ConfiguratorDataProvider } from "./providers/configurator-data-provider";
 import { HomePage } from "./pages/home";
 import { ModelPage } from "./pages/model";
 import { TestPage } from "./pages/test";
+import { ConfiguratorPage } from "./pages/configurator";
+import { Mobile } from "./pages/mobile";
 
 export const routes = {
   home: "/",
@@ -20,7 +22,14 @@ export const router = createBrowserRouter(
     <>
       <Route path={routes.home} element={<HomePage />}></Route>
       <Route path={routes.model} element={<ModelPage />}></Route>
-      <Route path={routes.subModel} element={<ConfiguratorPage />}></Route>
+      <Route
+        path={routes.subModel}
+        element={
+          <ConfiguratorDataProvider>
+            <Mobile></Mobile>
+          </ConfiguratorDataProvider>
+        }
+      ></Route>
       <Route path={routes.subModelTest} element={<TestPage />}></Route>
     </>,
   ),

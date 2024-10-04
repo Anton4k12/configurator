@@ -1,18 +1,15 @@
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { HashLink, NavHashLink } from "react-router-hash-link";
+import { HashLink } from "react-router-hash-link";
 
 const scrollWithOffset = (el) => {
   const yCoordinate = el.getBoundingClientRect().top + window.scrollY;
-  const yOffset = -40;
+  const yOffset = -48;
   window.scrollTo({ top: yCoordinate + yOffset, behavior: "smooth" });
 };
 
-export const TopNavBar = () => {
-  const location = useLocation();
-  console.log(location.hash);
-
+export const TopNavBar = ({ activeId }) => {
   return (
     <div aria-label="top navbar" className="sticky top-0 z-50 bg-white">
       <hr className="hidden lg:block" />
@@ -21,14 +18,20 @@ export const TopNavBar = () => {
         <HashLink
           scroll={(el) => scrollWithOffset(el)}
           to="#exterior"
-          className={cn("text-xs font-medium uppercase tracking-wide")}
+          className={cn(
+            "text-xs font-medium uppercase tracking-wide",
+            activeId === "exterior" && "font-bold",
+          )}
         >
           Exterior
         </HashLink>
         <HashLink
           scroll={(el) => scrollWithOffset(el)}
           to={"#interior"}
-          className={cn("text-xs font-medium uppercase tracking-wide")}
+          className={cn(
+            "text-xs font-medium uppercase tracking-wide",
+            activeId === "interior" && "font-bold",
+          )}
         >
           Interior
         </HashLink>
@@ -37,6 +40,7 @@ export const TopNavBar = () => {
           to={"#packages"}
           className={cn(
             "hidden text-xs font-medium uppercase tracking-wide lg:block",
+            activeId === "packages" && "font-bold",
           )}
         >
           Packages
@@ -46,6 +50,7 @@ export const TopNavBar = () => {
           to={"#options"}
           className={cn(
             "hidden text-xs font-medium uppercase tracking-wide lg:block",
+            activeId === "options" && "font-bold",
           )}
         >
           Options
@@ -53,7 +58,10 @@ export const TopNavBar = () => {
         <HashLink
           scroll={(el) => scrollWithOffset(el)}
           to={"#summary"}
-          className={cn("text-xs font-medium uppercase tracking-wide")}
+          className={cn(
+            "text-xs font-medium uppercase tracking-wide",
+            activeId === "summary" && "font-bold",
+          )}
         >
           Summary
         </HashLink>

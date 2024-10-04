@@ -131,9 +131,14 @@ import { Trim } from "@/components/configurator/trim";
 import { Wheels } from "@/components/configurator/wheels";
 import { useEffect, useState } from "react";
 import { usePrevious } from "@/hooks/usePrevious";
+import useScrollSpy from "@/hooks/useScrollSpy";
 
-export const Mobile = ({ data, subModels }) => {
+export const Mobile = () => {
   const { modelName, subModelName } = useParams();
+
+  const detailsData = useConfiguratorStore((s) => s.detailsData);
+
+  const subModels = useConfiguratorStore((s) => s.subModels);
 
   const selectedColor = useConfiguratorStore((s) => s.selectedColor);
 
@@ -178,8 +183,8 @@ export const Mobile = ({ data, subModels }) => {
 
   const price = getPrice({
     startingPrice: subModel.startingPrice,
-    packages: data.packages,
-    options: data.options,
+    packages: detailsData.packages,
+    options: detailsData.options,
   });
 
   const personalizatedPrice = price - subModel.startingPrice;
@@ -199,18 +204,18 @@ export const Mobile = ({ data, subModels }) => {
     });
   }, [api]);
 
+  // useScrollSpy(48);
+
   return (
     <div>
       <Header color="#FFFFFF"></Header>
-
-      <ScrollToAnchor></ScrollToAnchor>
 
       <TopNavBar></TopNavBar>
 
       <div className="flex flex-col px-3 lg:flex-row lg:gap-6 lg:pl-3">
         <Carousel
           setApi={setApi}
-          className="sticky top-0 z-40 h-fit px-4 pb-16 pt-[41px] lg:w-2/3 lg:pb-0 lg:pt-6"
+          className="sticky top-0 z-40 h-fit px-4 pb-16 pt-[41px] lg:w-2/3 lg:px-0 lg:pb-0 lg:pt-6"
           opts={{
             loop: true,
           }}
@@ -231,15 +236,18 @@ export const Mobile = ({ data, subModels }) => {
 
         <div className="flex flex-col *:py-8 lg:w-1/3 lg:px-10">
           <ExteriorColor
-            colorsTypes={data.colorsTypes}
-            colors={data.colors}
+            colorsTypes={detailsData.colorsTypes}
+            colors={detailsData.colors}
           ></ExteriorColor>
 
-          <Wheels selectedWheel={selectedWheel} wheels={data.wheels}></Wheels>
+          <Wheels
+            selectedWheel={selectedWheel}
+            wheels={detailsData.wheels}
+          ></Wheels>
 
           <BrakeCalipers
             selectedBrake={selectedBrake}
-            brakeCalipers={data.brakeCalipers}
+            brakeCalipers={detailsData.brakeCalipers}
           ></BrakeCalipers>
 
           <Carousel
@@ -263,21 +271,21 @@ export const Mobile = ({ data, subModels }) => {
             <CarouselNext></CarouselNext>
           </Carousel>
 
-          <Seats selectedSeat={selectedSeat} seats={data.seats}></Seats>
+          <Seats selectedSeat={selectedSeat} seats={detailsData.seats}></Seats>
 
-          <Trim selectedTrim={selectedTrim} trim={data.trim}></Trim>
+          <Trim selectedTrim={selectedTrim} trim={detailsData.trim}></Trim>
         </div>
       </div>
 
       <Packages
         selectedIds={selectedPackagesIds}
-        packages={data.packages}
+        packages={detailsData.packages}
       ></Packages>
 
       <Options
         selectedIds={selectedOptionsIds}
-        optionsTypes={data.optionsTypes}
-        options={data.options}
+        optionsTypes={detailsData.optionsTypes}
+        options={detailsData.options}
       ></Options>
 
       <Summary
