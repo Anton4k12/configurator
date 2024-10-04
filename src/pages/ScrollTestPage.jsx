@@ -24,8 +24,12 @@ import { Trim } from "@/components/configurator/trim";
 import { Wheels } from "@/components/configurator/wheels";
 import useScrollSpy from "@/hooks/useScrollSpy";
 
-export const TestPageV2 = ({ data, subModels }) => {
+export const ScrollTestPage = () => {
   const { modelName, subModelName } = useParams();
+
+  const detailsData = useConfiguratorStore((s) => s.detailsData);
+
+  const subModels = useConfiguratorStore((s) => s.subModels);
 
   const selectedColor = useConfiguratorStore((s) => s.selectedColor);
 
@@ -64,8 +68,8 @@ export const TestPageV2 = ({ data, subModels }) => {
 
   const price = getPrice({
     startingPrice: subModel.startingPrice,
-    packages: data.packages,
-    options: data.options,
+    packages: detailsData.packages,
+    options: detailsData.options,
   });
 
   const personalizatedPrice = price - subModel.startingPrice;
@@ -143,32 +147,35 @@ export const TestPageV2 = ({ data, subModels }) => {
 
         <div className="flex w-1/3 flex-col px-10 *:py-8">
           <ExteriorColor
-            colorsTypes={data.colorsTypes}
-            colors={data.colors}
+            colorsTypes={detailsData.colorsTypes}
+            colors={detailsData.colors}
           ></ExteriorColor>
 
-          <Wheels selectedWheel={selectedWheel} wheels={data.wheels}></Wheels>
+          <Wheels
+            selectedWheel={selectedWheel}
+            wheels={detailsData.wheels}
+          ></Wheels>
 
           <BrakeCalipers
             selectedBrake={selectedBrake}
-            brakeCalipers={data.brakeCalipers}
+            brakeCalipers={detailsData.brakeCalipers}
           ></BrakeCalipers>
 
-          <Seats selectedSeat={selectedSeat} seats={data.seats}></Seats>
+          <Seats selectedSeat={selectedSeat} seats={detailsData.seats}></Seats>
 
-          <Trim selectedTrim={selectedTrim} trim={data.trim}></Trim>
+          <Trim selectedTrim={selectedTrim} trim={detailsData.trim}></Trim>
         </div>
       </div>
 
       <Packages
         selectedIds={selectedPackagesIds}
-        packages={data.packages}
+        packages={detailsData.packages}
       ></Packages>
 
       <Options
         selectedIds={selectedOptionsIds}
-        optionsTypes={data.optionsTypes}
-        options={data.options}
+        optionsTypes={detailsData.optionsTypes}
+        options={detailsData.options}
       ></Options>
 
       <Summary

@@ -58,7 +58,7 @@ export const ModelPage = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-4">
             {!isLoading ? (
               <>
                 {" "}

@@ -4,11 +4,11 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import { ConfiguratorDataProvider } from "./providers/configurator-data-provider";
-import { HomePage } from "./pages/home";
-import { ModelPage } from "./pages/model";
-import { TestPage } from "./pages/test";
-import { ConfiguratorPage } from "./pages/configurator";
-import { Mobile } from "./pages/mobile";
+import { HomePage } from "./pages/HomePage";
+import { ModelPage } from "./pages/ModelPage";
+
+import { ConfiguratorPage } from "./pages/ConfiguratorPage";
+import { ScrollTestPage } from "./pages/ScrollTestPage";
 
 export const routes = {
   home: "/",
@@ -26,11 +26,18 @@ export const router = createBrowserRouter(
         path={routes.subModel}
         element={
           <ConfiguratorDataProvider>
-            <Mobile></Mobile>
+            <ConfiguratorPage></ConfiguratorPage>
           </ConfiguratorDataProvider>
         }
       ></Route>
-      <Route path={routes.subModelTest} element={<TestPage />}></Route>
+      <Route
+        path={routes.subModelTest}
+        element={
+          <ConfiguratorDataProvider>
+            <ScrollTestPage></ScrollTestPage>
+          </ConfiguratorDataProvider>
+        }
+      ></Route>
     </>,
   ),
 );

@@ -1,4 +1,4 @@
-import { ConfiguratorPage } from "@/pages/configurator";
+import { ConfiguratorPage } from "@/pages/ConfiguratorPage";
 import { LoadingScreen } from "@/components/shared/loading-screen";
 import { fetcher } from "@/data";
 import { createConfiguratorStore } from "@/state/v2";
