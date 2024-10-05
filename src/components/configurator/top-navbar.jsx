@@ -14,7 +14,7 @@ export const TopNavBar = () => {
   console.log(location.hash);
 
   return (
-    <div aria-label="top navbar" className="sticky top-0 z-50 bg-white">
+    <div aria-label="top navbar" className="sticky top-0 z-40 bg-white">
       <hr className="hidden lg:block" />
 
       <div className="flex h-12 items-center justify-center gap-8">

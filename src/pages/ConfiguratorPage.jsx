@@ -111,7 +111,7 @@ export const ConfiguratorPage = () => {
       >
         <Carousel
           setApi={setApi}
-          className="sticky top-0 z-40 h-fit px-4 pb-16 pt-[41px] lg:w-2/3 lg:px-0 lg:pb-0 lg:pt-6"
+          className="sticky top-0 z-30 h-fit px-4 pb-16 pt-[41px] lg:w-2/3 lg:px-0 lg:pb-0 lg:pt-6"
           opts={{
             loop: true,
           }}
