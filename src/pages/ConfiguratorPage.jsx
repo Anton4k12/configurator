@@ -68,6 +68,11 @@ export const ConfiguratorPage = () => {
 
   console.log({ images });
 
+  // if (images) {
+  //   const croppedImages = images.slice(0, 7);
+  //   return croppedImages;
+  // }
+
   const subModel = subModels.find((subModel) => {
     return subModel.modelName === modelName && subModel.name === subModelName;
   });
@@ -146,27 +151,6 @@ export const ConfiguratorPage = () => {
             brakeCalipers={detailsData.brakeCalipers}
           ></BrakeCalipers>
 
-          <Carousel
-            setApi={setApi}
-            className="sticky top-0 z-40 h-fit px-4 pb-16 pt-[41px] lg:hidden lg:w-2/3 lg:pb-0 lg:pt-6"
-            opts={{
-              loop: true,
-            }}
-          >
-            <CarouselContent>
-              {images &&
-                images.map((src, i) => {
-                  return (
-                    <CarouselItem key={i}>
-                      <img className="overflow-hidden rounded-2xl" src={src} />
-                    </CarouselItem>
-                  );
-                })}
-            </CarouselContent>
-            <CarouselPrevious></CarouselPrevious>
-            <CarouselNext></CarouselNext>
-          </Carousel>
-
           <Seats selectedSeat={selectedSeat} seats={detailsData.seats}></Seats>
 
           <Trim selectedTrim={selectedTrim} trim={detailsData.trim}></Trim>
@@ -180,7 +164,7 @@ export const ConfiguratorPage = () => {
         <div className="flex flex-col *:py-8">
           <Carousel
             setApi={setApi}
-            className="sticky top-0 z-40 h-fit px-4 pb-16 pt-[41px] lg:w-2/3 lg:px-0 lg:pb-0 lg:pt-6"
+            className="sticky top-0 z-30 h-fit px-4 pb-16 pt-[41px] lg:w-2/3 lg:px-0 lg:pb-0 lg:pt-6"
             opts={{
               loop: true,
             }}
@@ -218,7 +202,7 @@ export const ConfiguratorPage = () => {
         <div className="flex flex-col *:py-8">
           <Carousel
             setApi={setApi}
-            className="sticky top-0 z-40 h-fit px-4 pb-16 pt-[41px] lg:hidden lg:w-2/3 lg:pb-0 lg:pt-6"
+            className="sticky top-0 z-30 h-fit px-4 pb-16 pt-[41px] lg:hidden lg:w-2/3 lg:pb-0 lg:pt-6"
             opts={{
               loop: true,
             }}
@@ -240,6 +224,20 @@ export const ConfiguratorPage = () => {
           <Seats selectedSeat={selectedSeat} seats={detailsData.seats}></Seats>
 
           <Trim selectedTrim={selectedTrim} trim={detailsData.trim}></Trim>
+
+          <div className="pt-8">
+            <div className="flex flex-col gap-[8px] bg-[#eee] p-6">
+              <span className="text-[11px] font-medium uppercase tracking-[1px]">
+                Packages, options and accessories
+              </span>
+              <p className="text-[11px] font-light leading-[15px] tracking-[1px]">
+                This information is only accessible on a desktop device. To
+                discover these sections and get more info about the additional
+                equipment for your GranTurismo Modena save this configuration
+                for later or contact your nearest dealer
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

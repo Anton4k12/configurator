@@ -1,3 +1,4 @@
+import BurgerIcon from "../icons/burger-icon";
 import { ChevronRight } from "../icons/chevron-right";
 import { MapPin } from "../icons/map-pin";
 import { MaseratiLogo } from "../icons/maserati-logo";
@@ -27,9 +28,14 @@ export const Header = ({ color }) => {
       <div aria-label="logo" className="hidden cursor-pointer lg:block">
         <MaseratiLogo color="#000000"></MaseratiLogo>
       </div>
-      <div aria-label="logo" className="flex cursor-pointer gap-3 lg:hidden">
-        <MaseratiLogoSmall></MaseratiLogoSmall>
-        <MaseratiTextLogo></MaseratiTextLogo>
+      <div className="flex w-full items-center justify-between lg:hidden">
+        <div aria-label="logo" className="flex cursor-pointer gap-3">
+          <MaseratiLogoSmall></MaseratiLogoSmall>
+          <MaseratiTextLogo></MaseratiTextLogo>
+        </div>
+        <div>
+          <BurgerIcon></BurgerIcon>
+        </div>
       </div>
 
       <div
