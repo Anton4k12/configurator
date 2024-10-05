@@ -9,21 +9,26 @@ export function HomePage() {
   return (
     <>
       <Header color={{ backgroundColor: "#F6F6F6" }}></Header>
-      <div className="max-w-screen-[1448px] mx-auto min-h-screen px-10 pb-40">
+      <div className="max-w-screen-[1448px] mx-auto min-h-screen px-4 pb-40 lg:px-10">
         <div
           aria-label="main text"
-          className="flex w-1/2 flex-col gap-10 pb-[72px] pl-20 pt-44"
+          className="flex flex-col gap-10 pb-[72px] pt-[110px] lg:w-1/2 lg:pl-20 lg:pt-44"
         >
-          <h1 className="text-6xl font-extralight">Build your own</h1>
+          <h1 className="text-[35px] font-extralight lg:text-6xl">
+            Build your own
+          </h1>
           <div className="flex flex-col items-start gap-7">
-            <p className="text-xl font-light">
+            <p className="text-lg font-light tracking-[-0.4px] lg:text-xl">
               Every Maserati is like a work of art constructed with the care and
               attention that only the human hand can provide
             </p>
 
-            <button className="relative border border-black px-5 py-4 pr-28 text-[11px] font-medium uppercase">
+            <button className="relative w-full border border-black py-4 pr-28 text-[11px] font-medium uppercase tracking-[1px] lg:w-7/12">
               Open existing configurator{" "}
-              <ChevronRight className="absolute right-3.5 top-1/2 size-3 -translate-y-1/2"></ChevronRight>
+              <ChevronRight
+                strokeWidth={3}
+                className="absolute right-3.5 top-1/2 size-3 -translate-y-1/2"
+              ></ChevronRight>
             </button>
           </div>
         </div>

@@ -11,7 +11,7 @@ export const Model = ({ name, imageUrl }) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 px-4">
       <div className="pt-10 text-2xl">{name}</div>
       <img
         onClick={handleClick}
@@ -20,11 +20,11 @@ export const Model = ({ name, imageUrl }) => {
       />
       <Link
         to={modelPath}
-        className="relative border border-black px-5 py-4 pr-44 text-[11px] font-medium uppercase"
+        className="relative w-full border border-black py-4 pl-5 text-[11px] font-medium uppercase tracking-[1px] lg:w-7/12"
       >
         Select{" "}
         <ChevronRight
-          strokeWidth={2}
+          strokeWidth={3}
           className="absolute right-3.5 top-1/2 size-3 -translate-y-1/2"
         ></ChevronRight>
       </Link>
