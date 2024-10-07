@@ -1,8 +1,8 @@
 import { ConfiguratorPage } from "@/pages/ConfiguratorPage";
 import { LoadingScreen } from "@/components/shared/loading-screen";
 import { fetcher } from "@/data";
-import { createConfiguratorStore } from "@/state/v2";
-import { ConfiguratorProvider } from "@/state/v2";
+import { createConfiguratorStore } from "@/state";
+import { ConfiguratorProvider } from "@/state";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 

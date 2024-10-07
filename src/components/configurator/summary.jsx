@@ -1,5 +1,5 @@
 import { formatPrice } from "@/lib/utils";
-import { useConfiguratorStore } from "@/state/v2";
+import { useConfiguratorStore } from "@/state";
 import { useParams } from "react-router-dom";
 import ArrowCircleIcon from "../icons/arrow-circle-icon";
 import ArrowUturnIcon from "../icons/arrow-uturn-icon";
@@ -12,6 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
+import { Fragment } from "react";
 
 const specs = {
   Modena: [
@@ -169,348 +170,341 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
   const currentDimensionsSpecs = techSpecsDimensions[subModelName];
 
   return (
-    <div id="summary">
-      <div className="flex flex-col items-center rounded-2xl pt-10 font-extralight lg:bg-[#eee]">
-        <div className="p-10 text-center text-6xl tracking-wide">
-          Your {subModel.modelName} {subModel.name}
-        </div>
-        <div className="gap-3 px-3 lg:flex lg:pl-3 lg:pt-[60px]">
-          <div
-            data-summary
-            className="flex flex-col gap-[60px] rounded-t-2xl bg-white px-4 pt-2 lg:w-2/3 lg:px-[93px] lg:pt-[60px]"
-          >
-            <img className="rounded-2xl" src="/home/GranTurismo/gfx1.jpeg" />
+    <div className="flex flex-col items-center rounded-2xl pt-10 font-extralight lg:bg-[#eee]">
+      <div className="p-10 text-center text-6xl tracking-wide">
+        Your {subModel.modelName} {subModel.name}
+      </div>
+      <div className="gap-3 px-3 lg:flex lg:pl-3 lg:pt-[60px]">
+        <div
+          data-summary
+          className="flex flex-col gap-[60px] rounded-t-2xl bg-white px-4 pt-2 lg:w-2/3 lg:px-[93px] lg:pt-[60px]"
+        >
+          <img className="rounded-2xl" src="/home/GranTurismo/gfx1.jpeg" />
 
-            <div>
-              <div className="pb-6 text-2xl font-normal">
-                Configuration recap
+          <div>
+            <div className="pb-6 text-2xl font-normal">Configuration recap</div>
+
+            <hr className="border-zinc-400" />
+
+            <div className="flex flex-col gap-4 pt-10 lg:flex lg:justify-between lg:*:flex-1">
+              <Detail
+                imageUrl={selectedColor.imageUrl}
+                name={selectedColor.name}
+                category="Exterior Color"
+              ></Detail>
+
+              <hr className="block w-3/4 lg:hidden" />
+
+              <Detail
+                imageUrl={selectedSeat.imageUrl}
+                name={selectedSeat.name}
+                category="Seats"
+              ></Detail>
+            </div>
+          </div>
+
+          <Accordion type="multiple" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger>
+                <div className="text-[11px] font-medium uppercase tracking-[1px]">
+                  exterior
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="pb-[60px]">
+                <img
+                  className="mb-[30px] rounded-2xl"
+                  src="/home/GranTurismo/gfx2.jpeg"
+                />
+
+                <div className="flex flex-col gap-6">
+                  <div className="flex items-center justify-between">
+                    <Detail
+                      imageUrl={selectedColor.imageUrl}
+                      name={selectedColor.name}
+                      category="Exterior Color"
+                    ></Detail>
+
+                    {selectedColor.price === null ? (
+                      <div className="text-[#212529]">$ 0</div>
+                    ) : (
+                      <div className="text-[#212529]">
+                        {formatterColorPrice}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <Detail
+                      imageUrl={selectedWheel.imageUrl}
+                      name={selectedWheel.name}
+                      category="Wheels"
+                    ></Detail>
+
+                    {selectedWheel.price === null ? (
+                      <div className="text-[#212529]">$ 0</div>
+                    ) : (
+                      <div className="text-[#212529]">
+                        {formatterWheelPrice}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <Detail
+                      imageUrl={selectedBrake.imageUrl}
+                      name={selectedBrake.name}
+                      category="Brake Calipers"
+                    ></Detail>
+
+                    {selectedBrake.price === null ? (
+                      <div className="text-[#212529]">$ 0</div>
+                    ) : (
+                      <div className="text-[#212529]">
+                        {formatterBrakePrice}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
+              <AccordionTrigger>
+                <div className="text-[11px] font-medium uppercase tracking-[1px]">
+                  interior
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="pb-[60px]">
+                <img
+                  className="mb-[30px] rounded-2xl"
+                  src="/home/GranTurismo/gfx7.jpeg"
+                />
+
+                <div className="flex flex-col gap-6">
+                  <div className="flex items-center justify-between">
+                    <Detail
+                      imageUrl={selectedSeat.imageUrl}
+                      name={selectedSeat.name}
+                      category="Seats"
+                    ></Detail>
+
+                    <div className="text-[#212529]">$ 0</div>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <Detail
+                      imageUrl={selectedTrim.imageUrl}
+                      name={selectedTrim.name}
+                      category="Trim"
+                    ></Detail>
+
+                    {selectedTrim.price === null ? (
+                      <div className="text-[#212529]">$ 0</div>
+                    ) : (
+                      <div className="text-[#212529]">{formatterTrimPrice}</div>
+                    )}
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
+          <div className="pb-[60px]">
+            <div className="pb-6 text-[26px] font-light">Specifications</div>
+
+            <hr className="border-zinc-400" />
+            <div className="pb-6 pt-[30px] font-light">
+              <div className="text-sm tracking-[1px] text-[#666]">
+                Engine layout
               </div>
 
-              <hr className="border-zinc-400" />
-
-              <div className="flex flex-col gap-4 pt-10 lg:flex lg:justify-between lg:*:flex-1">
-                <Detail
-                  imageUrl={selectedColor.imageUrl}
-                  name={selectedColor.name}
-                  category="Exterior Color"
-                ></Detail>
-
-                <hr className="block w-3/4 lg:hidden" />
-
-                <Detail
-                  imageUrl={selectedSeat.imageUrl}
-                  name={selectedSeat.name}
-                  category="Seats"
-                ></Detail>
+              <div className="text-xl">
+                {subModel.engineLayout} {subModel.maxPower}
               </div>
             </div>
 
+            <hr className="border-zinc-400" />
+
             <Accordion type="multiple" collapsible>
-              <AccordionItem value="item-1">
+              <AccordionItem value="item-3">
                 <AccordionTrigger>
-                  <div className="text-[11px] font-medium uppercase tracking-[1px]">
-                    exterior
+                  <div className="flex flex-col items-center text-[11px] font-medium uppercase tracking-[1px]">
+                    Technical specifications
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="pb-[60px]">
-                  <img
-                    className="mb-[30px] rounded-2xl"
-                    src="/home/GranTurismo/gfx2.jpeg"
-                  />
-
+                <AccordionContent>
                   <div className="flex flex-col gap-6">
-                    <div className="flex items-center justify-between">
-                      <Detail
-                        imageUrl={selectedColor.imageUrl}
-                        name={selectedColor.name}
-                        category="Exterior Color"
-                      ></Detail>
-
-                      {selectedColor.price === null ? (
-                        <div className="text-[#212529]">$ 0</div>
-                      ) : (
-                        <div className="text-[#212529]">
-                          {formatterColorPrice}
-                        </div>
-                      )}
+                    <div>
+                      {currentSpecs.map((spec) => {
+                        return (
+                          <Fragment key={spec.label}>
+                            <div className="flex justify-between text-[11px] font-medium tracking-[0.44] *:py-4">
+                              <div className="uppercase">{spec.label}</div>
+                              <div>{spec.value}</div>
+                            </div>
+                            <hr className="border-black" />
+                          </Fragment>
+                        );
+                      })}
                     </div>
 
-                    <div className="flex items-center justify-between">
-                      <Detail
-                        imageUrl={selectedWheel.imageUrl}
-                        name={selectedWheel.name}
-                        category="Wheels"
-                      ></Detail>
-
-                      {selectedWheel.price === null ? (
-                        <div className="text-[#212529]">$ 0</div>
-                      ) : (
-                        <div className="text-[#212529]">
-                          {formatterWheelPrice}
-                        </div>
-                      )}
+                    <div className="pt-6 text-[11px] font-medium uppercase tracking-[1px]">
+                      Dimensions and weight
                     </div>
 
-                    <div className="flex items-center justify-between">
-                      <Detail
-                        imageUrl={selectedBrake.imageUrl}
-                        name={selectedBrake.name}
-                        category="Brake Calipers"
-                      ></Detail>
-
-                      {selectedBrake.price === null ? (
-                        <div className="text-[#212529]">$ 0</div>
-                      ) : (
-                        <div className="text-[#212529]">
-                          {formatterBrakePrice}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>
-                  <div className="text-[11px] font-medium uppercase tracking-[1px]">
-                    interior
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="pb-[60px]">
-                  <img
-                    className="mb-[30px] rounded-2xl"
-                    src="/home/GranTurismo/gfx7.jpeg"
-                  />
-
-                  <div className="flex flex-col gap-6">
-                    <div className="flex items-center justify-between">
-                      <Detail
-                        imageUrl={selectedSeat.imageUrl}
-                        name={selectedSeat.name}
-                        category="Seats"
-                      ></Detail>
-
-                      <div className="text-[#212529]">$ 0</div>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <Detail
-                        imageUrl={selectedTrim.imageUrl}
-                        name={selectedTrim.name}
-                        category="Trim"
-                      ></Detail>
-
-                      {selectedTrim.price === null ? (
-                        <div className="text-[#212529]">$ 0</div>
-                      ) : (
-                        <div className="text-[#212529]">
-                          {formatterTrimPrice}
-                        </div>
-                      )}
+                    <div>
+                      {currentDimensionsSpecs.map((spec) => {
+                        return (
+                          <Fragment key={spec.label}>
+                            <div className="flex justify-between text-[11px] font-medium tracking-[0.44] *:py-4">
+                              <div className="uppercase">{spec.label}</div>
+                              <div>{spec.value}</div>
+                            </div>
+                            <hr className="border-black" />
+                          </Fragment>
+                        );
+                      })}
                     </div>
                   </div>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
+          </div>
 
-            <div className="pb-[60px]">
-              <div className="pb-6 text-[26px] font-light">Specifications</div>
+          <div>
+            <div className="pb-6 text-[26px] font-light">Prices recap</div>
 
-              <hr className="border-zinc-400" />
-              <div className="pb-6 pt-[30px] font-light">
-                <div className="text-sm tracking-[1px] text-[#666]">
-                  Engine layout
-                </div>
+            <hr className="border-black" />
 
-                <div className="text-xl">
-                  {subModel.engineLayout} {subModel.maxPower}
-                </div>
+            <div className="pb-20 pt-8">
+              <div className="text-sm font-medium">
+                Base price {formattedStartingPrice}
               </div>
 
-              <hr className="border-zinc-400" />
+              {personalizatedPrice !== 0 && (
+                <div className="text-sm font-medium">
+                  Personalization {formattedPersonalizatedPrice}
+                </div>
+              )}
 
-              <Accordion type="multiple" collapsible>
-                <AccordionItem value="item-3">
-                  <AccordionTrigger>
-                    <div className="flex flex-col items-center text-[11px] font-medium uppercase tracking-[1px]">
-                      Technical specifications
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className="flex flex-col gap-6">
-                      <div>
-                        {currentSpecs.map((spec) => {
-                          return (
-                            <>
-                              <div className="flex justify-between text-[11px] font-medium tracking-[0.44] *:py-4">
-                                <div className="uppercase">{spec.label}</div>
-                                <div>{spec.value}</div>
-                              </div>
-                              <hr className="border-black" />
-                            </>
-                          );
-                        })}
-                      </div>
-
-                      <div className="pt-6 text-[11px] font-medium uppercase tracking-[1px]">
-                        Dimensions and weight
-                      </div>
-
-                      <div>
-                        {currentDimensionsSpecs.map((spec) => {
-                          return (
-                            <>
-                              <div className="flex justify-between text-[11px] font-medium tracking-[0.44] *:py-4">
-                                <div className="uppercase">{spec.label}</div>
-                                <div>{spec.value}</div>
-                              </div>
-                              <hr className="border-black" />
-                            </>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+              <div className="text-sm font-medium">
+                As configured {formattedPrice}
+              </div>
             </div>
 
-            <div>
-              <div className="pb-6 text-[26px] font-light">Prices recap</div>
+            <hr className="border-zinc-400" />
 
-              <hr className="border-black" />
-
-              <div className="pb-20 pt-8">
-                <div className="text-sm font-medium">
-                  Base price {formattedStartingPrice}
-                </div>
-
-                {personalizatedPrice !== 0 && (
-                  <div className="text-sm font-medium">
-                    Personalization {formattedPersonalizatedPrice}
-                  </div>
-                )}
-
-                <div className="text-sm font-medium">
-                  As configured {formattedPrice}
-                </div>
+            <div className="pb-20 pt-6">
+              <div className="text-xs font-medium tracking-[1px] text-[#212529]">
+                *MSRP listed may not include preparation, delivery and
+                destination charges: USD 1,495 for all Ghibli and Levante
+                models; USD 1,995 for all Quattroporte, GranTurismo, and
+                GranTurismo Convertible models
               </div>
 
-              <hr className="border-zinc-400" />
+              <br />
 
-              <div className="pb-20 pt-6">
-                <div className="text-xs font-medium tracking-[1px] text-[#212529]">
-                  *MSRP listed may not include preparation, delivery and
-                  destination charges: USD 1,495 for all Ghibli and Levante
-                  models; USD 1,995 for all Quattroporte, GranTurismo, and
-                  GranTurismo Convertible models
-                </div>
+              <br />
 
-                <br />
-
-                <br />
-
-                <div className="text-xs font-medium tracking-[1px] text-[#212529]">
-                  Maserati cars may be factory equipped with low-profile, high
-                  performance summer tires which are more susceptible to road
-                  hazards and consequential damages and may wear at an
-                  accelerated rate. Driving over rough or damaged road surfaces,
-                  as well as debris, curbs and other obstacles can cause serious
-                  damage to wheels, tires and suspension parts. Be careful to
-                  avoid road hazards and reduce your speed accordingly. Summer
-                  tires are not recommended for driving in cold-weather
-                  conditions; Maserati recommends winter tires for these
-                  conditions. See your Maserati Dealer for available tire
-                  options.
-                </div>
+              <div className="text-xs font-medium tracking-[1px] text-[#212529]">
+                Maserati cars may be factory equipped with low-profile, high
+                performance summer tires which are more susceptible to road
+                hazards and consequential damages and may wear at an accelerated
+                rate. Driving over rough or damaged road surfaces, as well as
+                debris, curbs and other obstacles can cause serious damage to
+                wheels, tires and suspension parts. Be careful to avoid road
+                hazards and reduce your speed accordingly. Summer tires are not
+                recommended for driving in cold-weather conditions; Maserati
+                recommends winter tires for these conditions. See your Maserati
+                Dealer for available tire options.
               </div>
             </div>
           </div>
+        </div>
 
-          <div
-            data-sticky-summary
-            className="sticky top-9 h-fit rounded-t-2xl bg-white px-[3px] py-8 lg:w-1/3 lg:px-[43px]"
-          >
-            <div className="pb-8">
-              <div className="flex items-center justify-between pb-[6px] text-left leading-none">
-                <div className="text-[40px] font-light">
-                  {subModel.modelName} {subModel.name}
-                </div>
-                <div className="pr-2">
-                  <SaveIcon></SaveIcon>
-                </div>
+        <div
+          data-sticky-summary
+          className="sticky top-9 h-fit rounded-t-2xl bg-white px-[3px] py-8 lg:w-1/3 lg:px-[43px]"
+        >
+          <div className="pb-8">
+            <div className="flex items-center justify-between pb-[6px] text-left leading-none">
+              <div className="text-[40px] font-light">
+                {subModel.modelName} {subModel.name}
               </div>
-
-              <div className="text-sm tracking-[1px] text-[#666]">
-                Total price
-              </div>
-
-              <div className="text-xl">{formattedPrice}</div>
-            </div>
-
-            <div data-buttons className="flex flex-col gap-3 pb-9">
-              <div>
-                <button className="relative w-full border border-[#ffc845] bg-[#ffc845] py-4 pl-6 text-left text-[11px] font-medium uppercase tracking-[1px]">
-                  Test drive{" "}
-                  <ChevronRight
-                    strokeWidth={3}
-                    className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
-                  ></ChevronRight>
-                </button>
-              </div>
-              <div>
-                <button className="relative w-full border border-black py-4 pl-6 text-left text-[11px] font-medium uppercase tracking-[1px]">
-                  More info{" "}
-                  <ChevronRight
-                    strokeWidth={3}
-                    className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
-                  ></ChevronRight>
-                </button>
-              </div>
-              <div>
-                <button className="relative w-full border border-black py-4 pl-6 text-left text-[11px] font-medium uppercase tracking-[1px]">
-                  Request a quote{" "}
-                  <ChevronRight
-                    strokeWidth={3}
-                    className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
-                  ></ChevronRight>
-                </button>
+              <div className="pr-2">
+                <SaveIcon></SaveIcon>
               </div>
             </div>
 
-            <div className="flex flex-col pb-6">
-              <button className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]">
-                <SaveIcon className="absolute left-2 top-1/2 -translate-y-1/2"></SaveIcon>{" "}
-                Save{" "}
-                <ChevronRight
-                  strokeWidth={3}
-                  className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
-                ></ChevronRight>
-              </button>
-              <button className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]">
-                <ArrowUturnIcon className="absolute left-2 top-1/2 -translate-y-1/2 rotate-180"></ArrowUturnIcon>{" "}
-                Restart configurator{" "}
-                <ChevronRight
-                  strokeWidth={3}
-                  className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
-                ></ChevronRight>
-              </button>
-              <button className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]">
-                <ArrowCircleIcon className="absolute left-2 top-1/2 -translate-y-1/2"></ArrowCircleIcon>{" "}
-                Change model{" "}
-                <ChevronRight
-                  strokeWidth={3}
-                  className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
-                ></ChevronRight>
-              </button>
-              <button className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]">
-                <DownloadIcon className="absolute left-2 top-1/2 -translate-y-1/2"></DownloadIcon>{" "}
-                pdf{" "}
+            <div className="text-sm tracking-[1px] text-[#666]">
+              Total price
+            </div>
+
+            <div className="text-xl">{formattedPrice}</div>
+          </div>
+
+          <div data-buttons className="flex flex-col gap-3 pb-9">
+            <div>
+              <button className="relative w-full border border-[#ffc845] bg-[#ffc845] py-4 pl-6 text-left text-[11px] font-medium uppercase tracking-[1px]">
+                Test drive{" "}
                 <ChevronRight
                   strokeWidth={3}
                   className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
                 ></ChevronRight>
               </button>
             </div>
+            <div>
+              <button className="relative w-full border border-black py-4 pl-6 text-left text-[11px] font-medium uppercase tracking-[1px]">
+                More info{" "}
+                <ChevronRight
+                  strokeWidth={3}
+                  className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
+                ></ChevronRight>
+              </button>
+            </div>
+            <div>
+              <button className="relative w-full border border-black py-4 pl-6 text-left text-[11px] font-medium uppercase tracking-[1px]">
+                Request a quote{" "}
+                <ChevronRight
+                  strokeWidth={3}
+                  className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
+                ></ChevronRight>
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-col pb-6">
+            <button className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]">
+              <SaveIcon className="absolute left-2 top-1/2 -translate-y-1/2"></SaveIcon>{" "}
+              Save{" "}
+              <ChevronRight
+                strokeWidth={3}
+                className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
+              ></ChevronRight>
+            </button>
+            <button className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]">
+              <ArrowUturnIcon className="absolute left-2 top-1/2 -translate-y-1/2 rotate-180"></ArrowUturnIcon>{" "}
+              Restart configurator{" "}
+              <ChevronRight
+                strokeWidth={3}
+                className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
+              ></ChevronRight>
+            </button>
+            <button className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]">
+              <ArrowCircleIcon className="absolute left-2 top-1/2 -translate-y-1/2"></ArrowCircleIcon>{" "}
+              Change model{" "}
+              <ChevronRight
+                strokeWidth={3}
+                className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
+              ></ChevronRight>
+            </button>
+            <button className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]">
+              <DownloadIcon className="absolute left-2 top-1/2 -translate-y-1/2"></DownloadIcon>{" "}
+              pdf{" "}
+              <ChevronRight
+                strokeWidth={3}
+                className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
+              ></ChevronRight>
+            </button>
           </div>
         </div>
       </div>

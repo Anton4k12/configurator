@@ -1,6 +1,6 @@
 import { formatPrice } from "@/lib/utils";
 import { Triangle } from "../icons/triangle";
-import { useConfiguratorStore } from "@/state/v2";
+import { useConfiguratorStore } from "@/state";
 
 export const BrakeCalipers = ({ selectedBrake, brakeCalipers }) => {
   const selectBrake = useConfiguratorStore((s) => s.selectBrake);

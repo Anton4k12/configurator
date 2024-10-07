@@ -1,11 +1,17 @@
 import { cn } from "@/lib/utils";
-import { useConfiguratorStore } from "@/state/v2";
+import { useConfiguratorStore } from "@/state";
 import { useState } from "react";
 import { Option } from "./option";
 
 export const Options = ({ options, optionsTypes, selectedIds }) => {
   const addOption = useConfiguratorStore((s) => s.addOption);
   const removeOption = useConfiguratorStore((s) => s.removeOption);
+
+  const handleOptionsSearchValueChange = useConfiguratorStore(
+    (s) => s.handleOptionsSearchValueChange,
+  );
+
+  const optionsSearchValue = useConfiguratorStore((s) => s.optionsSearchValue);
 
   const [selectedOptionType, setSelectedOptionType] = useState("All");
 
@@ -30,8 +36,12 @@ export const Options = ({ options, optionsTypes, selectedIds }) => {
 
   const displayedOptions = isAllSelected ? options : filteredOptions;
 
+  const searcheableOptions = displayedOptions.filter((option) => {
+    return option.name.toLowerCase().includes(optionsSearchValue.toLowerCase());
+  });
+
   return (
-    <div id="options" className="hidden pt-6 lg:block">
+    <div className="hidden pt-6 lg:block">
       <h2>
         <span className="px-10 text-[40px] font-extralight leading-[96px]">
           Options
@@ -66,10 +76,17 @@ export const Options = ({ options, optionsTypes, selectedIds }) => {
             </button>
           );
         })}
+        <input
+          value={optionsSearchValue}
+          type="text"
+          placeholder="Search"
+          onChange={handleOptionsSearchValueChange}
+          className="border border-transparent border-b-black py-1 focus-visible:outline-none"
+        />
       </div>
 
       <div className="grid grid-cols-4 gap-6 px-3 pt-[26px]">
-        {displayedOptions.map((option) => {
+        {searcheableOptions.map((option) => {
           const isSelected = selectedIds.includes(option.id);
           return (
             <Option

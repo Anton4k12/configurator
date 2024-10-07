@@ -1,5 +1,5 @@
 import { fetcher } from "@/data";
-import { useConfiguratorStore } from "@/state/v2";
+import { useConfiguratorStore } from "@/state";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import { Footer } from "@/components/shared/footer";

@@ -1,43 +1,37 @@
-import { create, createStore } from "zustand";
-import { createContext } from "react";
+import { create } from "zustand";
+import { createContext } from "zustand-di";
+
+const DEFAULT_PROPS = {
+  selectedWheel: {},
+  selectedColor: {},
+  selectedTrim: {},
+  selectedBrake: {},
+  selectedSeat: {},
+  selectedPackagesIds: [],
+  selectedOptionsIds: [],
+  optionsSearchValue: "",
+};
 
 /**
- * @typedef {Object} ConfiguratorState
- * @property {Object} selectedColor
- * @property {Object} selectedWheel
- * @property {Object} selectedBrake
- * @property {Object} selectedTrim
- * @property {Object} selectedSeat
- * @property {string[]} selectedPackagesIds
- * @property {string[]} selectedOptionsIds
- * @property {function} selectColor
- * @property {function} selectWheel
- * @property {function} selectBrake
- * @property {function} selectTrim
- * @property {function} selectSeat
- * @property {function} addPackage
- * @property {function} removePackage
- * @property {function} addOption
- * @property {function} removeOption
- * @property {function} getPrice
+ * @typedef {Object} InitialState
+ * @property {object} selectedWheel - The currently selected wheel.
+ * @property {object} selectedColor - The currently selected color.
+ * @property {object} selectedTrim - The currently selected trim.
+ * @property {object} selectedBrake - The currently selected brake.
+ * @property {object} selectedSeat - The currently selected seat.
  */
 
-export const ConfiguratorContext = createContext(null);
+export const [ConfiguratorProvider, useConfiguratorStore] = createContext();
 
-export const createConfiguratorStore = (initProps) => {
-  const DEFAULT_PROPS = {
-    selectedWheel: {},
-    selectedColor: {},
-    selectedTrim: {},
-    selectedBrake: {},
-    selectedSeat: {},
-    selectedPackagesIds: [],
-    selectedOptionsIds: [],
-  };
-
-  return createStore((set, get) => ({
+/**
+ *
+ * @param {InitialState} initialState
+ * @returns
+ */
+export const createConfiguratorStore = (initialState) =>
+  create((set, get) => ({
     ...DEFAULT_PROPS,
-    ...initProps,
+    ...initialState,
 
     addPackage: (id) => {
       set((state) => ({
@@ -87,6 +81,8 @@ export const createConfiguratorStore = (initProps) => {
       set({ selectedSeat: seat });
     },
 
+    handleOptionsSearchValueChange: (e) => {set({ optionsSearchValue: e.target.value })},
+
     getPrice: ({ startingPrice, options, packages }) => {
       const state = get();
 
@@ -120,4 +116,3 @@ export const createConfiguratorStore = (initProps) => {
       return price;
     },
   }));
-};

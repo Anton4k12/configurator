@@ -1,10 +1,10 @@
-import { useConfiguratorStore } from "@/state/v2";
+import { useConfiguratorStore } from "@/state";
 import { Triangle } from "../icons/triangle";
 
 export const Seats = ({ seats, selectedSeat }) => {
   const selectSeat = useConfiguratorStore((s) => s.selectSeat);
   return (
-    <div id="interior" className="flex flex-col gap-5 px-8 lg:px-0">
+    <div className="flex flex-col gap-5 px-8 lg:px-0">
       <div className="text-[35px] font-extralight leading-none lg:text-[40px]">
         Seats
       </div>

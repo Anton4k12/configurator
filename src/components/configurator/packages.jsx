@@ -1,4 +1,4 @@
-import { useConfiguratorStore } from "@/state/v2";
+import { useConfiguratorStore } from "@/state";
 import { useState } from "react";
 import { MinusIcon } from "../icons/minus-icon";
 import { PlusIcon } from "../icons/plus-icon";
@@ -19,7 +19,7 @@ export const Packages = ({ packages, selectedIds }) => {
   const displayedPackages = isExtended ? packages : croppedPackages;
 
   return (
-    <div id="packages" className="hidden px-3 pt-6 lg:block">
+    <div className="hidden px-3 pt-6 lg:block">
       <h2>
         <span className="px-7 text-[40px] font-extralight leading-[96px]">
           Packages

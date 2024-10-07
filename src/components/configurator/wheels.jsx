@@ -1,5 +1,5 @@
 import { formatPrice } from "@/lib/utils";
-import { useConfiguratorStore } from "@/state/v2";
+import { useConfiguratorStore } from "@/state";
 import { Triangle } from "../icons/triangle";
 
 export const Wheels = ({ wheels, selectedWheel }) => {

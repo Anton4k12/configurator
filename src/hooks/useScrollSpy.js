@@ -1,26 +1,37 @@
 // hooks/useScrollSpy.js
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 /**
  * Custom hook to detect active section based on scroll position,
  * update URL hash, and scroll to a section based on the initial hash.
  *
- * @param {Array} scrollIds - Array of section objects with 'id' and 'name'.
+ * @param {Array} ids - Array of section objects with 'id' and 'name'.
  * @param {number} offset - Offset in pixels to account for fixed headers.
+ * @returns {string} - The ID of the currently active section.
  */
-const useScrollSpy = (scrollIds, offset) => {
+const useScrollSpy = (ids, offset = 56) => {
+  const { hash } = useLocation();
+
+  const [activeId, setActiveId] = useState(() => {
+    const initialId = hash ? ids.find((id) => `#${id}` === hash) : ids[0];
+    return initialId || "";
+  });
+
+  // sync url hash with active id
+  useEffect(() => {
+    if (activeId) {
+      window.history.replaceState(null, "", `#${activeId}`);
+    }
+  }, [activeId]);
+
   // calculates the active id based on the scroll position
-
-  const navigate = useNavigate();
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + offset;
-      const hash = window.location.hash.slice(1);
 
-      for (const id of scrollIds) {
+      for (const id of ids) {
         const element = document.getElementById(id);
         if (element) {
           const { offsetTop, offsetHeight } = element;
@@ -29,8 +40,8 @@ const useScrollSpy = (scrollIds, offset) => {
             scrollPosition >= offsetTop &&
             scrollPosition < offsetTop + offsetHeight
           ) {
-            if (hash !== id) {
-              navigate(`#${id}`, { replace: true });
+            if (activeId !== id) {
+              setActiveId(id);
             }
             break;
           }
@@ -44,7 +55,7 @@ const useScrollSpy = (scrollIds, offset) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [scrollIds, , offset]);
+  }, [ids, activeId, offset]);
 
   // inital scroll to element on first render
   useEffect(() => {
@@ -54,7 +65,7 @@ const useScrollSpy = (scrollIds, offset) => {
         const sectionId = hash.substring(1);
         const element = document.getElementById(sectionId);
         if (element) {
-          const yOffset = -offset;
+          const yOffset = -offset + 1;
           const y =
             element.getBoundingClientRect().top + window.scrollY + yOffset;
 
@@ -64,7 +75,9 @@ const useScrollSpy = (scrollIds, offset) => {
     };
 
     scrollToHashSection();
-  }, []);
+  }, [offset]);
+
+  return activeId;
 };
 
 export default useScrollSpy;
