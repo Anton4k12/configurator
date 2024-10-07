@@ -11,15 +11,17 @@ export const Footer = ({ modelName, subModel }) => {
           <MaseratiLogo color="#FFFFFF"></MaseratiLogo>
         </div>
 
-        <div className="absolute right-10 flex items-center gap-1 bg-black text-zinc-300">
-          made by{" "}
-          <a target="_blank" href="https://github.com/Anton4k12">
-            Anton4k12
-          </a>
+        <div className="absolute right-2 flex items-center bg-black text-xs text-zinc-300 lg:right-10 lg:text-sm">
+          <div className="flex flex-col lg:flex-row lg:gap-1">
+            <div> made by </div>
+            <a target="_blank" href="https://github.com/Anton4k12">
+              Anton4k12
+            </a>
+          </div>
           <a
             target="_blank"
             href="https://github.com/Anton4k12"
-            className="fill-white pl-4"
+            className="fill-white pl-1 lg:pl-4"
           >
             <ReactLogo></ReactLogo>
           </a>
