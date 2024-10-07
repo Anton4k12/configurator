@@ -68,10 +68,9 @@ export const ConfiguratorPage = () => {
 
   console.log({ images });
 
-  // if (images) {
-  //   const croppedImages = images.slice(0, 7);
-  //   return croppedImages;
-  // }
+  const croppedImages = images ? images.slice(0, 8) : undefined;
+  const exteriorImages = images ? images.slice(0, 4) : undefined;
+  const interiorImages = images ? images.slice(4, 8) : undefined;
 
   const subModel = subModels.find((subModel) => {
     return subModel.modelName === modelName && subModel.name === subModelName;
@@ -123,7 +122,7 @@ export const ConfiguratorPage = () => {
         >
           <CarouselContent>
             {images &&
-              images.slice(0, 8).map((src, i) => {
+              croppedImages.map((src, i) => {
                 return (
                   <CarouselItem key={i}>
                     <img className="overflow-hidden rounded-2xl" src={src} />
@@ -171,7 +170,7 @@ export const ConfiguratorPage = () => {
           >
             <CarouselContent>
               {images &&
-                images.slice(0, 4).map((src, i) => {
+                exteriorImages.map((src, i) => {
                   return (
                     <CarouselItem key={i}>
                       <img className="overflow-hidden rounded-2xl" src={src} />
@@ -209,7 +208,7 @@ export const ConfiguratorPage = () => {
           >
             <CarouselContent>
               {images &&
-                images.slice(4, 8).map((src, i) => {
+                interiorImages.map((src, i) => {
                   return (
                     <CarouselItem key={i}>
                       <img className="overflow-hidden rounded-2xl" src={src} />
