@@ -123,7 +123,7 @@ export const ConfiguratorPage = () => {
         >
           <CarouselContent>
             {images &&
-              images.map((src, i) => {
+              images.slice(0, 8).map((src, i) => {
                 return (
                   <CarouselItem key={i}>
                     <img className="overflow-hidden rounded-2xl" src={src} />
@@ -171,7 +171,7 @@ export const ConfiguratorPage = () => {
           >
             <CarouselContent>
               {images &&
-                images.map((src, i) => {
+                images.slice(0, 4).map((src, i) => {
                   return (
                     <CarouselItem key={i}>
                       <img className="overflow-hidden rounded-2xl" src={src} />
@@ -209,7 +209,7 @@ export const ConfiguratorPage = () => {
           >
             <CarouselContent>
               {images &&
-                images.map((src, i) => {
+                images.slice(4, 8).map((src, i) => {
                   return (
                     <CarouselItem key={i}>
                       <img className="overflow-hidden rounded-2xl" src={src} />
