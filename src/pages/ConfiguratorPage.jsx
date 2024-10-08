@@ -26,6 +26,7 @@ import { useEffect, useState } from "react";
 import { usePrevious } from "@/hooks/usePrevious";
 import useScrollSpy from "@/hooks/useScrollSpy";
 import { useMediaQuery } from "usehooks-ts";
+import { cn } from "@/lib/utils";
 
 export const ConfiguratorPage = () => {
   const { modelName, subModelName } = useParams();
@@ -90,6 +91,12 @@ export const ConfiguratorPage = () => {
   const [api, setApi] = useState();
   const [current, setCurrent] = useState(0);
 
+  const [exteriorApi, setExteriorApi] = useState();
+  const [exteriorCurrent, setExteriorCurrent] = useState(0);
+
+  const [interiorApi, setInteriorApi] = useState();
+  const [interiorCurrent, setInteriorCurrent] = useState(0);
+
   useEffect(() => {
     if (!api) {
       return;
@@ -101,6 +108,30 @@ export const ConfiguratorPage = () => {
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+
+  useEffect(() => {
+    if (!exteriorApi) {
+      return;
+    }
+
+    setExteriorCurrent(exteriorApi.selectedScrollSnap());
+
+    exteriorApi.on("select", () => {
+      setExteriorCurrent(exteriorApi.selectedScrollSnap());
+    });
+  }, [exteriorApi]);
+
+  useEffect(() => {
+    if (!interiorApi) {
+      return;
+    }
+
+    setInteriorCurrent(interiorApi.selectedScrollSnap());
+
+    interiorApi.on("select", () => {
+      setInteriorCurrent(interiorApi.selectedScrollSnap());
+    });
+  }, [interiorApi]);
 
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
@@ -170,7 +201,7 @@ export const ConfiguratorPage = () => {
         <div data-mobile className="flex flex-col px-3">
           <div id="exterior" className="flex flex-col *:py-8">
             <Carousel
-              setApi={setApi}
+              setApi={setExteriorApi}
               className="top-0 z-30 h-fit px-4 pb-16 pt-[41px]"
               opts={{
                 loop: true,
@@ -191,7 +222,17 @@ export const ConfiguratorPage = () => {
               </CarouselContent>
               <CarouselPrevious></CarouselPrevious>
               <CarouselNext></CarouselNext>
-              {/* render dots here */}
+              <div className="absolute left-1/2 top-56 flex -translate-x-1/2">
+                {images &&
+                  exteriorImages.map((image, i) => (
+                    <div
+                      className={cn(
+                        "size-2 rounded-full bg-gray-300",
+                        i === exteriorCurrent && "bg-black",
+                      )}
+                    ></div>
+                  ))}
+              </div>
             </Carousel>
 
             <ExteriorColor
@@ -212,7 +253,7 @@ export const ConfiguratorPage = () => {
 
           <div id="interior" className="flex flex-col *:py-8">
             <Carousel
-              setApi={setApi}
+              setApi={setInteriorApi}
               className="top-0 z-30 h-fit px-4 pb-16 pt-[41px]"
               opts={{
                 loop: true,
@@ -233,6 +274,18 @@ export const ConfiguratorPage = () => {
               </CarouselContent>
               <CarouselPrevious></CarouselPrevious>
               <CarouselNext></CarouselNext>
+
+              <div className="absolute left-1/2 top-56 flex -translate-x-1/2">
+                {images &&
+                  interiorImages.map((image, i) => (
+                    <div
+                      className={cn(
+                        "size-2 rounded-full bg-gray-300",
+                        i === interiorCurrent && "bg-black",
+                      )}
+                    ></div>
+                  ))}
+              </div>
             </Carousel>
 
             <Seats
