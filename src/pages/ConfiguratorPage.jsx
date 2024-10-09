@@ -27,6 +27,7 @@ import { usePrevious } from "@/hooks/usePrevious";
 import useScrollSpy from "@/hooks/useScrollSpy";
 import { useMediaQuery } from "usehooks-ts";
 import { cn } from "@/lib/utils";
+import { CarouselMobile } from "@/components/configurator/carousel-mobile";
 
 export const ConfiguratorPage = () => {
   const { modelName, subModelName } = useParams();
@@ -200,7 +201,7 @@ export const ConfiguratorPage = () => {
       {!isDesktop && (
         <div data-mobile className="flex flex-col px-3">
           <div id="exterior" className="flex flex-col *:py-8">
-            <Carousel
+            {/* <Carousel
               setApi={setExteriorApi}
               className="top-0 z-30 h-fit px-4 pb-16 pt-[41px]"
               opts={{
@@ -222,7 +223,7 @@ export const ConfiguratorPage = () => {
               </CarouselContent>
               <CarouselPrevious></CarouselPrevious>
               <CarouselNext></CarouselNext>
-              <div className="absolute left-1/2 top-56 flex -translate-x-1/2">
+              <div className="absolute left-1/2 top-56 flex -translate-x-1/2 gap-1">
                 {images &&
                   exteriorImages.map((image, i) => (
                     <div
@@ -233,7 +234,10 @@ export const ConfiguratorPage = () => {
                     ></div>
                   ))}
               </div>
-            </Carousel>
+            </Carousel> */}
+            {images && (
+              <CarouselMobile images={exteriorImages}></CarouselMobile>
+            )}
 
             <ExteriorColor
               colorsTypes={detailsData.colorsTypes}
@@ -252,41 +256,9 @@ export const ConfiguratorPage = () => {
           </div>
 
           <div id="interior" className="flex flex-col *:py-8">
-            <Carousel
-              setApi={setInteriorApi}
-              className="top-0 z-30 h-fit px-4 pb-16 pt-[41px]"
-              opts={{
-                loop: true,
-              }}
-            >
-              <CarouselContent>
-                {images &&
-                  interiorImages.map((src, i) => {
-                    return (
-                      <CarouselItem key={i}>
-                        <img
-                          className="overflow-hidden rounded-2xl"
-                          src={src}
-                        />
-                      </CarouselItem>
-                    );
-                  })}
-              </CarouselContent>
-              <CarouselPrevious></CarouselPrevious>
-              <CarouselNext></CarouselNext>
-
-              <div className="absolute left-1/2 top-56 flex -translate-x-1/2">
-                {images &&
-                  interiorImages.map((image, i) => (
-                    <div
-                      className={cn(
-                        "size-2 rounded-full bg-gray-300",
-                        i === interiorCurrent && "bg-black",
-                      )}
-                    ></div>
-                  ))}
-              </div>
-            </Carousel>
+            {images && (
+              <CarouselMobile images={interiorImages}></CarouselMobile>
+            )}
 
             <Seats
               selectedSeat={selectedSeat}
