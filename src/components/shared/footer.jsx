@@ -4,7 +4,7 @@ import ReactLogo from "../icons/react-logo";
 
 export const Footer = ({ modelName, subModel }) => {
   return (
-    <div className="relative bg-black pb-40">
+    <div className="relative bg-black">
       {/* <Link to={`/${modelName}/${subModel.name}/test`}> */}
       <div className="flex items-center">
         <div className="flex w-full justify-center bg-black py-6">
@@ -28,7 +28,6 @@ export const Footer = ({ modelName, subModel }) => {
         </div>
       </div>
       {/* </Link> */}
-      <hr className="border-white" />
     </div>
   );
 };

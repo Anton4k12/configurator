@@ -1,19 +1,6 @@
-import { fetcher } from "@/data";
-import { useConfiguratorStore } from "@/state";
-import { useParams } from "react-router-dom";
-import useSWR from "swr";
-import { Footer } from "@/components/shared/footer";
-import { Header } from "@/components/shared/header";
-import { ScrollToAnchor } from "@/components/shared/scroller";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { BottomNavBar } from "@/components/configurator/bottom-navbar";
 import { BrakeCalipers } from "@/components/configurator/brake-calipers";
+import { CarouselMobile } from "@/components/configurator/carousel-mobile";
 import { ExteriorColor } from "@/components/configurator/exterior-colors";
 import { Options } from "@/components/configurator/options";
 import { Packages } from "@/components/configurator/packages";
@@ -22,12 +9,22 @@ import { Summary } from "@/components/configurator/summary";
 import { TopNavBar } from "@/components/configurator/top-navbar";
 import { Trim } from "@/components/configurator/trim";
 import { Wheels } from "@/components/configurator/wheels";
+import { Footer } from "@/components/shared/footer";
+import { Header } from "@/components/shared/header";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { fetcher } from "@/data";
+import { useConfiguratorStore } from "@/state";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { usePrevious } from "@/hooks/usePrevious";
-import useScrollSpy from "@/hooks/useScrollSpy";
+import { useParams } from "react-router-dom";
+import useSWR from "swr";
 import { useMediaQuery } from "usehooks-ts";
-import { cn } from "@/lib/utils";
-import { CarouselMobile } from "@/components/configurator/carousel-mobile";
 
 export const ConfiguratorPage = () => {
   const { modelName, subModelName } = useParams();
@@ -89,52 +86,32 @@ export const ConfiguratorPage = () => {
 
   const personalizatedPrice = price - subModel.startingPrice;
 
-  const [api, setApi] = useState();
-  const [current, setCurrent] = useState(0);
-
-  const [exteriorApi, setExteriorApi] = useState();
-  const [exteriorCurrent, setExteriorCurrent] = useState(0);
-
-  const [interiorApi, setInteriorApi] = useState();
-  const [interiorCurrent, setInteriorCurrent] = useState(0);
-
-  useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    setCurrent(api.selectedScrollSnap());
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap());
-    });
-  }, [api]);
-
-  useEffect(() => {
-    if (!exteriorApi) {
-      return;
-    }
-
-    setExteriorCurrent(exteriorApi.selectedScrollSnap());
-
-    exteriorApi.on("select", () => {
-      setExteriorCurrent(exteriorApi.selectedScrollSnap());
-    });
-  }, [exteriorApi]);
-
-  useEffect(() => {
-    if (!interiorApi) {
-      return;
-    }
-
-    setInteriorCurrent(interiorApi.selectedScrollSnap());
-
-    interiorApi.on("select", () => {
-      setInteriorCurrent(interiorApi.selectedScrollSnap());
-    });
-  }, [interiorApi]);
-
   const isDesktop = useMediaQuery("(min-width: 1024px)");
+
+  const [distance, setDistance] = useState(0);
+
+  const calculateDistance = () => {
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollPosition = window.scrollY;
+    const viewportHeight = window.innerHeight;
+
+    const distanceFromBottom =
+      documentHeight - (scrollPosition + viewportHeight);
+    setDistance(distanceFromBottom);
+  };
+
+  useEffect(() => {
+    // Calculate the distance on initial load
+    calculateDistance();
+
+    // Recalculate the distance whenever the user scrolls
+    window.addEventListener("scroll", calculateDistance);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", calculateDistance);
+    };
+  }, []);
 
   return (
     <div>
@@ -148,7 +125,6 @@ export const ConfiguratorPage = () => {
           className="hidden flex-col px-3 lg:flex lg:flex-row lg:gap-6 lg:pl-3"
         >
           <Carousel
-            setApi={setApi}
             className="sticky top-0 z-30 h-fit px-4 pb-16 pt-[41px] lg:w-2/3 lg:px-0 lg:pb-0 lg:pt-6"
             opts={{
               loop: true,
@@ -201,40 +177,6 @@ export const ConfiguratorPage = () => {
       {!isDesktop && (
         <div data-mobile className="flex flex-col px-3">
           <div id="exterior" className="flex flex-col *:py-8">
-            {/* <Carousel
-              setApi={setExteriorApi}
-              className="top-0 z-30 h-fit px-4 pb-16 pt-[41px]"
-              opts={{
-                loop: true,
-              }}
-            >
-              <CarouselContent>
-                {images &&
-                  exteriorImages.map((src, i) => {
-                    return (
-                      <CarouselItem key={i}>
-                        <img
-                          className="overflow-hidden rounded-2xl"
-                          src={src}
-                        />
-                      </CarouselItem>
-                    );
-                  })}
-              </CarouselContent>
-              <CarouselPrevious></CarouselPrevious>
-              <CarouselNext></CarouselNext>
-              <div className="absolute left-1/2 top-56 flex -translate-x-1/2 gap-1">
-                {images &&
-                  exteriorImages.map((image, i) => (
-                    <div
-                      className={cn(
-                        "size-2 rounded-full bg-gray-300",
-                        i === exteriorCurrent && "bg-black",
-                      )}
-                    ></div>
-                  ))}
-              </div>
-            </Carousel> */}
             {images && (
               <CarouselMobile images={exteriorImages}></CarouselMobile>
             )}
@@ -307,7 +249,19 @@ export const ConfiguratorPage = () => {
         ></Summary>
       </div>
 
-      <BottomNavBar subModel={subModel} price={price}></BottomNavBar>
+      <AnimatePresence>
+        {distance >= 90.5 && (
+          <motion.div
+            animate={{ y: 0 }}
+            exit={{ y: 100 }}
+            initial={{ y: 100 }}
+            transition={{ type: "tween", duration: 0.4, ease: "easeOut" }}
+            className="fixed bottom-0 left-0 right-0"
+          >
+            <BottomNavBar subModel={subModel} price={price}></BottomNavBar>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Footer modelName={modelName} subModel={subModel}></Footer>
     </div>
