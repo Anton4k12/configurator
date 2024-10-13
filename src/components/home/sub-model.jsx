@@ -21,7 +21,7 @@ export const SubModel = ({ subModel, modelName }) => {
       </div>
 
       <Link to={`/${modelName}/${subModel.name}`}>
-        <img className="w-full" src={subModel.imageUrl} />
+        <img className="h-[152px] w-full" src={subModel.imageUrl} />
       </Link>
 
       <div aria-label="characteristic" className="flex flex-col gap-2">

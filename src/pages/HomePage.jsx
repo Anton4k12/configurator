@@ -35,7 +35,7 @@ export function HomePage() {
         <hr className="border-zinc-400" />
 
         <div aria-label="cars selector" className="w-full">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
             {!isLoading ? (
               <>
                 {modelsData &&
