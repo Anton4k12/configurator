@@ -27,7 +27,7 @@ export const CarouselMobile = ({ images }) => {
   return (
     <Carousel
       setApi={setApi}
-      className="top-0 z-30 h-fit px-4 pb-16 pt-[41px]"
+      className="sticky top-0 z-30 h-fit px-4 pb-16 pt-[41px]"
       opts={{
         loop: true,
       }}

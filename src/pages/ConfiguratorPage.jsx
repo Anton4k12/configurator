@@ -113,6 +113,36 @@ export const ConfiguratorPage = () => {
     };
   }, []);
 
+  const firstPicSummary = images
+    ? images.filter((pic) => {
+        if (pic.includes("gfx1")) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    : undefined;
+
+  const secondPicSummary = images
+    ? images.filter((pic) => {
+        if (pic.includes("gfx2")) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    : undefined;
+
+  const thirdPicSummary = images
+    ? images.filter((pic) => {
+        if (pic.includes("gfx7")) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    : undefined;
+
   return (
     <div>
       <Header color="#FFFFFF"></Header>
@@ -243,6 +273,9 @@ export const ConfiguratorPage = () => {
 
       <div id="summary">
         <Summary
+          firstPic={firstPicSummary}
+          secondPic={secondPicSummary}
+          thirdPic={thirdPicSummary}
           price={price}
           personalizatedPrice={personalizatedPrice}
           subModel={subModel}

@@ -148,7 +148,14 @@ const techSpecs = [
   },
 ];
 
-export const Summary = ({ price, personalizatedPrice, subModel }) => {
+export const Summary = ({
+  price,
+  personalizatedPrice,
+  subModel,
+  firstPic,
+  secondPic,
+  thirdPic,
+}) => {
   const selectedColor = useConfiguratorStore((state) => state.selectedColor);
   const selectedSeat = useConfiguratorStore((state) => state.selectedSeat);
   const selectedWheel = useConfiguratorStore((state) => state.selectedWheel);
@@ -179,7 +186,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
           data-summary
           className="flex flex-col gap-[60px] rounded-t-2xl bg-white px-4 pt-2 lg:w-2/3 lg:px-[93px] lg:pt-[60px]"
         >
-          <img className="rounded-2xl" src="/home/GranTurismo/gfx1.jpeg" />
+          <img className="rounded-2xl" src={firstPic} />
 
           <div>
             <div className="pb-6 text-2xl font-normal">Configuration recap</div>
@@ -211,10 +218,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="pb-[60px]">
-                <img
-                  className="mb-[30px] rounded-2xl"
-                  src="/home/GranTurismo/gfx2.jpeg"
-                />
+                <img className="mb-[30px] rounded-2xl" src={secondPic} />
 
                 <div className="flex flex-col gap-6">
                   <div className="flex items-center justify-between">
@@ -274,10 +278,7 @@ export const Summary = ({ price, personalizatedPrice, subModel }) => {
                 </div>
               </AccordionTrigger>
               <AccordionContent className="pb-[60px]">
-                <img
-                  className="mb-[30px] rounded-2xl"
-                  src="/home/GranTurismo/gfx7.jpeg"
-                />
+                <img className="mb-[30px] rounded-2xl" src={thirdPic} />
 
                 <div className="flex flex-col gap-6">
                   <div className="flex items-center justify-between">
