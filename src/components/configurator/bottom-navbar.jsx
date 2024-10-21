@@ -3,6 +3,7 @@ import { ChevronRight } from "../icons/chevron-right";
 import { HeartIcon } from "../icons/heart-icon";
 import { useLocation } from "react-router-dom";
 import { formatPrice } from "@/lib/utils";
+import { showNotImplementedYet } from "@/lib/toasts";
 
 export const BottomNavBar = ({ price, subModel }) => {
   const formattedPrice = formatPrice(price);
@@ -34,7 +35,10 @@ export const BottomNavBar = ({ price, subModel }) => {
       </div>
 
       <div aria-label="actions" className="flex items-center gap-3">
-        <button className="relative border border-black px-6 py-4 pr-10 text-xs font-medium uppercase tracking-wide">
+        <button
+          onClick={showNotImplementedYet}
+          className="relative border border-black px-6 py-4 pr-10 text-xs font-medium uppercase tracking-wide"
+        >
           Services{" "}
           <ChevronRight
             strokeWidth={3}
@@ -42,7 +46,10 @@ export const BottomNavBar = ({ price, subModel }) => {
           ></ChevronRight>
         </button>
 
-        <button className="relative border-[rgb(255,200,69)] bg-[rgb(255,200,69)] px-6 py-4 pr-10 text-xs font-medium uppercase tracking-wide">
+        <button
+          onClick={showNotImplementedYet}
+          className="relative border-[rgb(255,200,69)] bg-[rgb(255,200,69)] px-6 py-4 pr-10 text-xs font-medium uppercase tracking-wide"
+        >
           Summary
           <ChevronRight
             strokeWidth={3}
@@ -50,7 +57,7 @@ export const BottomNavBar = ({ price, subModel }) => {
           ></ChevronRight>
         </button>
 
-        <div className="pl-12">
+        <div onClick={showNotImplementedYet} className="pl-12">
           <HeartIcon className="size-6 cursor-pointer"></HeartIcon>
         </div>
       </div>

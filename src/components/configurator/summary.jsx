@@ -13,6 +13,7 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import { Fragment } from "react";
+import { showNotImplementedYet } from "@/lib/toasts";
 
 const specs = {
   Modena: [
@@ -431,7 +432,10 @@ export const Summary = ({
               <div className="text-[40px] font-light">
                 {subModel.modelName} {subModel.name}
               </div>
-              <div className="pr-2">
+              <div
+                onClick={showNotImplementedYet}
+                className="cursor-pointer pr-2"
+              >
                 <SaveIcon></SaveIcon>
               </div>
             </div>
@@ -445,7 +449,10 @@ export const Summary = ({
 
           <div data-buttons className="flex flex-col gap-3 pb-9">
             <div>
-              <button className="relative w-full border border-[#ffc845] bg-[#ffc845] py-4 pl-6 text-left text-[11px] font-medium uppercase tracking-[1px]">
+              <button
+                onClick={showNotImplementedYet}
+                className="relative w-full border border-[#ffc845] bg-[#ffc845] py-4 pl-6 text-left text-[11px] font-medium uppercase tracking-[1px]"
+              >
                 Test drive{" "}
                 <ChevronRight
                   strokeWidth={3}
@@ -454,7 +461,10 @@ export const Summary = ({
               </button>
             </div>
             <div>
-              <button className="relative w-full border border-black py-4 pl-6 text-left text-[11px] font-medium uppercase tracking-[1px]">
+              <button
+                onClick={showNotImplementedYet}
+                className="relative w-full border border-black py-4 pl-6 text-left text-[11px] font-medium uppercase tracking-[1px]"
+              >
                 More info{" "}
                 <ChevronRight
                   strokeWidth={3}
@@ -463,7 +473,10 @@ export const Summary = ({
               </button>
             </div>
             <div>
-              <button className="relative w-full border border-black py-4 pl-6 text-left text-[11px] font-medium uppercase tracking-[1px]">
+              <button
+                onClick={showNotImplementedYet}
+                className="relative w-full border border-black py-4 pl-6 text-left text-[11px] font-medium uppercase tracking-[1px]"
+              >
                 Request a quote{" "}
                 <ChevronRight
                   strokeWidth={3}
@@ -474,7 +487,10 @@ export const Summary = ({
           </div>
 
           <div className="flex flex-col pb-6">
-            <button className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]">
+            <button
+              onClick={showNotImplementedYet}
+              className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]"
+            >
               <SaveIcon className="absolute left-2 top-1/2 -translate-y-1/2"></SaveIcon>{" "}
               Save{" "}
               <ChevronRight
@@ -482,7 +498,10 @@ export const Summary = ({
                 className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
               ></ChevronRight>
             </button>
-            <button className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]">
+            <button
+              onClick={showNotImplementedYet}
+              className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]"
+            >
               <ArrowUturnIcon className="absolute left-2 top-1/2 -translate-y-1/2 rotate-180"></ArrowUturnIcon>{" "}
               Restart configurator{" "}
               <ChevronRight
@@ -490,7 +509,10 @@ export const Summary = ({
                 className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
               ></ChevronRight>
             </button>
-            <button className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]">
+            <button
+              onClick={showNotImplementedYet}
+              className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]"
+            >
               <ArrowCircleIcon className="absolute left-2 top-1/2 -translate-y-1/2"></ArrowCircleIcon>{" "}
               Change model{" "}
               <ChevronRight
@@ -498,7 +520,10 @@ export const Summary = ({
                 className="absolute right-7 top-1/2 size-3 -translate-y-1/2"
               ></ChevronRight>
             </button>
-            <button className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]">
+            <button
+              onClick={showNotImplementedYet}
+              className="relative border-b border-black py-5 pl-11 text-left text-[11px] font-medium uppercase tracking-[1px]"
+            >
               <DownloadIcon className="absolute left-2 top-1/2 -translate-y-1/2"></DownloadIcon>{" "}
               pdf{" "}
               <ChevronRight
