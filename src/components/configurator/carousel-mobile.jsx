@@ -44,12 +44,12 @@ export const CarouselMobile = ({ images }) => {
       <CarouselPrevious></CarouselPrevious>
       <CarouselNext></CarouselNext>
 
-      <div className="absolute left-1/2 top-56 flex -translate-x-1/2 gap-1">
+      <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 gap-1">
         {images.map((_, i) => (
           <div
             className={cn(
-              "size-2 rounded-full bg-gray-300",
-              i === current && "bg-black",
+              "size-2 rounded-full bg-white/30",
+              i === current && "bg-white",
             )}
           ></div>
         ))}

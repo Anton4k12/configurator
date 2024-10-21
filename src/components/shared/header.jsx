@@ -6,6 +6,8 @@ import { MaseratiLogo } from "../icons/maserati-logo";
 import { MaseratiLogoSmall } from "../icons/maserati-logo-small";
 import MaseratiTextLogo from "../icons/maserati_text_logo";
 import { showNotImplementedYet } from "@/lib/toasts";
+import { Link } from "react-router-dom";
+import { routes } from "@/router";
 
 export const Header = ({ color }) => {
   return (
@@ -43,14 +45,22 @@ export const Header = ({ color }) => {
         </div>
       </div>
 
-      <div aria-label="logo" className="hidden cursor-pointer lg:block">
+      <Link
+        to={routes.home}
+        aria-label="logo"
+        className="hidden cursor-pointer lg:block"
+      >
         <MaseratiLogo color="#000000"></MaseratiLogo>
-      </div>
+      </Link>
       <div className="flex w-full items-center justify-between lg:hidden">
-        <div aria-label="logo" className="flex cursor-pointer gap-3">
+        <Link
+          to={routes.home}
+          aria-label="logo"
+          className="flex cursor-pointer gap-3"
+        >
           <MaseratiLogoSmall></MaseratiLogoSmall>
           <MaseratiTextLogo></MaseratiTextLogo>
-        </div>
+        </Link>
         <div>
           <BurgerIcon onClick={showNotImplementedYet}></BurgerIcon>
         </div>
