@@ -154,25 +154,33 @@ export const ConfiguratorPage = () => {
           data-desktop
           className="hidden flex-col px-3 lg:flex lg:flex-row lg:gap-6 lg:pl-3"
         >
-          <Carousel
-            className="sticky top-0 z-30 h-fit px-4 pb-16 pt-[41px] lg:w-2/3 lg:px-0 lg:pb-0 lg:pt-6"
-            opts={{
-              loop: true,
-            }}
-          >
-            <CarouselContent>
-              {images &&
-                croppedImages.map((src, i) => {
+          {images ? (
+            <Carousel
+              className="sticky top-0 h-fit px-4 pb-16 pt-[41px] lg:w-2/3 lg:px-0 lg:pb-0 lg:pt-6"
+              opts={{
+                loop: true,
+              }}
+            >
+              <CarouselContent>
+                {croppedImages.map((src, i) => {
                   return (
                     <CarouselItem key={i}>
-                      <img className="overflow-hidden rounded-2xl" src={src} />
+                      <img
+                        className="h-[37vw] overflow-hidden rounded-2xl"
+                        src={src}
+                      />
                     </CarouselItem>
                   );
                 })}
-            </CarouselContent>
-            <CarouselPrevious></CarouselPrevious>
-            <CarouselNext></CarouselNext>
-          </Carousel>
+              </CarouselContent>
+              <CarouselPrevious></CarouselPrevious>
+              <CarouselNext></CarouselNext>
+            </Carousel>
+          ) : (
+            <div className="sticky top-0 z-30 h-fit px-4 pb-16 pt-[41px] lg:w-2/3 lg:px-0 lg:pb-0 lg:pt-6">
+              <div className="h-full w-full animate-pulse rounded-2xl bg-zinc-100"></div>
+            </div>
+          )}
 
           <div className="flex flex-col *:py-8 lg:w-1/3 lg:px-10">
             <div id="exterior">
