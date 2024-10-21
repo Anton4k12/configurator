@@ -16,7 +16,7 @@ export const Model = ({ name, imageUrl }) => {
       <img
         onClick={handleClick}
         src={imageUrl}
-        className="h-[165px] cursor-pointer md:h-[137px] lg:h-[210px]"
+        className="h-[165px] w-full cursor-pointer object-contain md:h-[137px] lg:h-[210px]"
       />
       <Link
         to={modelPath}
