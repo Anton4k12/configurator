@@ -10,6 +10,9 @@ import { ModelPage } from "./pages/ModelPage";
 import { ConfiguratorPage } from "./pages/ConfiguratorPage";
 import { ScrollTestPage } from "./pages/ScrollTestPage";
 
+import { Toaster } from "sonner";
+import { Root } from "./components/shared/root";
+
 export const routes = {
   home: "/",
   model: "/:modelName",
@@ -19,7 +22,7 @@ export const routes = {
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <>
+    <Route path="" element={<Root></Root>}>
       <Route path={routes.home} element={<HomePage />}></Route>
       <Route path={routes.model} element={<ModelPage />}></Route>
       <Route
@@ -38,6 +41,6 @@ export const router = createBrowserRouter(
           </ConfiguratorDataProvider>
         }
       ></Route>
-    </>,
+    </Route>,
   ),
 );

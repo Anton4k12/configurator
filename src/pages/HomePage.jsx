@@ -3,9 +3,11 @@ import { fetcher } from "@/data";
 import useSWR from "swr";
 import { ChevronRight } from "../components/icons/chevron-right";
 import { Header } from "../components/shared/header";
+import { showNotImplementedYet } from "@/lib/toasts";
 
 export function HomePage() {
   const { data: modelsData, isLoading } = useSWR("/models", fetcher);
+  const model = modelsData?.[0];
   return (
     <>
       <Header color={{ backgroundColor: "#F6F6F6" }}></Header>
@@ -23,7 +25,10 @@ export function HomePage() {
               attention that only the human hand can provide
             </p>
 
-            <button className="relative w-full border border-black py-4 pr-28 text-[11px] font-medium uppercase tracking-[1px] lg:w-7/12">
+            <button
+              onClick={showNotImplementedYet}
+              className="relative w-full border border-black py-4 pr-28 text-[11px] font-medium uppercase tracking-[1px] lg:w-7/12"
+            >
               Open existing configurator{" "}
               <ChevronRight
                 strokeWidth={3}
@@ -38,14 +43,13 @@ export function HomePage() {
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
             {!isLoading ? (
               <>
-                {modelsData &&
-                  modelsData.map((model) => (
-                    <Model
-                      key={model.id}
-                      name={model.name}
-                      imageUrl={model.imageUrl}
-                    ></Model>
-                  ))}
+                {modelsData && (
+                  <Model
+                    key={model.id}
+                    name={model.name}
+                    imageUrl={model.imageUrl}
+                  ></Model>
+                )}
               </>
             ) : (
               <>

@@ -42,20 +42,7 @@ export const Package = ({
       )}
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <div>
-          <div className="relative">
-            <img className="h-[350px]" src={imageUrl}></img>
-
-            <div className="absolute right-6 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-white">
-              <ChevronRight strokeWidth={3} className="size-3"></ChevronRight>
-            </div>
-
-            <div className="absolute left-6 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-white">
-              <ChevronRight
-                strokeWidth={3}
-                className="size-3 rotate-180"
-              ></ChevronRight>
-            </div>
-          </div>
+          <img className="h-[350px]" src={imageUrl}></img>
 
           <div data-header className="flex justify-between p-6">
             <div data-text className="flex flex-col gap-2">

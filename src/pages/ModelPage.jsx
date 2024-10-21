@@ -6,6 +6,7 @@ import { fetcher } from "@/data";
 import { routes } from "@/router";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
+import { showNotImplementedYet } from "@/lib/toasts";
 
 export const ModelPage = () => {
   const { modelName } = useParams();
@@ -35,7 +36,10 @@ export const ModelPage = () => {
               attention that only the human hand can provide
             </p>
 
-            <button className="relative w-full border border-black py-4 pr-28 text-[11px] font-medium uppercase tracking-[1px] lg:w-7/12">
+            <button
+              onClick={showNotImplementedYet}
+              className="relative w-full border border-black py-4 pr-28 text-[11px] font-medium uppercase tracking-[1px] lg:w-7/12"
+            >
               Open existing configurator{" "}
               <ChevronRight
                 strokeWidth={3}
